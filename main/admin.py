@@ -26,7 +26,7 @@ class UsuarioAdmin(admin.ModelAdmin):
     def get_links(self, obj):
         links = ""
         links += "<a class='text-reset text-decoration-none' href='{}' title='Editar'>{}</a>".format(obj.get_edit_url(), bs_icon('pencil-square'))
-        links += "<a class='text-reset text-decoration-none' href='{}' title='Alterar Senha'>{}</a>".format( '/usuario/{}/alterar_senha/'.format(obj.id), bs_icon('key'))
+        links += "<a class='text-reset text-decoration-none' href='{}' title='Alterar Senha'>{}</a>".format('/usuario/{}/alterar_senha/'.format(obj.id), bs_icon('key'))
         return mark_safe(links)
 
     get_links.short_description = '#'
