@@ -5,7 +5,7 @@ from django_bootstrap_icons.templatetags.bootstrap_icons import bs_icon
 def gerar_menu(usuario):
     side_menu_list = [
         {
-            'name': 'Morro Azul',
+            'name': 'Sistema BASE R2',
             'app_label': 'main',
             'app_url': '/admin/main/',
             'has_module_perms': True,
