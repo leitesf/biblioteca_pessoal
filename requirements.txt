@@ -11,3 +11,7 @@ django-middleware-global-request==0.3.1
 # git+https://github.com/whanderley/templated-docs.git@master
 # django-fixture-magic
 whitenoise
+psycopg2
+# Para criar admins de configurações que só pode ter um objeto por classe
+#django-solo==2.0.0
+#
