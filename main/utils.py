@@ -5,25 +5,37 @@ from django_bootstrap_icons.templatetags.bootstrap_icons import bs_icon
 def gerar_menu(usuario):
     side_menu_list = [
         {
-            'name': 'Biblioteca',
+            'name': 'Biblioteca Pessoal',
             'app_label': 'main',
             'app_url': '/admin/main/',
             'has_module_perms': True,
             'models': []
         }
     ]
-    # if usuario.has_perm('main.view_cliente'):
-    #     side_menu_list[0]['models'].append(
-    #         {'name': 'Clientes', 'object_name': 'Cliente', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/cliente/', 'add_url': '/admin/main/cliente/add/', 'view_only': False, 'url': '/admin/main/cliente/', 'model_str': 'main.cliente', 'icon': 'fas fa-user-tag'}
-    #     )
-    # if usuario.has_perm('main.view_notafiscal'):
-    #     side_menu_list[0]['models'].append(
-    #         {'name': 'Notas Fiscais', 'object_name': 'Nota Fiscal', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/notafiscal/', 'add_url': '/admin/main/notafiscal/add/', 'view_only': False, 'url': '/admin/main/notafiscal/', 'model_str': 'main.notafiscal', 'icon': 'fas fa-receipt'}
-    #     )
-    # if usuario.has_perm('main.view_transportador'):
-    #     side_menu_list[0]['models'].append(
-    #         {'name': 'Transportadores', 'object_name': 'Transportador', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/transportador/', 'add_url': '/admin/main/transportador/add/', 'view_only': False, 'url': '/admin/main/transportador/', 'model_str': 'main.transportador', 'icon': 'fas fa-truck'}
-    #     )
+    if usuario.has_perm('main.change_autor'):
+        side_menu_list[0]['models'].append(
+            {'name': 'Autores', 'object_name': 'Autores', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/autor/', 'add_url': '/admin/main/autor/add/', 'view_only': False, 'url': '/admin/main/autor/', 'model_str': 'main.cliente', 'icon': 'fas fa-user-tie'}
+        )
+    if usuario.has_perm('main.change_categoria'):
+        side_menu_list[0]['models'].append(
+            {'name': 'Categorias', 'object_name': 'Categorias', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/categoria/', 'add_url': '/admin/main/categoria/add/', 'view_only': False, 'url': '/admin/main/categoria/', 'model_str': 'main.categoria', 'icon': 'fas fa-tag'}
+        )
+    if usuario.has_perm('main.change_editora'):
+        side_menu_list[0]['models'].append(
+            {'name': 'Editoras', 'object_name': 'Editoras', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/editora/', 'add_url': '/admin/main/editora/add/', 'view_only': False, 'url': '/admin/main/editora/', 'model_str': 'main.editora', 'icon': 'fas fa-university'}
+        )
+    if usuario.has_perm('main.change_estante'):
+        side_menu_list[0]['models'].append(
+            {'name': 'Estantes', 'object_name': 'Estantes', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/estante/', 'add_url': '/admin/main/estante/add/', 'view_only': False, 'url': '/admin/main/estante/', 'model_str': 'main.estante', 'icon': 'fas fa-bookmark'}
+        )
+    if usuario.has_perm('main.change_idioma'):
+        side_menu_list[0]['models'].append(
+            {'name': 'Idiomas', 'object_name': 'Idiomas', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/idioma/', 'add_url': '/admin/main/idioma/add/', 'view_only': False, 'url': '/admin/main/idioma/', 'model_str': 'main.idioma', 'icon': 'fas fa-language'}
+        )
+    if usuario.has_perm('main.change_livro'):
+        side_menu_list[0]['models'].append(
+            {'name': 'Livros', 'object_name': 'Livros', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/livro/', 'add_url': '/admin/main/livro/add/', 'view_only': False, 'url': '/admin/main/livro/', 'model_str': 'main.livro', 'icon': 'fas fa-book'}
+        )
     if usuario.is_superuser:
         side_menu_list.append({
             'name': 'Autenticação e Autorização',
