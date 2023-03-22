@@ -89,15 +89,19 @@ class AutorAdmin(AdminBasico):
 
 
 class LivroAdmin(AdminBasico):
-    list_display = ('get_links', 'titulo', 'autor', 'editora', 'categoria',  'estante')
+    list_display = ('get_links', 'titulo', 'lista_autores', 'editora', 'categoria',  'estante')
     search_fields = ('nome', 'isbn', )
     list_filter = (
-        ('autor', admin.RelatedOnlyFieldListFilter),
+        ('autores', admin.RelatedOnlyFieldListFilter),
         ('editora', admin.RelatedOnlyFieldListFilter),
         ('categoria', admin.RelatedOnlyFieldListFilter),
         ('estante', admin.RelatedOnlyFieldListFilter),
     )
     list_display_links = None
+
+    def lista_autores(self, obj):
+        return " / ".join([item.nome for item in obj.autores.all()])
+    lista_autores.short_description = 'Autores'
 
 
 admin.site.register(Usuario, UsuarioAdmin)

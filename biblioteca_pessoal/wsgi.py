@@ -1,5 +1,5 @@
 """
-WSGI config for sistema_base_r2 project.
+WSGI config for biblioteca_pessoal project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sistema_base_r2.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'biblioteca_pessoal.settings')
 
 application = get_wsgi_application()

@@ -1,4 +1,4 @@
-"""sistema_base_r2 URL Configuration
+"""biblioteca_pessoal URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/

@@ -130,4 +130,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 uploaded_files/
-sistema_base_r2/settings/local.py
+biblioteca_pessoal/settings/local.py

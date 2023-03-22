@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django_middleware_global_request.middleware.GlobalRequestMiddleware',
 ]
 
-ROOT_URLCONF = 'sistema_base_r2.urls'
+ROOT_URLCONF = 'biblioteca_pessoal.urls'
 
 TEMPLATES = [
     {
@@ -69,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'sistema_base_r2.wsgi.application'
+WSGI_APPLICATION = 'biblioteca_pessoal.wsgi.application'
 
 DATABASES = {
     'default': {

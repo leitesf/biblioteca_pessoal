@@ -103,7 +103,7 @@ class Autor(models.Model):
 
 class Livro(models.Model):
     titulo = models.CharField("Titulo", max_length=20)
-    autor = models.ForeignKey(Autor, on_delete=models.RESTRICT)
+    autores = models.ManyToManyField(Autor, verbose_name="Autores")
     isbn = ISBNField(blank=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.RESTRICT)
     editora = models.ForeignKey(Editora, on_delete=models.RESTRICT)
@@ -115,7 +115,7 @@ class Livro(models.Model):
         verbose_name_plural = 'Livros'
 
     def __str__(self):
-        return '{} ({})'.format(self.titulo, self.autor.nome)
+        return '{} ({})'.format(self.titulo, self.autores.all())
 
     def get_edit_url(self):
         return '/admin/main/livro/{}/change/'.format(self.id)

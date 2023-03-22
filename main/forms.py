@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 
 from main.models import Usuario
-from sistema_base_r2 import settings
+from biblioteca_pessoal import settings
 
 
 class UsuarioForm(ModelForm):
