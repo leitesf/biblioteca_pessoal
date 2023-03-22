@@ -8,4 +8,5 @@ app_name = 'main'
 
 urlpatterns = [
                   path('autor/<int:autor_id>/', views.show_autor),
+                  path('livro/<int:livro_id>/', views.show_livro),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

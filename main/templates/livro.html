@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content_title %}{{ livro.titulo }}{% endblock %}
+{#{% block page_actions %}#}
+{#    {% if pode_gerar_orcamento %}#}
+{#        <a href="/imovel/{{ imovel.id }}/gerar_orcamento/" class="btn btn-success float-right">#}
+{#            <i class="fa fa-plus-circle"></i> &nbsp; Gerar Orçamento#}
+{#        </a>#}
+{#    {% endif %}#}
+{#{% endblock %}#}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>
+                    <strong>Autores:</strong>
+                    <ul>
+                        {% for autor in livro.autores.all %}
+                            <li>{{ autor }}</li>
+                        {% endfor %}
+                    </ul>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p><strong>ISBN:</strong> {{ livro.isbn|default:"-" }}</p>
+            </div>
+            <div class="col">
+                <p><strong>Editora:</strong> {{ livro.editora }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p><strong>Categoria:</strong> {{ livro.categoria }}</p>
+            </div>
+            <div class="col">
+                <p><strong>Estante:</strong> {{ livro.estante }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p><strong>Idioma:</strong> {{ livro.idioma }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
