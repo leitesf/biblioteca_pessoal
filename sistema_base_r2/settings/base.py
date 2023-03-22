@@ -111,13 +111,13 @@ AUTH_USER_MODEL = 'main.Usuario'
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
-    "site_title": "Sistema Base",
+    "site_title": "Biblioteca Pessoal",
 
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "Sistema Base",
+    "site_header": "Biblioteca Pessoal",
 
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_brand": "Sistema Base",
+    "site_brand": "Biblioteca Pessoal",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
     "site_logo": "img/logo/logo.jpeg",
@@ -138,7 +138,7 @@ JAZZMIN_SETTINGS = {
     "welcome_sign": "Área restrita, favor entrar com usuário e senha.",
 
     # Copyright on the footer
-    "copyright": "R2 Softwares",
+    "copyright": "Rafael Leite de Freitas",
 
     # List of model admins to search from the search bar, search bar omitted if excluded
     # If you want to use a single search field you dont need to use a list, you can use a simple string
