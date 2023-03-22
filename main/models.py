@@ -1,5 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django_countries.fields import CountryField
+from isbn_field import ISBNField
+
 
 
 class Usuario(AbstractUser):
@@ -14,3 +17,105 @@ class Usuario(AbstractUser):
 
     def get_edit_url(self):
         return '/admin/main/usuario/{}/change/'.format(self.id)
+
+
+class Estante(models.Model):
+    descricao = models.CharField("Descrição", max_length=20)
+    comodo = models.CharField("Cômodo", max_length=20, blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Estante'
+        verbose_name_plural = 'Estantes'
+
+    def __str__(self):
+        return self.descricao
+
+    def get_edit_url(self):
+        return '/admin/main/estante/{}/change/'.format(self.id)
+
+
+class Categoria(models.Model):
+    descricao = models.CharField("Descrição", max_length=20)
+
+    class Meta:
+        verbose_name = 'Categoria'
+        verbose_name_plural = 'Categorias'
+
+    def __str__(self):
+        return self.descricao
+
+    def get_edit_url(self):
+        return '/admin/main/categoria/{}/change/'.format(self.id)
+
+
+class Editora(models.Model):
+    nome = models.CharField("Nome", max_length=20)
+
+    class Meta:
+        verbose_name = 'Editora'
+        verbose_name_plural = 'Editoras'
+
+    def __str__(self):
+        return self.nome
+
+    def get_edit_url(self):
+        return '/admin/main/editora/{}/change/'.format(self.id)
+
+
+class Idioma(models.Model):
+    nome = models.CharField("Nome", max_length=20)
+
+    class Meta:
+        verbose_name = 'Idioma'
+        verbose_name_plural = 'Idiomas'
+
+    def __str__(self):
+        return self.nome
+
+    def get_edit_url(self):
+        return '/admin/main/idioma/{}/change/'.format(self.id)
+
+
+class Autor(models.Model):
+    nome = models.CharField("Descrição", max_length=20)
+    nacionalidade = CountryField(verbose_name="Nacionalidade")
+    pseudonimo_de = models.ForeignKey(
+        'main.Autor',
+        related_name="pseudonimos",
+        blank=True,
+        null=True,
+        on_delete=models.RESTRICT
+    )
+
+    class Meta:
+        verbose_name = 'Autor'
+        verbose_name_plural = 'Autores'
+
+    def __str__(self):
+        if self.pseudonimo_de:
+            return '{} ({})'.format(self.nome, self.pseudonimo_de)
+        else:
+            return self.nome
+
+    def get_edit_url(self):
+        return '/admin/main/autor/{}/change/'.format(self.id)
+
+
+class Livro(models.Model):
+    titulo = models.CharField("Titulo", max_length=20)
+    autor = models.ForeignKey(Autor, on_delete=models.RESTRICT)
+    isbn = ISBNField(blank=True)
+    categoria = models.ForeignKey(Categoria, on_delete=models.RESTRICT)
+    editora = models.ForeignKey(Editora, on_delete=models.RESTRICT)
+    estante = models.ForeignKey(Estante, on_delete=models.RESTRICT)
+    idioma = models.ForeignKey(Idioma, on_delete=models.RESTRICT)
+
+    class Meta:
+        verbose_name = 'Livro'
+        verbose_name_plural = 'Livros'
+
+    def __str__(self):
+        return '{} ({})'.format(self.titulo, self.autor.nome)
+
+    def get_edit_url(self):
+        return '/admin/main/livro/{}/change/'.format(self.id)
