@@ -32,6 +32,9 @@ class Estante(models.Model):
     def get_edit_url(self):
         return '/admin/main/estante/{}/change/'.format(self.id)
 
+    def get_absolute_url(self):
+        return '/estante/{}/'.format(self.id)
+
 
 class Categoria(models.Model):
     descricao = models.CharField("Descrição", max_length=20)
@@ -79,6 +82,9 @@ class Idioma(models.Model):
 
     def get_edit_url(self):
         return '/admin/main/idioma/{}/change/'.format(self.id)
+
+    def get_absolute_url(self):
+        return '/idioma/{}/'.format(self.id)
 
 
 class Autor(models.Model):

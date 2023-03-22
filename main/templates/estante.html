@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content_title %}Estante: {{ estante.descricao }}{% endblock %}
+{#{% block page_actions %}#}
+{#    {% if pode_gerar_orcamento %}#}
+{#        <a href="/imovel/{{ imovel.id }}/gerar_orcamento/" class="btn btn-success float-right">#}
+{#            <i class="fa fa-plus-circle"></i> &nbsp; Gerar Orçamento#}
+{#        </a>#}
+{#    {% endif %}#}
+{#{% endblock %}#}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p><strong>Cômodo:</strong> {{ estante.comodo }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <br>
+        <h5>Livros</h5>
+        {% if estante.livro_set.exists %}
+            {% include "includes/lista_de_livros.html" with livros=estante.livro_set.all %}
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                Não existem livros cadastrados para essa estante.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
