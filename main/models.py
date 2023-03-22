@@ -4,7 +4,6 @@ from django.db import models
 
 class Usuario(AbstractUser):
     contato = models.CharField("Contato", max_length=100)
-    data_nascimento = models.DateField("Data de Nascimento", null=True, blank=True)
 
     class Meta:
         verbose_name = 'Usuário'
