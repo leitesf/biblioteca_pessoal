@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load bootstrap_icons %}
+
 {% block content_title %}Livro: {{ livro.titulo }}{% endblock %}
 {#{% block page_actions %}#}
 {#    {% if pode_gerar_orcamento %}#}
@@ -11,11 +13,10 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <p>
-                    <strong>Autores:</strong>
+                <p><strong>Autores:</strong>
                     <ul>
                         {% for autor in livro.autores.all %}
-                            <li>{{ autor }}</li>
+                            <li>{{ autor }} <a class='text-reset text-decoration-none' href='{{ autor.get_absolute_url }}' title='Visualizar'>{% bs_icon 'info-square' %}</a></li>
                         {% endfor %}
                     </ul>
                 </p>
@@ -26,20 +27,20 @@
                 <p><strong>ISBN:</strong> {{ livro.isbn|default:"-" }}</p>
             </div>
             <div class="col">
-                <p><strong>Editora:</strong> {{ livro.editora }}</p>
+                <p><strong>Editora:</strong> {{ livro.editora }} <a class='text-reset text-decoration-none' href='{{ livro.editora.get_absolute_url }}' title='Visualizar'>{% bs_icon 'info-square' %}</a></p>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <p><strong>Categoria:</strong> {{ livro.categoria }}</p>
+                <p><strong>Categoria:</strong> {{ livro.categoria }} <a class='text-reset text-decoration-none' href='{{ livro.categoria.get_absolute_url }}' title='Visualizar'>{% bs_icon 'info-square' %}</a></p>
             </div>
             <div class="col">
-                <p><strong>Estante:</strong> {{ livro.estante }}</p>
+                <p><strong>Estante:</strong> {{ livro.estante }} <a class='text-reset text-decoration-none' href='{{ livro.estante.get_absolute_url }}' title='Visualizar'>{% bs_icon 'info-square' %}</a></p>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <p><strong>Idioma:</strong> {{ livro.idioma }}</p>
+                <p><strong>Idioma:</strong> {{ livro.idioma }} <a class='text-reset text-decoration-none' href='{{ livro.idioma.get_absolute_url }}' title='Visualizar'>{% bs_icon 'info-square' %}</p>
             </div>
         </div>
     </div>
