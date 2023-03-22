@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 
-from main.models import Autor, Livro, Categoria
+from main.models import Autor, Livro, Categoria, Editora
 from main.utils import gerar_menu
 
 
@@ -24,5 +24,12 @@ def show_categoria(request, categoria_id):
     categoria = get_object_or_404(Categoria, id=categoria_id)
     side_menu_list = gerar_menu(request.user)
     return render(request, 'categoria.html', locals())
+
+
+@login_required
+def show_editora(request, editora_id):
+    editora = get_object_or_404(Editora, id=editora_id)
+    side_menu_list = gerar_menu(request.user)
+    return render(request, 'editora.html', locals())
 
 # Create your views here.

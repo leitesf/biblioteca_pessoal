@@ -63,6 +63,9 @@ class Editora(models.Model):
     def get_edit_url(self):
         return '/admin/main/editora/{}/change/'.format(self.id)
 
+    def get_absolute_url(self):
+        return '/editora/{}/'.format(self.id)
+
 
 class Idioma(models.Model):
     nome = models.CharField("Nome", max_length=20)
