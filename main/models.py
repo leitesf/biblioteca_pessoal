@@ -46,6 +46,9 @@ class Categoria(models.Model):
     def get_edit_url(self):
         return '/admin/main/categoria/{}/change/'.format(self.id)
 
+    def get_absolute_url(self):
+        return '/categoria/{}/'.format(self.id)
+
 
 class Editora(models.Model):
     nome = models.CharField("Nome", max_length=20)
