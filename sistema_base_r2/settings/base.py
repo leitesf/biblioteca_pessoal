@@ -120,10 +120,10 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Biblioteca Pessoal",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
-    "site_logo": "img/logo/logo.jpeg",
+    "site_logo": "img/logo/logo.png",
 
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
-    "login_logo": "img/logo/logomaior.jpeg",
+    "login_logo": "img/logo/logomaior.png",
 
     # Logo to use for login form in dark themes (defaults to login_logo)
     "login_logo_dark": None,
