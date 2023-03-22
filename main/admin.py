@@ -9,6 +9,7 @@ from main.models import Usuario, Estante, Categoria, Autor, Idioma, Editora, Liv
 class AdminBasico(admin.ModelAdmin):
     def get_links(self, obj):
         links = ""
+        links += "<a class='text-reset text-decoration-none' href='{}' title='Visualizar'>{}</a>".format(obj.get_absolute_url(), bs_icon('info-square'))
         links += "<a class='text-reset text-decoration-none' href='{}' title='Editar'>{}</a>".format(obj.get_edit_url(), bs_icon('pencil-square'))
         return mark_safe(links)
 

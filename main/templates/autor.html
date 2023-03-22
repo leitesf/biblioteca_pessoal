@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content_title %}{{ autor.nome }}{% endblock %}
+{#{% block page_actions %}#}
+{#    {% if pode_gerar_orcamento %}#}
+{#        <a href="/imovel/{{ imovel.id }}/gerar_orcamento/" class="btn btn-success float-right">#}
+{#            <i class="fa fa-plus-circle"></i> &nbsp; Gerar Orçamento#}
+{#        </a>#}
+{#    {% endif %}#}
+{#{% endblock %}#}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>
+                    <strong>Nacionalidade:</strong> <img src="{{ autor.nacionalidade.flag }}" alt="Bandeira do País"> {{ autor.nacionalidade.name }}
+                </p>
+            </div>
+            {% if autor.pseudonimo_de %}
+                <div class="col">
+                    <p><strong>Pseudônimo de:</strong> {{ autor.pseudonimo_de }}</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container">
+        <br>
+        <h5>Livros</h5>
+        {% if autor.livro_set.exists %}
+            {% include "includes/lista_de_livros.html" with livros=autor.livro_set.all %}
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                Não existem livros cadastrados para esse autor.
+            </div>
+        {% endif %}
+    </div>
+    {% if autor.pseudonimos.exists %}
+        <div class="container">
+            <br>
+            <h5>Pseudônimos</h5>
+            {% for pseudonimo in autor.pseudonimos.all %}
+                <br>
+                <h6>{{ pseudonimo.nome }}</h6>
+                {% if pseudonimo.livro_set.exists %}
+                    {% include "includes/lista_de_livros.html" with livros=pseudonimo.livro_set.all %}
+                {% else %}
+                    <div class="alert alert-warning" role="alert">
+                        Não existem livros cadastrados para esse pseudônimo.
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+        </div>
+    {% endif %}
+
+
+
+{% endblock %}

@@ -4,7 +4,6 @@ from django_countries.fields import CountryField
 from isbn_field import ISBNField
 
 
-
 class Usuario(AbstractUser):
     contato = models.CharField("Contato", max_length=100)
 
@@ -100,6 +99,9 @@ class Autor(models.Model):
     def get_edit_url(self):
         return '/admin/main/autor/{}/change/'.format(self.id)
 
+    def get_absolute_url(self):
+        return '/autor/{}/'.format(self.id)
+
 
 class Livro(models.Model):
     titulo = models.CharField("Titulo", max_length=20)
@@ -119,3 +121,9 @@ class Livro(models.Model):
 
     def get_edit_url(self):
         return '/admin/main/livro/{}/change/'.format(self.id)
+
+    def lista_autores(self):
+        return " / ".join([item.nome for item in self.autores.all()])
+
+    def get_absolute_url(self):
+        return '/livro/{}/'.format(self.id)
