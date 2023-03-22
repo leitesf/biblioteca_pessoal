@@ -10,8 +10,8 @@ MEDIA_URL = "{}/uploaded_files/".format(BASE_DIR)
 MEDIA_ROOT = "{}/uploaded_files/".format(BASE_DIR)
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'main/static'),]
+STATIC_ROOT = os.path.join(BASE_DIR, 'main/staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 SECRET_KEY = 'django-insecure-!j0m-x)(z6)zu-wns98lhgde-o(_f14*8*xeo)sk%x6f2p+z+x'

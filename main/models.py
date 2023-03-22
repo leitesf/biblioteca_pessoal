@@ -119,10 +119,10 @@ class Livro(models.Model):
     titulo = models.CharField("Titulo", max_length=20)
     autores = models.ManyToManyField(Autor, verbose_name="Autores")
     isbn = ISBNField(blank=True)
-    categoria = models.ForeignKey(Categoria, on_delete=models.RESTRICT)
-    editora = models.ForeignKey(Editora, on_delete=models.RESTRICT)
-    estante = models.ForeignKey(Estante, on_delete=models.RESTRICT)
-    idioma = models.ForeignKey(Idioma, on_delete=models.RESTRICT)
+    categoria = models.ForeignKey(Categoria, on_delete=models.RESTRICT, verbose_name="Categoria")
+    editora = models.ForeignKey(Editora, on_delete=models.RESTRICT, verbose_name="Editora")
+    estante = models.ForeignKey(Estante, on_delete=models.RESTRICT, verbose_name="Estante")
+    idioma = models.ForeignKey(Idioma, on_delete=models.RESTRICT, verbose_name="Idioma")
 
     class Meta:
         verbose_name = 'Livro'
