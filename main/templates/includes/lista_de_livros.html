@@ -1,5 +1,7 @@
 {% load bootstrap_icons %}
 {% load bootstrap5 %}
+{% load static %}
+
 
 <table class="table">
     <thead>
@@ -18,7 +20,7 @@
     {% for livro in livros %}
         <tr>
             <td>
-                <a class='text-reset text-decoration-none' href="{{ livro.get_absolute_url }}">{% bs_icon 'info-square'%}</a>
+                <a class='text-reset text-decoration-none' href="{{ livro.get_absolute_url }}"><img src="{% static 'svg/pencil-square.svg' %}" /></a>
             </td>
             <td>{{ livro.titulo }}</td>
             <td>{{ livro.lista_autores }}</td>

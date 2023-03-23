@@ -4,17 +4,21 @@ from django_bootstrap_icons.templatetags.bootstrap_icons import bs_icon
 
 from main.forms import UsuarioForm
 from main.models import Usuario, Estante, Categoria, Autor, Idioma, Editora, Livro
+from django.templatetags.static import static
+
 
 
 class AdminBasico(admin.ModelAdmin):
     def get_links(self, obj):
-        links = ""
-        links += "<a class='text-reset text-decoration-none' href='{}' title='Visualizar'>{}</a>".format(obj.get_absolute_url(), bs_icon('info-square'))
-        links += "<a class='text-reset text-decoration-none' href='{}' title='Editar'>{}</a>".format(obj.get_edit_url(), bs_icon('pencil-square'))
-        return mark_safe(links)
+        info = static('svg/info-square.svg')
+        pencil = static('svg/pencil-square.svg')
+        return mark_safe(
+            "<a href='{}' title='Visualizar'><img src='{}'></a>&nbsp;<a href='{}' title='Editar'><img src='{}'></a>".format(obj.get_absolute_url(), info, obj.get_edit_url(), pencil)
+        )
 
     get_links.short_description = '#'
     get_links.allow_tags = True
+    list_per_page = 50
 
     def get_actions(self, request):
         actions = super().get_actions(request)
@@ -41,9 +45,11 @@ class UsuarioAdmin(admin.ModelAdmin):
     get_grupos.short_description = 'Grupos'
 
     def get_links(self, obj):
+        key = static('svg/key.svg')
+        pencil = static('svg/pencil-square.svg')
         links = ""
-        links += "<a class='text-reset text-decoration-none' href='{}' title='Editar'>{}</a>".format(obj.get_edit_url(), bs_icon('pencil-square'))
-        links += "<a class='text-reset text-decoration-none' href='{}' title='Alterar Senha'>{}</a>".format('/usuario/{}/alterar_senha/'.format(obj.id), bs_icon('key'))
+        links += "<a class='text-reset text-decoration-none' href='{}' title='Editar'><img src='{}'></a>".format(obj.get_edit_url(), pencil)
+        links += "<a class='text-reset text-decoration-none' href='{}' title='Alterar Senha'><img src='{}'></a>".format('/usuario/{}/alterar_senha/'.format(obj.id), key)
         return mark_safe(links)
 
     get_links.short_description = '#'
@@ -63,19 +69,19 @@ class EstanteAdmin(AdminBasico):
 
 
 class CategoriaAdmin(AdminBasico):
-    list_display = ('get_links', 'descricao')
+    list_display = ('get_links', 'descricao', )
     search_fields = ('descricao', )
     list_display_links = None
 
 
 class EditoraAdmin(AdminBasico):
-    list_display = ('get_links', 'nome')
+    list_display = ('get_links', 'nome', )
     search_fields = ('nome', )
     list_display_links = None
 
 
 class IdiomaAdmin(AdminBasico):
-    list_display = ('get_links', 'nome')
+    list_display = ('get_links', 'nome', )
     search_fields = ('nome', )
     list_display_links = None
 

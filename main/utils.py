@@ -69,12 +69,3 @@ def gerar_menu(usuario):
         }
         )
     return side_menu_list
-
-
-def links_no_admin(objeto, pode_visualizar, pode_editar):
-    links=""
-    if pode_visualizar:
-        links = links + "<a class='text-reset text-decoration-none' href='{}' title='Visualizar'>{}</a>".format(objeto.get_absolute_url(), bs_icon('info-square'))
-    if pode_editar:
-        links = links + "<a class='text-reset text-decoration-none' href='{}' title='Editar'>{}</a>".format(objeto.get_edit_url(), bs_icon('pencil-square'))
-    return mark_safe(links)
