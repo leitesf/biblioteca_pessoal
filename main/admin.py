@@ -80,6 +80,15 @@ class IdiomaAdmin(AdminBasico):
     list_display_links = None
 
 
+class ColecaoAdmin(AdminBasico):
+    list_display = ('get_links', 'descricao', 'nome_na_ordenacao', 'prioridade_na_ordenacao')
+    search_fields = ('descricao', )
+    list_filter = (
+        ('prioridade_na_ordenacao',)
+    )
+    list_display_links = None
+
+
 class AutorAdmin(AdminBasico):
     list_display = ('get_links', 'nome', 'nacionalidade', 'pseudonimo_de')
     search_fields = ('nome', 'pseudonimo_de', )

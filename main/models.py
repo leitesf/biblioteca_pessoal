@@ -1,3 +1,5 @@
+from datetime import date, timezone
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django_countries.fields import CountryField
@@ -19,8 +21,8 @@ class Usuario(AbstractUser):
 
 
 class Estante(models.Model):
-    descricao = models.CharField("Descrição", max_length=20)
-    comodo = models.CharField("Cômodo", max_length=20, blank=True, null=True)
+    descricao = models.CharField("Descrição", max_length=50)
+    comodo = models.CharField("Cômodo", max_length=50, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Estante'
@@ -37,7 +39,7 @@ class Estante(models.Model):
 
 
 class Categoria(models.Model):
-    descricao = models.CharField("Descrição", max_length=20)
+    descricao = models.CharField("Descrição", max_length=50)
 
     class Meta:
         verbose_name = 'Categoria'
@@ -54,7 +56,7 @@ class Categoria(models.Model):
 
 
 class Editora(models.Model):
-    nome = models.CharField("Nome", max_length=20)
+    nome = models.CharField("Nome", max_length=50)
 
     class Meta:
         verbose_name = 'Editora'
@@ -71,7 +73,7 @@ class Editora(models.Model):
 
 
 class Idioma(models.Model):
-    nome = models.CharField("Nome", max_length=20)
+    nome = models.CharField("Nome", max_length=100)
 
     class Meta:
         verbose_name = 'Idioma'
@@ -87,9 +89,32 @@ class Idioma(models.Model):
         return '/idioma/{}/'.format(self.id)
 
 
+class Colecao(models.Model):
+    descricao = models.CharField("Coleção", max_length=50)
+    nome_para_ordenacao = models.CharField("Nome para Ordenação", max_length=30)
+    prioridade_na_ordenacao = models.BooleanField(
+        "Prioritário na ordenação",
+        default=False,
+        help_text="Caso ativado, irá agrupar os livros dessa coleção na ordem da prateleira no lugar do autor."
+    )
+
+    class Meta:
+        verbose_name = 'Coleção'
+        verbose_name_plural = 'Coleções'
+
+    def __str__(self):
+        return self.descricao
+
+    def get_edit_url(self):
+        return '/admin/main/colecao/{}/change/'.format(self.id)
+
+    def get_absolute_url(self):
+        return '/colecao/{}/'.format(self.id)
+
+
 class Autor(models.Model):
-    nome = models.CharField("Descrição", max_length=20)
-    nacionalidade = CountryField(verbose_name="Nacionalidade")
+    nome = models.CharField("Descrição", max_length=100)
+    nacionalidade = CountryField(verbose_name="Nacionalidade", null=True)
     pseudonimo_de = models.ForeignKey(
         'main.Autor',
         related_name="pseudonimos",
@@ -116,13 +141,18 @@ class Autor(models.Model):
 
 
 class Livro(models.Model):
-    titulo = models.CharField("Titulo", max_length=20)
+    titulo = models.CharField("Titulo", max_length=100)
     autores = models.ManyToManyField(Autor, verbose_name="Autores")
     isbn = ISBNField(blank=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.RESTRICT, verbose_name="Categoria")
     editora = models.ForeignKey(Editora, on_delete=models.RESTRICT, verbose_name="Editora")
     estante = models.ForeignKey(Estante, on_delete=models.RESTRICT, verbose_name="Estante")
+    colecao = models.ForeignKey(Colecao, on_delete=models.SET_NULL, verbose_name="Coleção", null=True)
     idioma = models.ForeignKey(Idioma, on_delete=models.RESTRICT, verbose_name="Idioma")
+    sinopse = models.TextField(verbose_name="Sinopse", blank=True)
+    paginas = models.IntegerField(verbose_name="Páginas", blank=True, null=True)
+    subtitulo = models.CharField("Subtítulo", max_length=100, blank=True, null=True)
+    ano = models.IntegerField(verbose_name="Ano de Publicação", blank=True, null=True)
 
     class Meta:
         verbose_name = 'Livro'
@@ -139,3 +169,9 @@ class Livro(models.Model):
 
     def get_absolute_url(self):
         return '/livro/{}/'.format(self.id)
+
+
+class Leitura(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, verbose_name="Usuário")
+    livro = models.ForeignKey(Livro, on_delete=models.CASCADE)
+    data = models.DateField(verbose_name="Data de Leitura")
