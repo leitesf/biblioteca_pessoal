@@ -131,3 +131,4 @@ dmypy.json
 .pyre/
 uploaded_files/
 biblioteca_pessoal/settings/local.py
+livros.json
