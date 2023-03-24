@@ -12,6 +12,7 @@ class Usuario(AbstractUser):
     class Meta:
         verbose_name = 'Usuário'
         verbose_name_plural = 'Usuários'
+        ordering = ['first_name']
 
     def __str__(self):
         return self.get_full_name()
@@ -27,6 +28,7 @@ class Estante(models.Model):
     class Meta:
         verbose_name = 'Estante'
         verbose_name_plural = 'Estantes'
+        ordering = ['descricao']
 
     def __str__(self):
         return self.descricao
@@ -44,6 +46,7 @@ class Categoria(models.Model):
     class Meta:
         verbose_name = 'Categoria'
         verbose_name_plural = 'Categorias'
+        ordering = ['descricao']
 
     def __str__(self):
         return self.descricao
@@ -61,6 +64,7 @@ class Editora(models.Model):
     class Meta:
         verbose_name = 'Editora'
         verbose_name_plural = 'Editoras'
+        ordering = ['nome']
 
     def __str__(self):
         return self.nome
@@ -78,6 +82,7 @@ class Idioma(models.Model):
     class Meta:
         verbose_name = 'Idioma'
         verbose_name_plural = 'Idiomas'
+        ordering = ['nome']
 
     def __str__(self):
         return self.nome
@@ -101,6 +106,7 @@ class Colecao(models.Model):
     class Meta:
         verbose_name = 'Coleção'
         verbose_name_plural = 'Coleções'
+        ordering = ['descricao']
 
     def __str__(self):
         return self.descricao

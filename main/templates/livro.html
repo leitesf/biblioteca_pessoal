@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% load bootstrap_icons %}
 
-{% block content_title %}Livro: {{ livro.titulo }}{% endblock %}
+{% block content_title %}
+    Livro: {{ livro.titulo }}
+    {% if ja_li %}
+        <span class="badge bg-success">Lido</span>
+    {% endif %}
+{% endblock %}
 {#{% block page_actions %}#}
 {#    {% if pode_gerar_orcamento %}#}
 {#        <a href="/imovel/{{ imovel.id }}/gerar_orcamento/" class="btn btn-success float-right">#}
@@ -14,9 +19,9 @@
         <div class="row">
             <div class="col">
                 <p><strong>Autores:</strong>
-                    <ul>
+                    <ul class="list-group">
                         {% for autor in livro.autores.all %}
-                            <li>{{ autor }} <a class='text-reset text-decoration-none' href='{{ autor.get_absolute_url }}' title='Visualizar'>{% bs_icon 'info-square' %}</a></li>
+                            <li class="list-group-item">{{ autor }} <a class='text-reset text-decoration-none' href='{{ autor.get_absolute_url }}' title='Visualizar'>{% bs_icon 'info-square' %}</a></li>
                         {% endfor %}
                     </ul>
                 </p>
@@ -41,6 +46,22 @@
         <div class="row">
             <div class="col">
                 <p><strong>Idioma:</strong> {{ livro.idioma }} <a class='text-reset text-decoration-none' href='{{ livro.idioma.get_absolute_url }}' title='Visualizar'>{% bs_icon 'info-square' %}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p>
+                    <strong>Lido por:</strong>
+                    {% if livro.leitura_set.all.exists %}
+                        <ul class="list-group">
+                            {% for leitor in livro.leitura_set.all %}
+                                <li class="list-group-item">{{ leitor.usuario.get_full_name }} em {{ leitor.data|date:"SHORT_DATE_FORMAT" }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <span>Este livro não foi lido por nenhum usuário</span>
+                    {% endif %}
+                </p>
             </div>
         </div>
     </div>

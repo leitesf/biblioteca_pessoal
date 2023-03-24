@@ -16,6 +16,7 @@ def show_autor(request, autor_id):
 def show_livro(request, livro_id):
     livro = get_object_or_404(Livro, id=livro_id)
     side_menu_list = gerar_menu(request.user)
+    ja_li = livro.leitura_set.filter(usuario=request.user).exists()
     return render(request, 'livro.html', locals())
 
 
