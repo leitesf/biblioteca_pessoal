@@ -3,7 +3,7 @@ from django.utils.safestring import mark_safe
 from django_bootstrap_icons.templatetags.bootstrap_icons import bs_icon
 
 from main.forms import UsuarioForm
-from main.models import Usuario, Estante, Categoria, Autor, Idioma, Editora, Livro
+from main.models import Usuario, Estante, Categoria, Autor, Idioma, Editora, Livro, Colecao
 from django.templatetags.static import static
 
 
@@ -87,7 +87,7 @@ class IdiomaAdmin(AdminBasico):
 
 
 class ColecaoAdmin(AdminBasico):
-    list_display = ('get_links', 'descricao', 'nome_na_ordenacao', 'prioridade_na_ordenacao')
+    list_display = ('get_links', 'descricao', 'nome_para_ordenacao', 'prioridade_na_ordenacao')
     search_fields = ('descricao', )
     list_filter = (
         ('prioridade_na_ordenacao',)
@@ -125,5 +125,6 @@ admin.site.register(Estante, EstanteAdmin)
 admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(Editora, EditoraAdmin)
 admin.site.register(Idioma, IdiomaAdmin)
+admin.site.register(Colecao, ColecaoAdmin)
 admin.site.register(Autor, AutorAdmin)
 admin.site.register(Livro, LivroAdmin)
