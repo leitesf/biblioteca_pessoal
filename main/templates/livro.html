@@ -37,7 +37,14 @@
         </div>
         <div class="row">
             <div class="col">
-                <p><strong>Categoria:</strong> {{ livro.categoria }} <a class='text-reset text-decoration-none' href='{{ livro.categoria.get_absolute_url }}' title='Visualizar'>{% bs_icon 'info-square' %}</a></p>
+                <p>
+                    <strong>Coleção:</strong>
+                    {% if livro.colecao %}
+                        {{ livro.colecao }}<a class='text-reset text-decoration-none' href='{{ livro.colecao.get_absolute_url }}' title='Visualizar'>{% bs_icon 'info-square' %}</a>
+                    {% else %}
+
+                    {% endif %}
+                </p>
             </div>
             <div class="col">
                 <p><strong>Estante:</strong> {{ livro.estante }} <a class='text-reset text-decoration-none' href='{{ livro.estante.get_absolute_url }}' title='Visualizar'>{% bs_icon 'info-square' %}</a></p>
@@ -46,6 +53,9 @@
         <div class="row">
             <div class="col">
                 <p><strong>Idioma:</strong> {{ livro.idioma }} <a class='text-reset text-decoration-none' href='{{ livro.idioma.get_absolute_url }}' title='Visualizar'>{% bs_icon 'info-square' %}</p>
+            </div>
+            <div class="col">
+                <p><strong>Categoria:</strong> {{ livro.categoria }} <a class='text-reset text-decoration-none' href='{{ livro.categoria.get_absolute_url }}' title='Visualizar'>{% bs_icon 'info-square' %}</a></p>
             </div>
         </div>
         <div class="row">
@@ -59,7 +69,9 @@
                             {% endfor %}
                         </ul>
                     {% else %}
-                        <span>Este livro não foi lido por nenhum usuário</span>
+                        <ul class="list-group">
+                            <li class="list-group-item">Este livro não foi lido por nenhum usuário</li>
+                        </ul>
                     {% endif %}
                 </p>
             </div>

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content_title %}Coleção: {{ colecao.descricao }}{% endblock %}
+{#{% block page_actions %}#}
+{#    {% if pode_gerar_orcamento %}#}
+{#        <a href="/imovel/{{ imovel.id }}/gerar_orcamento/" class="btn btn-success float-right">#}
+{#            <i class="fa fa-plus-circle"></i> &nbsp; Gerar Orçamento#}
+{#        </a>#}
+{#    {% endif %}#}
+{#{% endblock %}#}
+{% block content %}
+    <div class="container">
+        <br>
+        <h5>Livros</h5>
+        {% if colecao.livro_set.exists %}
+            {% include "includes/lista_de_livros.html" with livros=colecao.livro_set.all %}
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                Não existem livros cadastrados para essa coleção.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
