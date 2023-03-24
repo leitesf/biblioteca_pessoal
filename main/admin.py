@@ -96,7 +96,7 @@ class ColecaoAdmin(AdminBasico):
 
 
 class AutorAdmin(AdminBasico):
-    list_display = ('get_links', 'nome', 'nacionalidade', 'pseudonimo_de')
+    list_display = ('get_links', 'nome', 'nome_ordenado', 'nacionalidade', 'pseudonimo_de')
     search_fields = ('nome', 'pseudonimo_de', )
     list_filter = (
         ('nacionalidade',)
@@ -106,7 +106,7 @@ class AutorAdmin(AdminBasico):
 
 class LivroAdmin(AdminBasico):
     list_display = ('get_links', 'titulo', 'lista_autores', 'editora', 'categoria',  'estante')
-    search_fields = ('nome', 'isbn', )
+    search_fields = ('titulo', 'isbn', )
     list_filter = (
         ('autores', admin.RelatedOnlyFieldListFilter),
         ('editora', admin.RelatedOnlyFieldListFilter),
@@ -116,7 +116,7 @@ class LivroAdmin(AdminBasico):
     list_display_links = None
 
     def lista_autores(self, obj):
-        return " / ".join([item.nome for item in obj.autores.all()])
+        return obj.lista_autores()
     lista_autores.short_description = 'Autores'
 
 

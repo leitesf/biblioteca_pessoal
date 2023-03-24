@@ -2,6 +2,8 @@ from datetime import date, timezone
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
 from django_countries.fields import CountryField
 from isbn_field import ISBNField
 
@@ -119,7 +121,8 @@ class Colecao(models.Model):
 
 
 class Autor(models.Model):
-    nome = models.CharField("Descrição", max_length=100)
+    nome = models.CharField("Nome", max_length=100)
+    nome_ordenado = models.CharField("Nome Ordenado", max_length=100)
     nacionalidade = CountryField(verbose_name="Nacionalidade", null=True)
     pseudonimo_de = models.ForeignKey(
         'main.Autor',
@@ -132,6 +135,7 @@ class Autor(models.Model):
     class Meta:
         verbose_name = 'Autor'
         verbose_name_plural = 'Autores'
+        ordering = ['nome']
 
     def __str__(self):
         if self.pseudonimo_de:
@@ -146,14 +150,24 @@ class Autor(models.Model):
         return '/autor/{}/'.format(self.id)
 
 
+@receiver(pre_save, sender=Autor)
+def atualizar_nome_ordenado(sender, instance, **kwargs):
+    nome_dividido = instance.nome.split(' ')
+    if len(nome_dividido) > 1:
+        instance.nome_ordenado = ' '.join(nome_dividido[-1:] + nome_dividido[:-1])
+    else:
+        instance.nome_ordenado = instance.nome
+
+
 class Livro(models.Model):
     titulo = models.CharField("Titulo", max_length=100)
     autores = models.ManyToManyField(Autor, verbose_name="Autores")
+    autor_para_ordenacao = models.CharField('Autor para ordenação', max_length=100)
     isbn = ISBNField(blank=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.RESTRICT, verbose_name="Categoria")
     editora = models.ForeignKey(Editora, on_delete=models.RESTRICT, verbose_name="Editora")
     estante = models.ForeignKey(Estante, on_delete=models.RESTRICT, verbose_name="Estante")
-    colecao = models.ForeignKey(Colecao, on_delete=models.SET_NULL, verbose_name="Coleção", null=True)
+    colecao = models.ForeignKey(Colecao, on_delete=models.SET_NULL, verbose_name="Coleção", null=True, blank=True)
     idioma = models.ForeignKey(Idioma, on_delete=models.RESTRICT, verbose_name="Idioma")
     sinopse = models.TextField(verbose_name="Sinopse", blank=True)
     paginas = models.IntegerField(verbose_name="Páginas", blank=True, null=True)
@@ -163,18 +177,24 @@ class Livro(models.Model):
     class Meta:
         verbose_name = 'Livro'
         verbose_name_plural = 'Livros'
+        ordering = ['autor_para_ordenacao', 'titulo']
 
     def __str__(self):
-        return '{} ({})'.format(self.titulo, self.autores.all())
+        return '{} ({})'.format(self.titulo, self.lista_autores)
 
     def get_edit_url(self):
         return '/admin/main/livro/{}/change/'.format(self.id)
 
     def lista_autores(self):
-        return " / ".join([item.nome for item in self.autores.all()])
+        return " / ".join([item.nome for item in self.autores.all().order_by('id')])
 
     def get_absolute_url(self):
         return '/livro/{}/'.format(self.id)
+
+
+@receiver(pre_save, sender=Livro)
+def atualizar_nome_para_ordenacao(sender, instance, **kwargs):
+    instance.autor_para_ordenacao = instance.autores.order_by('id').first().nome_ordenado
 
 
 class Leitura(models.Model):

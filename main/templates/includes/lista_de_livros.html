@@ -19,7 +19,8 @@
     {% for livro in livros %}
         <tr>
             <td>
-                <a class='text-reset text-decoration-none' href="{{ livro.get_absolute_url }}"><img src="{% static 'svg/pencil-square.svg' %}" /></a>
+                <a class='text-reset text-decoration-none' href="{{ livro.get_absolute_url }}"><img src="{% static 'svg/info-square.svg' %}" /></a>
+                <a class='text-reset text-decoration-none' href="{{ livro.get_edit_url }}"><img src="{% static 'svg/pencil-square.svg' %}" /></a>
             </td>
             <td>{{ livro.titulo }}</td>
             <td>{{ livro.lista_autores }}</td>
