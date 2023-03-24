@@ -7,7 +7,6 @@ from main.models import Usuario, Estante, Categoria, Autor, Idioma, Editora, Liv
 from django.templatetags.static import static
 
 
-
 class AdminBasico(admin.ModelAdmin):
     def get_links(self, obj):
         info = static('svg/info-square.svg')
@@ -128,3 +127,4 @@ admin.site.register(Idioma, IdiomaAdmin)
 admin.site.register(Colecao, ColecaoAdmin)
 admin.site.register(Autor, AutorAdmin)
 admin.site.register(Livro, LivroAdmin)
+admin.site.index_template = "index.html"

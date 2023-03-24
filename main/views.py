@@ -1,9 +1,12 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from main.models import Autor, Livro, Categoria, Editora, Idioma, Estante, Colecao
 from main.utils import gerar_menu
 
+
+def index(request):
+    return redirect('/admin/')
 
 @login_required
 def show_autor(request, autor_id):

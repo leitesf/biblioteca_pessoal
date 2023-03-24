@@ -7,6 +7,7 @@ from main import views
 app_name = 'main'
 
 urlpatterns = [
+    path('', views.index),
     path('autor/<int:autor_id>/', views.show_autor),
     path('livro/<int:livro_id>/', views.show_livro),
     path('categoria/<int:categoria_id>/', views.show_categoria),
