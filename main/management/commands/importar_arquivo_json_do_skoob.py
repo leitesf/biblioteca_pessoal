@@ -15,6 +15,7 @@ class Command(BaseCommand):
             estante = Estante.objects.first()
             categoria = Categoria.objects.first()
             idioma = Idioma.objects.first()
+            usuario = Usuario.objects.get(username='rafael')
 
             with open('livros.json') as data_file:
                 dados = json.load(data_file)
@@ -44,9 +45,9 @@ class Command(BaseCommand):
                         livro.autores.add(
                             Autor.objects.create(nome=autor)
                         )
-                if 'data_leitura' in item:
+                if 'dt_leitura' in item and item['dt_leitura']:
                     Leitura.objects.create(
-                        usuario=Usuario.objects.first(),
+                        usuario=usuario,
                         livro=livro,
                         data=datetime.strptime(item['dt_leitura'], '%Y-%m-%d %H:%M:%S').date()
                     )
