@@ -18,6 +18,13 @@
     <div class="container">
         <div class="row">
             <div class="col">
+                {% if livro.subtitulo %}
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Subtítulo:</strong> {{ livro.subtitulo }}</p>
+                    </div>
+                </div>
+                {% endif %}
                 <div class="row">
                     <div class="col">
                         <p><strong>Autor Principal:</strong>
@@ -26,6 +33,8 @@
                                                            title='Visualizar'>{% bs_icon 'info-square' %}</a>
                         </p>
                     </div>
+                </div>
+                <div class="row">
                     {% if livro.autores_secundarios.exists %}
                         <div class="col">
                             <p><strong>Autores Secundários:</strong>
@@ -50,6 +59,14 @@
                                                                             href='{{ livro.editora.get_absolute_url }}'
                                                                             title='Visualizar'>{% bs_icon 'info-square' %}</a>
                         </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Ano:</strong> {{ livro.ano|default:"-" }}</p>
+                    </div>
+                    <div class="col">
+                        <p><strong>Páginas:</strong> {{ livro.paginas }}</p>
                     </div>
                 </div>
                 <div class="row">
