@@ -10,11 +10,13 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="col">
-                <p>
-                    <strong>Nacionalidade:</strong> <img src="{{ autor.nacionalidade.flag }}" alt="Bandeira do País"> {{ autor.nacionalidade.name }}
-                </p>
-            </div>
+            {% if autor.nacionalidade %}
+                <div class="col">
+                    <p>
+                        <strong>Nacionalidade:</strong> <img src="{{ autor.nacionalidade.flag }}" alt="Bandeira do País"> {{ autor.nacionalidade.name }}
+                    </p>
+                </div>
+            {% endif %}
             {% if autor.pseudonimo_de %}
                 <div class="col">
                     <p><strong>Pseudônimo de:</strong> {{ autor.pseudonimo_de }}</p>
@@ -24,15 +26,22 @@
     </div>
     <div class="container">
         <br>
-        <h5>Livros</h5>
-        {% if autor.livro_set.exists %}
-            {% include "includes/lista_de_livros.html" with livros=autor.livro_set.all %}
+        <h5>Livros como Autor Principal</h5>
+        {% if autor.livros_como_principal.exists %}
+            {% include "includes/lista_de_livros.html" with livros=autor.livros_como_principal.all %}
         {% else %}
             <div class="alert alert-warning" role="alert">
-                Não existem livros cadastrados para esse autor.
+                Não existem livros cadastrados para esse autor como principal.
             </div>
         {% endif %}
     </div>
+    {% if autor.livros_como_secundario.exists %}
+        <div class="container">
+            <br>
+            <h5>Livros como Autor Secundário</h5>
+            {% include "includes/lista_de_livros.html" with livros=autor.livros_como_secundario.all %}
+        </div>
+    {% endif %}
     {% if autor.pseudonimos.exists %}
         <div class="container">
             <br>
@@ -40,9 +49,13 @@
             {% for pseudonimo in autor.pseudonimos.all %}
                 <br>
                 <h6>{{ pseudonimo.nome }}</h6>
-                {% if pseudonimo.livro_set.exists %}
-                    {% include "includes/lista_de_livros.html" with livros=pseudonimo.livro_set.all %}
-                {% else %}
+                {% if pseudonimo.livro_como_principal_set.exists %}
+                    {% include "includes/lista_de_livros.html" with livros=pseudonimo.livro_como_principal_set.all %}
+                {% endif %}
+                {% if pseudonimo.livro_como_secundario_set.exists %}
+                    {% include "includes/lista_de_livros.html" with livros=pseudonimo.livro_como_secundario_set.all %}
+                {% endif %}
+                {% if not pseudonimo.livro_como_principal_set.exists and not pseudonimo.livro_como_secundario_set.exists %}
                     <div class="alert alert-warning" role="alert">
                         Não existem livros cadastrados para esse pseudônimo.
                     </div>

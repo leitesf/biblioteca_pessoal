@@ -24,7 +24,7 @@
             </td>
             <td>{{ livro.titulo }}</td>
             <td>{{ livro.lista_autores }}</td>
-            <td>{{ livro.colecao }}</td>
+            <td>{{ livro.colecao|default:'-' }}</td>
             <td>{{ livro.editora }}</td>
             <td>{{ livro.idioma }}</td>
             <td>{{ livro.estante }}</td>

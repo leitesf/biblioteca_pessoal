@@ -6,7 +6,7 @@ from django.contrib import staticfiles
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-MEDIA_URL = "{}/uploaded_files/".format(BASE_DIR)
+MEDIA_URL = "/uploaded_files/"
 MEDIA_ROOT = "{}/uploaded_files/".format(BASE_DIR)
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_URL = '/static/'

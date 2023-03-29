@@ -104,10 +104,11 @@ class AutorAdmin(AdminBasico):
 
 
 class LivroAdmin(AdminBasico):
-    list_display = ('get_links', 'titulo', 'lista_autores', 'editora', 'categoria',  'estante')
+    list_display = ('get_links', 'titulo', 'autor_principal', 'lista_autores', 'editora', 'categoria',  'estante')
     search_fields = ('titulo', 'isbn', )
     list_filter = (
-        ('autores', admin.RelatedOnlyFieldListFilter),
+        ('autor_principal', admin.RelatedOnlyFieldListFilter),
+        ('autores_secundarios', admin.RelatedOnlyFieldListFilter),
         ('editora', admin.RelatedOnlyFieldListFilter),
         ('categoria', admin.RelatedOnlyFieldListFilter),
         ('estante', admin.RelatedOnlyFieldListFilter),
@@ -115,8 +116,8 @@ class LivroAdmin(AdminBasico):
     list_display_links = None
 
     def lista_autores(self, obj):
-        return obj.lista_autores()
-    lista_autores.short_description = 'Autores'
+        return obj.lista_autores_secundarios()
+    lista_autores.short_description = 'Autores Secundários'
 
 
 admin.site.register(Usuario, UsuarioAdmin)
@@ -127,4 +128,4 @@ admin.site.register(Idioma, IdiomaAdmin)
 admin.site.register(Colecao, ColecaoAdmin)
 admin.site.register(Autor, AutorAdmin)
 admin.site.register(Livro, LivroAdmin)
-admin.site.index_template = "index.html"
+# admin.site.index_template = "index.html"

@@ -161,8 +161,17 @@ def atualizar_nome_ordenado(sender, instance, **kwargs):
 
 class Livro(models.Model):
     titulo = models.CharField("Titulo", max_length=100)
-    autores = models.ManyToManyField(Autor, verbose_name="Autores")
-    autor_para_ordenacao = models.CharField('Autor para ordenação', max_length=100)
+    autor_principal = models.ForeignKey(
+        Autor,
+        on_delete=models.RESTRICT,
+        verbose_name='Autor Principal',
+        related_name='livros_como_principal'
+    )
+    autores_secundarios = models.ManyToManyField(
+        Autor,
+        verbose_name="Autores Secundários",
+        related_name='livros_como_secundario'
+    )
     isbn = ISBNField(blank=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.RESTRICT, verbose_name="Categoria")
     editora = models.ForeignKey(Editora, on_delete=models.RESTRICT, verbose_name="Editora")
@@ -173,28 +182,25 @@ class Livro(models.Model):
     paginas = models.IntegerField(verbose_name="Páginas", blank=True, null=True)
     subtitulo = models.CharField("Subtítulo", max_length=100, blank=True, null=True)
     ano = models.IntegerField(verbose_name="Ano de Publicação", blank=True, null=True)
+    skoob_id = models.IntegerField('ID no Skoob', blank=True, null=True)
+    capa = models.ImageField("Capa do Livro", upload_to="capas_livro", null=True, blank=True)
 
     class Meta:
         verbose_name = 'Livro'
         verbose_name_plural = 'Livros'
-        ordering = ['autor_para_ordenacao', 'titulo']
+        ordering = ['autor_principal__nome_ordenado', 'titulo']
 
     def __str__(self):
-        return '{} ({})'.format(self.titulo, self.lista_autores)
+        return '{} ({})'.format(self.titulo, self.autor_principal)
 
     def get_edit_url(self):
         return '/admin/main/livro/{}/change/'.format(self.id)
 
-    def lista_autores(self):
-        return " / ".join([item.nome for item in self.autores.all().order_by('id')])
+    def lista_autores_secundarios(self):
+        return " / ".join([item.nome for item in self.autores_secundarios.all().order_by('id')])
 
     def get_absolute_url(self):
         return '/livro/{}/'.format(self.id)
-
-
-@receiver(pre_save, sender=Livro)
-def atualizar_nome_para_ordenacao(sender, instance, **kwargs):
-    instance.autor_para_ordenacao = instance.autores.order_by('id').first().nome_ordenado
 
 
 class Leitura(models.Model):

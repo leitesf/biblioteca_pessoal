@@ -26,3 +26,4 @@ whitenoise==6.4.0
 django-countries[pyuca]
 ipython
 django-isbn-field
+Pillow
