@@ -27,3 +27,5 @@ django-countries[pyuca]
 ipython
 django-isbn-field
 Pillow
+tqdm
+django-solo==2.0.0

@@ -6,10 +6,12 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django_countries.fields import CountryField
 from isbn_field import ISBNField
+from solo.models import SingletonModel
 
 
 class Usuario(AbstractUser):
     contato = models.CharField("Contato", max_length=100)
+    skoob_user = models.IntegerField("Usuário no Skoob", blank=True, null=True)
 
     class Meta:
         verbose_name = 'Usuário'
@@ -207,3 +209,13 @@ class Leitura(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, verbose_name="Usuário")
     livro = models.ForeignKey(Livro, on_delete=models.CASCADE)
     data = models.DateField(verbose_name="Data de Leitura")
+
+
+class ConfiguracaoSistema(SingletonModel):
+    usuario_principal = models.ForeignKey(Usuario, on_delete=models.SET_NULL, verbose_name="Usuário Principal", null=True)
+
+    def __str__(self):
+        return "Configuração do Sistema"
+
+    class Meta:
+        verbose_name = "Configuração do Sistema"

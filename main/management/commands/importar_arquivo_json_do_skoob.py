@@ -5,6 +5,7 @@ from django.core.files.temp import NamedTemporaryFile
 import requests
 from django.core.management.base import BaseCommand
 from django.db import transaction
+from tqdm import tqdm
 
 from main.models import *
 
@@ -23,12 +24,15 @@ class Command(BaseCommand):
             idioma = Idioma.objects.get_or_create(
                 nome='Português'
             )[0]
-            usuario = Usuario.objects.get(username='rafael')
+            configuracao = ConfiguracaoSistema.objects.first()
+            usuario_principal = configuracao.usuario_principal
 
             dados = requests.get(
-                "https://www.skoob.com.br/v1/bookcase/books/142377/shelf_id:6/page:0/limit:1000").json()
-
-            for item in dados['response']:
+                "https://www.skoob.com.br/v1/bookcase/books/{}/shelf_id:6/page:0/limit:1000".format(
+                    usuario_principal.skoob_user)
+            ).json()
+            print("Importando livros do usuário principal")
+            for item in tqdm(dados['response']):
                 if not Livro.objects.filter(skoob_id=item['edicao']['id']).exists():
                     livro = Livro()
                     livro.titulo = item['edicao']['titulo']
@@ -61,7 +65,7 @@ class Command(BaseCommand):
                             )
                     if 'dt_leitura' in item and item['dt_leitura']:
                         Leitura.objects.create(
-                            usuario=usuario,
+                            usuario=usuario_principal,
                             livro=livro,
                             data=datetime.strptime(item['dt_leitura'], '%Y-%m-%d %H:%M:%S').date()
                         )
@@ -72,3 +76,19 @@ class Command(BaseCommand):
                     img_temp.flush()
                     livro.capa.save('capa-{}.jpg'.format(livro.id), File(img_temp), save=True)
                     print(livro.id)
+            for usuario in Usuario.objects.filter(skoob_user__isnull=False):
+                dados = requests.get(
+                    "https://www.skoob.com.br/v1/bookcase/books/{}/shelf_id:1/page:0/limit:1000".format(
+                        usuario.skoob_user)
+                ).json()
+                print("Buscando livros lidos por {}".format(usuario.get_full_name()))
+                for item in tqdm(dados['response']):
+                    if Livro.objects.filter(skoob_id=item['edicao']['id']).exists() and not \
+                            Leitura.objects.filter(usuario=usuario, livro__skoob_id=item['edicao']['id']).exists():
+                        if 'dt_leitura' in item and item['dt_leitura']:
+                            livro = Livro.objects.get(skoob_id=item['edicao']['id'])
+                            Leitura.objects.create(
+                                usuario=usuario,
+                                livro=livro,
+                                data=datetime.strptime(item['dt_leitura'], '%Y-%m-%d %H:%M:%S').date()
+                            )

@@ -7,7 +7,7 @@ from biblioteca_pessoal import settings
 class UsuarioForm(ModelForm):
     class Meta:
         model = Usuario
-        fields = ['username', 'first_name', 'last_name', 'email', 'contato', 'groups', 'is_active', 'is_superuser' ]
+        fields = ['username', 'first_name', 'last_name', 'email', 'skoob_user', 'contato', 'groups', 'is_active', 'is_superuser' ]
 
     def save(self, commit=True):
         # Save the provided password in hashed format

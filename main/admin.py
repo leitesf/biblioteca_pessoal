@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django_bootstrap_icons.templatetags.bootstrap_icons import bs_icon
+from solo.admin import SingletonModelAdmin
 
 from main.forms import UsuarioForm
-from main.models import Usuario, Estante, Categoria, Autor, Idioma, Editora, Livro, Colecao
+from main.models import Usuario, Estante, Categoria, Autor, Idioma, Editora, Livro, Colecao, ConfiguracaoSistema
 from django.templatetags.static import static
 
 
@@ -128,4 +129,5 @@ admin.site.register(Idioma, IdiomaAdmin)
 admin.site.register(Colecao, ColecaoAdmin)
 admin.site.register(Autor, AutorAdmin)
 admin.site.register(Livro, LivroAdmin)
+admin.site.register(ConfiguracaoSistema, SingletonModelAdmin)
 # admin.site.index_template = "index.html"

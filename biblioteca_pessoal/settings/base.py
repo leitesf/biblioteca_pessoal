@@ -34,7 +34,8 @@ INSTALLED_APPS = [
     'django_bootstrap_icons',
     'django_middleware_global_request',
     'django_countries',
-    'isbn_field'
+    'isbn_field',
+    'solo'
     # 'fixture_magic'
 ]
 
