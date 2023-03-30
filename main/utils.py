@@ -1,7 +1,7 @@
 from django.utils.safestring import mark_safe
 from django_bootstrap_icons.templatetags.bootstrap_icons import bs_icon
 
-#
+
 def gerar_menu(usuario, ativo=None):
     side_menu_list = [
         {
@@ -47,7 +47,13 @@ def gerar_menu(usuario, ativo=None):
         side_menu_list[0]['models'].append(
             {'name': 'Livros', 'object_name': 'Livros', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/livro/', 'add_url': '/admin/main/livro/add/', 'view_only': False, 'url': '/admin/main/livro/', 'model_str': 'main.livro', 'icon': 'fas fa-book', 'is_active': is_active}
         )
+    if usuario.has_perm('main.add_leitura'):
+        is_active = True if ativo == 'meus_livros' else False
+        side_menu_list[0]['models'].append(
+            {'name': 'Meus Livros Lidos', 'object_name': 'Meus Livros Lido', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'view_only': False, 'url': '/meus_livros_lidos/', 'model_str': 'main.livro', 'icon': 'fas fa-book-reader', 'is_active': is_active}
+        )
     if usuario.is_superuser:
+        is_active = True if ativo == 'usuario' else False
         side_menu_list.append({
             'name': 'Autenticação e Autorização',
             'app_label': 'auth',
@@ -74,7 +80,8 @@ def gerar_menu(usuario, ativo=None):
                         'url': '/admin/main/usuario/',
                         'children': None,
                         'new_window': False,
-                        'icon': 'fas fa-user'
+                        'icon': 'fas fa-user',
+                        'is_active': is_active
                     },
                     {
                         'name': 'Configuração do Sistema',

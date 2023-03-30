@@ -212,6 +212,14 @@ JAZZMIN_SETTINGS = {
                 "icon": "fas fa-wrench",
                 "permissions": ["auth.add_configuracaosistema"]
             }
+        ],
+        "main": [
+            {
+                "name": "Meus Livros Lidos",
+                "url": "/meus_livros_lidos/",
+                "icon": "fas fa-book-reader",
+                "permissions": ["main.add_leitura"]
+            }
         ]
     },
 

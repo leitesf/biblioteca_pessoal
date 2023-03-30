@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, get_object_or_404, redirect
 
 from main.forms import LeituraForm
-from main.models import Autor, Livro, Categoria, Editora, Idioma, Estante, Colecao, Leitura
+from main.models import Autor, Livro, Categoria, Editora, Idioma, Estante, Colecao, Leitura, Usuario
 from main.utils import gerar_menu
 
 
@@ -52,6 +52,13 @@ def show_idioma(request, idioma_id):
     idioma = get_object_or_404(Idioma, id=idioma_id)
     side_menu_list = gerar_menu(request.user, 'idioma')
     return render(request, 'idioma.html', locals())
+
+
+@login_required
+def show_usuario(request, usuario_id=None):
+    usuario = get_object_or_404(Usuario, id=usuario_id) if usuario_id else request.user
+    side_menu_list = gerar_menu(request.user, 'usuario' if usuario_id else 'meus_livros')
+    return render(request, 'usuario.html', locals())
 
 
 @login_required

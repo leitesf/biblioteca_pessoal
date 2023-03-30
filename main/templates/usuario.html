@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load bootstrap_icons %}
+{% load bootstrap5 %}
+{% load static %}
+{% block content_title %}Usuario: {{ usuario.get_full_name }}{% endblock %}
+{#{% block page_actions %}#}
+{#    {% if pode_gerar_orcamento %}#}
+{#        <a href="/imovel/{{ imovel.id }}/gerar_orcamento/" class="btn btn-success float-right">#}
+{#            <i class="fa fa-plus-circle"></i> &nbsp; Gerar Orçamento#}
+{#        </a>#}
+{#    {% endif %}#}
+{#{% endblock %}#}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p><strong>Autor Principal:</strong>
+                    {{ livro.autor_principal }} <a class='text-reset text-decoration-none'
+                                                   href='{{ livro.autor_principal.get_absolute_url }}'
+                                                   title='Visualizar'>{% bs_icon 'info-square' %}</a>
+                </p>
+            </div>
+        </div>
+        <br>
+        <h5>Livros lidos</h5>
+        {% if usuario.leitura_set.exists %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Título</th>
+                    <th scope="col">Autores</th>
+                    <th scope="col">Coleção</th>
+                    <th scope="col">Editora</th>
+                    <th scope="col">Idioma</th>
+                    <th scope="col">Estante</th>
+                    <th scope="col">Data de Leitura</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for leitura in usuario.leitura_set.all %}
+                    <tr>
+                        <td>
+                            <a class='text-reset text-decoration-none' href="{{ leitura.livro.get_absolute_url }}"><img src="{% static 'svg/info-square.svg' %}" /></a>
+                            <a class='text-reset text-decoration-none' href="{{ leitura.livro.get_edit_url }}"><img src="{% static 'svg/pencil-square.svg' %}" /></a>
+                        </td>
+                        <td>{{ leitura.livro.titulo }}</td>
+                        <td>{{ leitura.livro.lista_todos_autores }}</td>
+                        <td>{{ leitura.livro.colecao|default:'-' }}</td>
+                        <td>{{ leitura.livro.editora }}</td>
+                        <td>{{ leitura.livro.idioma }}</td>
+                        <td>{{ leitura.livro.estante }}</td>
+                        <td>{{ leitura.data }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                Este usuário ainda não leu nenhum livro
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

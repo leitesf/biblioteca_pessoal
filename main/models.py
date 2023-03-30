@@ -24,6 +24,9 @@ class Usuario(AbstractUser):
     def get_edit_url(self):
         return '/admin/main/usuario/{}/change/'.format(self.id)
 
+    def get_absolute_url(self):
+        return '/usuario/{}/'.format(self.id)
+
 
 class Estante(models.Model):
     descricao = models.CharField("Descrição", max_length=50)
@@ -202,6 +205,12 @@ class Livro(models.Model):
     def lista_autores_secundarios(self):
         return " / ".join([item.nome for item in self.autores_secundarios.all().order_by('id')])
 
+    def lista_todos_autores(self):
+        autores = [self.autor_principal.nome]
+        for autor in self.autores_secundarios.all():
+            autores.append(autor.nome)
+        return " / ".join(autores)
+
     def get_absolute_url(self):
         return '/livro/{}/'.format(self.id)
 
@@ -210,6 +219,11 @@ class Leitura(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, verbose_name="Usuário")
     livro = models.ForeignKey(Livro, on_delete=models.CASCADE)
     data = models.DateField(verbose_name="Data de Leitura")
+
+    class Meta:
+        verbose_name = 'Leitura'
+        verbose_name_plural = 'Leituras'
+        ordering = ['livro__autor_principal__nome_ordenado', 'livro__titulo', 'data']
 
 
 class ConfiguracaoSistema(SingletonModel):

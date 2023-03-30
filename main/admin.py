@@ -47,7 +47,9 @@ class UsuarioAdmin(admin.ModelAdmin):
     def get_links(self, obj):
         key = static('svg/key.svg')
         pencil = static('svg/pencil-square.svg')
+        info = static('svg/info-square.svg')
         links = ""
+        links += "<a class='text-reset text-decoration-none' href='{}' title='Visualizar'><img src='{}'></a>".format(obj.get_absolute_url(), info)
         links += "<a class='text-reset text-decoration-none' href='{}' title='Editar'><img src='{}'></a>".format(obj.get_edit_url(), pencil)
         links += "<a class='text-reset text-decoration-none' href='{}' title='Alterar Senha'><img src='{}'></a>".format('/usuario/{}/alterar_senha/'.format(obj.id), key)
         return mark_safe(links)
