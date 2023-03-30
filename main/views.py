@@ -11,14 +11,14 @@ def index(request):
 @login_required
 def show_autor(request, autor_id):
     autor = get_object_or_404(Autor, id=autor_id)
-    side_menu_list = gerar_menu(request.user)
+    side_menu_list = gerar_menu(request.user, 'autor')
     return render(request, 'autor.html', locals())
 
 
 @login_required
 def show_livro(request, livro_id):
     livro = get_object_or_404(Livro, id=livro_id)
-    side_menu_list = gerar_menu(request.user)
+    side_menu_list = gerar_menu(request.user, 'livro')
     ja_li = livro.leitura_set.filter(usuario=request.user).exists()
     return render(request, 'livro.html', locals())
 
@@ -26,35 +26,35 @@ def show_livro(request, livro_id):
 @login_required
 def show_categoria(request, categoria_id):
     categoria = get_object_or_404(Categoria, id=categoria_id)
-    side_menu_list = gerar_menu(request.user)
+    side_menu_list = gerar_menu(request.user, 'categoria')
     return render(request, 'categoria.html', locals())
 
 
 @login_required
 def show_editora(request, editora_id):
     editora = get_object_or_404(Editora, id=editora_id)
-    side_menu_list = gerar_menu(request.user)
+    side_menu_list = gerar_menu(request.user, 'editora')
     return render(request, 'editora.html', locals())
 
 
 @login_required
 def show_colecao(request, colecao_id):
     colecao = get_object_or_404(Colecao, id=colecao_id)
-    side_menu_list = gerar_menu(request.user)
+    side_menu_list = gerar_menu(request.user, 'colecao')
     return render(request, 'colecao.html', locals())
 
 
 @login_required
 def show_idioma(request, idioma_id):
     idioma = get_object_or_404(Idioma, id=idioma_id)
-    side_menu_list = gerar_menu(request.user)
+    side_menu_list = gerar_menu(request.user, 'idioma')
     return render(request, 'idioma.html', locals())
 
 
 @login_required
 def show_estante(request, estante_id):
     estante = get_object_or_404(Estante, id=estante_id)
-    side_menu_list = gerar_menu(request.user)
+    side_menu_list = gerar_menu(request.user, 'estante')
     return render(request, 'estante.html', locals())
 
 # Create your views here.

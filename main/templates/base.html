@@ -50,7 +50,7 @@
                 {% for model in app.models %}
                 <li class="nav-item">
                     {% if model.url %}
-                    <a href="{{ model.url }}" class="nav-link">
+                    <a href="{{ model.url }}" class="nav-link {% if model.is_active %} active {% endif %}">
                         <i class="nav-icon {{ model.icon }}"></i> <p>{{ model.name }}</p>
                     </a>
                     {% else %}
