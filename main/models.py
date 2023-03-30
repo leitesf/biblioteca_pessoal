@@ -33,6 +33,7 @@ class Estante(models.Model):
         verbose_name = 'Estante'
         verbose_name_plural = 'Estantes'
         ordering = ['descricao']
+        unique_together = ['descricao', 'comodo']
 
     def __str__(self):
         return self.descricao
@@ -45,7 +46,7 @@ class Estante(models.Model):
 
 
 class Categoria(models.Model):
-    descricao = models.CharField("Descrição", max_length=50)
+    descricao = models.CharField("Descrição", max_length=50, unique=True)
 
     class Meta:
         verbose_name = 'Categoria'
@@ -63,7 +64,7 @@ class Categoria(models.Model):
 
 
 class Editora(models.Model):
-    nome = models.CharField("Nome", max_length=50)
+    nome = models.CharField("Nome", max_length=50, unique=True)
 
     class Meta:
         verbose_name = 'Editora'
@@ -81,7 +82,7 @@ class Editora(models.Model):
 
 
 class Idioma(models.Model):
-    nome = models.CharField("Nome", max_length=100)
+    nome = models.CharField("Nome", max_length=100, unique=True)
 
     class Meta:
         verbose_name = 'Idioma'
@@ -99,7 +100,7 @@ class Idioma(models.Model):
 
 
 class Colecao(models.Model):
-    descricao = models.CharField("Coleção", max_length=50)
+    descricao = models.CharField("Coleção", max_length=50, unique=True)
     nome_para_ordenacao = models.CharField("Nome para Ordenação", max_length=30)
     prioridade_na_ordenacao = models.BooleanField(
         "Prioritário na ordenação",
@@ -123,7 +124,7 @@ class Colecao(models.Model):
 
 
 class Autor(models.Model):
-    nome = models.CharField("Nome", max_length=100)
+    nome = models.CharField("Nome", max_length=100, unique=True)
     nome_ordenado = models.CharField("Nome Ordenado", max_length=100)
     nacionalidade = CountryField(verbose_name="Nacionalidade", null=True)
     pseudonimo_de = models.ForeignKey(
@@ -184,7 +185,7 @@ class Livro(models.Model):
     paginas = models.IntegerField(verbose_name="Páginas", blank=True, null=True)
     subtitulo = models.CharField("Subtítulo", max_length=100, blank=True, null=True)
     ano = models.IntegerField(verbose_name="Ano de Publicação", blank=True, null=True)
-    skoob_id = models.IntegerField('ID no Skoob', blank=True, null=True)
+    skoob_id = models.IntegerField('ID no Skoob', blank=True, null=True, unique=True)
     capa = models.ImageField("Capa do Livro", upload_to="capas_livro", null=True, blank=True)
 
     class Meta:

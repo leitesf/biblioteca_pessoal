@@ -15,4 +15,7 @@ urlpatterns = [
     path('editora/<int:editora_id>/', views.show_editora),
     path('idioma/<int:idioma_id>/', views.show_idioma),
     path('estante/<int:estante_id>/', views.show_estante),
+    path('leitura/<int:livro_id>/registrar/', views.form_leitura),
+    path('leitura/<int:leitura_id>/editar/', views.form_leitura),
+    path('leitura/<int:leitura_id>/excluir/', views.excluir_leitura),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

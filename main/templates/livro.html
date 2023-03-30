@@ -7,13 +7,13 @@
         <span class="badge bg-success">Lido</span>
     {% endif %}
 {% endblock %}
-{#{% block page_actions %}#}
-{#    {% if pode_gerar_orcamento %}#}
-{#        <a href="/imovel/{{ imovel.id }}/gerar_orcamento/" class="btn btn-success float-right">#}
-{#            <i class="fa fa-plus-circle"></i> &nbsp; Gerar Orçamento#}
-{#        </a>#}
-{#    {% endif %}#}
-{#{% endblock %}#}
+{% block page_actions %}
+    {% if pode_registrar_leitura %}
+        <a href="/leitura/{{ livro.id }}/registrar/" class="btn btn-success float-right">
+            <i class="fa fa-plus-circle"></i> &nbsp; Registrar Leitura
+        </a>
+    {% endif %}
+{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
@@ -121,7 +121,14 @@
                                 <ul class="list-group">
                                     {% for leitor in livro.leitura_set.all %}
                                         <li class="list-group-item">{{ leitor.usuario.get_full_name }} em
-                                            {{ leitor.data|date:"SHORT_DATE_FORMAT" }}</li>
+                                            {{ leitor.data|date:"SHORT_DATE_FORMAT" }}
+                                            <a class='text-reset text-decoration-none'
+                                               href='/leitura/{{ leitor.id }}/editar/'
+                                               title='Editar'>{% bs_icon 'pencil-square' %}</a>
+                                            <a class='text-reset text-decoration-none'
+                                               href='/leitura/{{ leitor.id }}/excluir/'
+                                               title='Excluir' onclick="return confirm('Você tem certeza?')">{% bs_icon 'x-square' %}</a>
+                                        </li>
                                     {% endfor %}
                                 </ul>
                             {% else %}

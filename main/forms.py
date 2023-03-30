@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from main.models import Usuario
+from main.models import Usuario, Leitura, Livro
 from biblioteca_pessoal import settings
 
 
@@ -19,3 +19,16 @@ class UsuarioForm(ModelForm):
         if commit:
             user.save()
         return user
+
+
+class LeituraForm(ModelForm):
+    class Meta:
+        model = Leitura
+        fields = ['livro', 'usuario', 'data']
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super(LeituraForm, self).__init__(*args, **kwargs)
+        if user and not user.is_superuser:
+            self.fields['usuario'].queryset = Usuario.objects.filter(id=user.id)
+        self.fields['livro'].queryset = Livro.objects.filter(id=self.instance.livro.id)
