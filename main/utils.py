@@ -5,7 +5,7 @@ from django_bootstrap_icons.templatetags.bootstrap_icons import bs_icon
 def gerar_menu(usuario):
     side_menu_list = [
         {
-            'name': 'Biblioteca Pessoal',
+            'name': 'Biblioteca',
             'app_label': 'main',
             'app_url': '/admin/main/',
             'has_module_perms': True,
@@ -19,6 +19,10 @@ def gerar_menu(usuario):
     if usuario.has_perm('main.change_categoria'):
         side_menu_list[0]['models'].append(
             {'name': 'Categorias', 'object_name': 'Categorias', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/categoria/', 'add_url': '/admin/main/categoria/add/', 'view_only': False, 'url': '/admin/main/categoria/', 'model_str': 'main.categoria', 'icon': 'fas fa-tag'}
+        )
+    if usuario.has_perm('main.change_colecao'):
+        side_menu_list[0]['models'].append(
+            {'name': 'Coleções', 'object_name': 'Coleções', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/colecao/', 'add_url': '/admin/main/colecao/add/', 'view_only': False, 'url': '/admin/main/colecao/', 'model_str': 'main.colecao', 'icon': 'fas fa-tasks'}
         )
     if usuario.has_perm('main.change_editora'):
         side_menu_list[0]['models'].append(
@@ -64,6 +68,13 @@ def gerar_menu(usuario):
                         'children': None,
                         'new_window': False,
                         'icon': 'fas fa-user'
+                    },
+                    {
+                        'name': 'Configuração do Sistema',
+                        'url': '/admin/main/configuracaosistema/',
+                        'children': None,
+                        'new_window': False,
+                        'icon': 'fas fa-wrench'
                     },
                 ], 'icon': 'fas fa-users-cog'
         }
