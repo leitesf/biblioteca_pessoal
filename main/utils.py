@@ -50,7 +50,17 @@ def gerar_menu(usuario, ativo=None):
     if usuario.has_perm('main.add_leitura'):
         is_active = True if ativo == 'meus_livros' else False
         side_menu_list[0]['models'].append(
-            {'name': 'Meus Livros Lidos', 'object_name': 'Meus Livros Lido', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'view_only': False, 'url': '/meus_livros_lidos/', 'model_str': 'main.livro', 'icon': 'fas fa-book-reader', 'is_active': is_active}
+            {'name': 'Meus Livros Lidos', 'object_name': 'Meus Livros Lidos', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'view_only': False, 'url': '/meus_livros_lidos/', 'model_str': 'main.livro', 'icon': 'fas fa-book-reader', 'is_active': is_active}
+        )
+    if usuario.has_perm('main.mesclar_autores'):
+        is_active = True if ativo == 'mesclar_autores' else False
+        side_menu_list[0]['models'].append(
+            {'name': 'Mesclar Autores', 'object_name': 'Mesclar Autores', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'view_only': False, 'url': '/mesclar_autores/', 'model_str': 'main.autor', 'icon': 'fas fa-object-group', 'is_active': is_active}
+        )
+    if usuario.has_perm('main.mesclar_editoras'):
+        is_active = True if ativo == 'mesclar_editoras' else False
+        side_menu_list[0]['models'].append(
+            {'name': 'Mesclar Editoras', 'object_name': 'Mesclar Editoras', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'view_only': False, 'url': '/mesclar_editoras/', 'model_str': 'main.editora', 'icon': 'fas fa-object-group', 'is_active': is_active}
         )
     if usuario.is_superuser:
         is_active = True if ativo == 'usuario' else False

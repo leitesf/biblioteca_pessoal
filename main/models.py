@@ -73,6 +73,12 @@ class Editora(models.Model):
         verbose_name = 'Editora'
         verbose_name_plural = 'Editoras'
         ordering = ['nome']
+        permissions = [
+            (
+                "mesclar_editoras",
+                "Pode mesclar editoras"
+            )
+        ]
 
     def __str__(self):
         return self.nome
@@ -142,6 +148,12 @@ class Autor(models.Model):
         verbose_name = 'Autor'
         verbose_name_plural = 'Autores'
         ordering = ['nome']
+        permissions = [
+            (
+                "mesclar_autores",
+                "Pode mesclar autores"
+            )
+        ]
 
     def __str__(self):
         if self.pseudonimo_de:

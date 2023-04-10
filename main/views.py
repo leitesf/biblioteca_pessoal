@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, get_object_or_404, redirect
 
-from main.forms import LeituraForm, MesclarAutoresForm
+from main.forms import LeituraForm, MesclarAutoresForm, MesclarEditorasForm
 from main.models import Autor, Livro, Categoria, Editora, Idioma, Estante, Colecao, Leitura, Usuario
 from main.utils import gerar_menu
 
@@ -90,9 +90,9 @@ def form_leitura(request, leitura_id=None, livro_id=None):
     return render(request, 'form.html', locals())
 
 
-@permission_required('main.add_autor')
+@permission_required('main.mesclar_autores')
 def mesclar_autores(request):
-    side_menu_list = gerar_menu(request.user, ativo='autor')
+    side_menu_list = gerar_menu(request.user, ativo='mesclar_autores')
     titulo = "Mesclar Autores"
 
     if request.method == "POST":
@@ -112,6 +112,27 @@ def mesclar_autores(request):
             return redirect('/admin/main/autor/')
     else:
         form = MesclarAutoresForm()
+    return render(request, 'form.html', locals())
+
+
+@permission_required('main.mesclar_editoras')
+def mesclar_editoras(request):
+    side_menu_list = gerar_menu(request.user, ativo='mesclar_editoras')
+    titulo = "Mesclar Editoras"
+
+    if request.method == "POST":
+        form = MesclarEditorasForm(request.POST)
+        if form.is_valid():
+            editora_primaria = form.cleaned_data['editora_primaria']
+            editora_secundaria = form.cleaned_data['editora_secundaria']
+            for livro in editora_secundaria.livro_set.all():
+                livro.editora = editora_primaria
+                livro.save()
+            editora_secundaria.delete()
+            messages.success(request, 'Editoras mescladas com sucesso.')
+            return redirect('/admin/main/editora/')
+    else:
+        form = MesclarEditorasForm()
     return render(request, 'form.html', locals())
 
 

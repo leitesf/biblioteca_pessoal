@@ -10,6 +10,7 @@ urlpatterns = [
     path('', views.index),
     path('autor/<int:autor_id>/', views.show_autor),
     path('mesclar_autores/', views.mesclar_autores),
+    path('mesclar_editoras/', views.mesclar_editoras),
     path('livro/<int:livro_id>/', views.show_livro),
     path('categoria/<int:categoria_id>/', views.show_categoria),
     path('colecao/<int:colecao_id>/', views.show_colecao),

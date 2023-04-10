@@ -39,3 +39,8 @@ class LeituraForm(ModelForm):
 class MesclarAutoresForm(Form):
     autor_primario = AutoCompleteSelectField('autores', help_text="Selecione o autor que continuará existindo", show_help_text=False)
     autor_secundario = AutoCompleteSelectField('autores', help_text="Selecione o autor que deixará de existir", show_help_text=False)
+
+
+class MesclarEditorasForm(Form):
+    editora_primaria = AutoCompleteSelectField('editoras', help_text="Selecione a editora que continuará existindo", show_help_text=False)
+    editora_secundaria = AutoCompleteSelectField('editoras', help_text="Selecione a editora que deixará de existir", show_help_text=False)

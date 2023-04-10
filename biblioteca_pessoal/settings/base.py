@@ -220,7 +220,19 @@ JAZZMIN_SETTINGS = {
                 "url": "/meus_livros_lidos/",
                 "icon": "fas fa-book-reader",
                 "permissions": ["main.add_leitura"]
-            }
+            },
+            {
+                "name": "Mesclar Autores",
+                "url": "/mesclar_autores/",
+                "icon": "fas fa-object-group",
+                "permissions": ["main.mesclar_autores"]
+            },
+            {
+                "name": "Mesclar Editoras",
+                "url": "/mesclar_editoras/",
+                "icon": "fas fa-object-group",
+                "permissions": ["main.mesclar_editoras"]
+            },
         ]
     },
 
