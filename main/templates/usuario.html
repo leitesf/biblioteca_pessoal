@@ -12,16 +12,6 @@
 {#{% endblock %}#}
 {% block content %}
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <p><strong>Autor Principal:</strong>
-                    {{ livro.autor_principal }} <a class='text-reset text-decoration-none'
-                                                   href='{{ livro.autor_principal.get_absolute_url }}'
-                                                   title='Visualizar'>{% bs_icon 'info-square' %}</a>
-                </p>
-            </div>
-        </div>
-        <br>
         <h5>Livros lidos</h5>
         {% if usuario.leitura_set.exists %}
             <table class="table">
