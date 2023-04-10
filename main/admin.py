@@ -106,6 +106,18 @@ class AutorAdmin(AdminBasico):
     list_display_links = None
 
 
+def create_action_de_categoria(categoria):
+    def action(modeladmin, request, queryset): queryset.update(categoria=categoria)
+    name = "mark_%s" % (categoria,)
+    return name, (action, name, "Definir a categoria como %s" % (categoria,))
+
+
+def create_action_de_estante(estante):
+    def action(modeladmin, request, queryset): queryset.update(estante=estante)
+    name = "mark_%s" % (estante,)
+    return name, (action, name, "Definir a estante como %s" % (estante,))
+
+
 class LivroAdmin(AdminBasico):
     list_display = ('get_links', 'titulo', 'autor_principal', 'lista_autores', 'editora', 'categoria',  'estante')
     search_fields = ('titulo', 'isbn', )
@@ -121,6 +133,16 @@ class LivroAdmin(AdminBasico):
     def lista_autores(self, obj):
         return obj.lista_autores_secundarios()
     lista_autores.short_description = 'Autores Secundários'
+
+    def get_actions(self, request):
+        categorias = dict(
+            create_action_de_categoria(categoria) for categoria in Categoria.objects.exclude(descricao="A definir")
+        )
+        estantes = dict(
+            create_action_de_estante(estante) for estante in Estante.objects.exclude(descricao="A definir")
+        )
+        categorias.update(estantes)
+        return categorias
 
 
 admin.site.register(Usuario, UsuarioAdmin)
