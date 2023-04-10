@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, get_object_or_404, redirect
 
-from main.forms import LeituraForm
+from main.forms import LeituraForm, MesclarAutoresForm
 from main.models import Autor, Livro, Categoria, Editora, Idioma, Estante, Colecao, Leitura, Usuario
 from main.utils import gerar_menu
 
@@ -87,6 +87,31 @@ def form_leitura(request, leitura_id=None, livro_id=None):
             return redirect(leitura.livro.get_absolute_url(), )
     else:
         form = LeituraForm(instance=leitura, user=request.user)
+    return render(request, 'form.html', locals())
+
+
+@permission_required('main.add_autor')
+def mesclar_autores(request):
+    side_menu_list = gerar_menu(request.user, ativo='autor')
+    titulo = "Mesclar Autores"
+
+    if request.method == "POST":
+        form = MesclarAutoresForm(request.POST)
+        if form.is_valid():
+            autor_primario = form.cleaned_data['autor_primario']
+            autor_secundario = form.cleaned_data['autor_secundario']
+            for livro in autor_secundario.livros_como_principal.all():
+                livro.autor_principal = autor_primario
+                livro.save()
+            for livro in autor_secundario.livros_como_secundario.all():
+                livro.autores_secundarios.remove(autor_secundario)
+                livro.autores_secundarios.add(autor_primario)
+                livro.save()
+            autor_secundario.delete()
+            messages.success(request, 'Autores mesclados com sucesso.')
+            return redirect('/admin/main/autor/')
+    else:
+        form = MesclarAutoresForm()
     return render(request, 'form.html', locals())
 
 

@@ -15,6 +15,7 @@
         {% endfor %}
         <form method="post" class="form" enctype="multipart/form-data">
             {% csrf_token %}
+            {{ form.media }}
             {% bootstrap_form form layout='floating'%}
             {% buttons %}
                 <button type="submit" class="btn btn-primary">Enviar</button>

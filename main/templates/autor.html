@@ -49,13 +49,13 @@
             {% for pseudonimo in autor.pseudonimos.all %}
                 <br>
                 <h6>{{ pseudonimo.nome }}</h6>
-                {% if pseudonimo.livro_como_principal_set.exists %}
-                    {% include "includes/lista_de_livros.html" with livros=pseudonimo.livro_como_principal_set.all %}
+                {% if pseudonimo.livros_como_principal.exists %}
+                    {% include "includes/lista_de_livros.html" with livros=pseudonimo.livro_como_principal.all %}
                 {% endif %}
-                {% if pseudonimo.livro_como_secundario_set.exists %}
-                    {% include "includes/lista_de_livros.html" with livros=pseudonimo.livro_como_secundario_set.all %}
+                {% if pseudonimo.livros_como_secundario.exists %}
+                    {% include "includes/lista_de_livros.html" with livros=pseudonimo.livro_como_secundario.all %}
                 {% endif %}
-                {% if not pseudonimo.livro_como_principal_set.exists and not pseudonimo.livro_como_secundario_set.exists %}
+                {% if not pseudonimo.livros_como_principal.exists and not pseudonimo.livros_como_secundario.exists %}
                     <div class="alert alert-warning" role="alert">
                         Não existem livros cadastrados para esse pseudônimo.
                     </div>
