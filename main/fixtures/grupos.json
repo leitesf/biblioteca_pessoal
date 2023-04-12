@@ -1,0 +1,729 @@
+[
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "main",
+        "model": "livro"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "main",
+        "model": "leitura"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "main",
+        "model": "idioma"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "main",
+        "model": "estante"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "main",
+        "model": "emprestimo"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "main",
+        "model": "editora"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "main",
+        "model": "colecao"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "main",
+        "model": "categoria"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "main",
+        "model": "autor"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Livro",
+        "content_type": [
+            "main",
+            "livro"
+        ],
+        "codename": "view_livro"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Livro",
+        "content_type": [
+            "main",
+            "livro"
+        ],
+        "codename": "delete_livro"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Livro",
+        "content_type": [
+            "main",
+            "livro"
+        ],
+        "codename": "change_livro"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Livro",
+        "content_type": [
+            "main",
+            "livro"
+        ],
+        "codename": "add_livro"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view leitura",
+        "content_type": [
+            "main",
+            "leitura"
+        ],
+        "codename": "view_leitura"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete leitura",
+        "content_type": [
+            "main",
+            "leitura"
+        ],
+        "codename": "delete_leitura"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change leitura",
+        "content_type": [
+            "main",
+            "leitura"
+        ],
+        "codename": "change_leitura"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add leitura",
+        "content_type": [
+            "main",
+            "leitura"
+        ],
+        "codename": "add_leitura"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Idioma",
+        "content_type": [
+            "main",
+            "idioma"
+        ],
+        "codename": "view_idioma"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Idioma",
+        "content_type": [
+            "main",
+            "idioma"
+        ],
+        "codename": "delete_idioma"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Idioma",
+        "content_type": [
+            "main",
+            "idioma"
+        ],
+        "codename": "change_idioma"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Idioma",
+        "content_type": [
+            "main",
+            "idioma"
+        ],
+        "codename": "add_idioma"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Estante",
+        "content_type": [
+            "main",
+            "estante"
+        ],
+        "codename": "view_estante"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Estante",
+        "content_type": [
+            "main",
+            "estante"
+        ],
+        "codename": "delete_estante"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Estante",
+        "content_type": [
+            "main",
+            "estante"
+        ],
+        "codename": "change_estante"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Estante",
+        "content_type": [
+            "main",
+            "estante"
+        ],
+        "codename": "add_estante"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Empréstimo",
+        "content_type": [
+            "main",
+            "emprestimo"
+        ],
+        "codename": "view_emprestimo"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Empréstimo",
+        "content_type": [
+            "main",
+            "emprestimo"
+        ],
+        "codename": "delete_emprestimo"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Empréstimo",
+        "content_type": [
+            "main",
+            "emprestimo"
+        ],
+        "codename": "change_emprestimo"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Empréstimo",
+        "content_type": [
+            "main",
+            "emprestimo"
+        ],
+        "codename": "add_emprestimo"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Editora",
+        "content_type": [
+            "main",
+            "editora"
+        ],
+        "codename": "view_editora"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Pode mesclar editoras",
+        "content_type": [
+            "main",
+            "editora"
+        ],
+        "codename": "mesclar_editoras"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Editora",
+        "content_type": [
+            "main",
+            "editora"
+        ],
+        "codename": "delete_editora"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Editora",
+        "content_type": [
+            "main",
+            "editora"
+        ],
+        "codename": "change_editora"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Editora",
+        "content_type": [
+            "main",
+            "editora"
+        ],
+        "codename": "add_editora"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Coleção",
+        "content_type": [
+            "main",
+            "colecao"
+        ],
+        "codename": "view_colecao"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Coleção",
+        "content_type": [
+            "main",
+            "colecao"
+        ],
+        "codename": "delete_colecao"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Coleção",
+        "content_type": [
+            "main",
+            "colecao"
+        ],
+        "codename": "change_colecao"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Coleção",
+        "content_type": [
+            "main",
+            "colecao"
+        ],
+        "codename": "add_colecao"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Categoria",
+        "content_type": [
+            "main",
+            "categoria"
+        ],
+        "codename": "view_categoria"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Categoria",
+        "content_type": [
+            "main",
+            "categoria"
+        ],
+        "codename": "delete_categoria"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Categoria",
+        "content_type": [
+            "main",
+            "categoria"
+        ],
+        "codename": "change_categoria"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Categoria",
+        "content_type": [
+            "main",
+            "categoria"
+        ],
+        "codename": "add_categoria"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Autor",
+        "content_type": [
+            "main",
+            "autor"
+        ],
+        "codename": "view_autor"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Pode mesclar autores",
+        "content_type": [
+            "main",
+            "autor"
+        ],
+        "codename": "mesclar_autores"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Autor",
+        "content_type": [
+            "main",
+            "autor"
+        ],
+        "codename": "delete_autor"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Autor",
+        "content_type": [
+            "main",
+            "autor"
+        ],
+        "codename": "change_autor"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Autor",
+        "content_type": [
+            "main",
+            "autor"
+        ],
+        "codename": "add_autor"
+    }
+},
+{
+    "model": "auth.group",
+    "fields": {
+        "name": "Consultador",
+        "permissions": [
+            [
+                "view_autor",
+                "main",
+                "autor"
+            ],
+            [
+                "view_categoria",
+                "main",
+                "categoria"
+            ],
+            [
+                "view_colecao",
+                "main",
+                "colecao"
+            ],
+            [
+                "view_editora",
+                "main",
+                "editora"
+            ],
+            [
+                "view_estante",
+                "main",
+                "estante"
+            ],
+            [
+                "view_idioma",
+                "main",
+                "idioma"
+            ],
+            [
+                "view_leitura",
+                "main",
+                "leitura"
+            ],
+            [
+                "view_livro",
+                "main",
+                "livro"
+            ]
+        ]
+    }
+},
+{
+    "model": "auth.group",
+    "fields": {
+        "name": "Cadastrador",
+        "permissions": [
+            [
+                "add_autor",
+                "main",
+                "autor"
+            ],
+            [
+                "change_autor",
+                "main",
+                "autor"
+            ],
+            [
+                "delete_autor",
+                "main",
+                "autor"
+            ],
+            [
+                "mesclar_autores",
+                "main",
+                "autor"
+            ],
+            [
+                "view_autor",
+                "main",
+                "autor"
+            ],
+            [
+                "add_categoria",
+                "main",
+                "categoria"
+            ],
+            [
+                "change_categoria",
+                "main",
+                "categoria"
+            ],
+            [
+                "delete_categoria",
+                "main",
+                "categoria"
+            ],
+            [
+                "view_categoria",
+                "main",
+                "categoria"
+            ],
+            [
+                "add_colecao",
+                "main",
+                "colecao"
+            ],
+            [
+                "change_colecao",
+                "main",
+                "colecao"
+            ],
+            [
+                "delete_colecao",
+                "main",
+                "colecao"
+            ],
+            [
+                "view_colecao",
+                "main",
+                "colecao"
+            ],
+            [
+                "add_editora",
+                "main",
+                "editora"
+            ],
+            [
+                "change_editora",
+                "main",
+                "editora"
+            ],
+            [
+                "delete_editora",
+                "main",
+                "editora"
+            ],
+            [
+                "mesclar_editoras",
+                "main",
+                "editora"
+            ],
+            [
+                "view_editora",
+                "main",
+                "editora"
+            ],
+            [
+                "add_emprestimo",
+                "main",
+                "emprestimo"
+            ],
+            [
+                "change_emprestimo",
+                "main",
+                "emprestimo"
+            ],
+            [
+                "delete_emprestimo",
+                "main",
+                "emprestimo"
+            ],
+            [
+                "view_emprestimo",
+                "main",
+                "emprestimo"
+            ],
+            [
+                "add_estante",
+                "main",
+                "estante"
+            ],
+            [
+                "change_estante",
+                "main",
+                "estante"
+            ],
+            [
+                "delete_estante",
+                "main",
+                "estante"
+            ],
+            [
+                "view_estante",
+                "main",
+                "estante"
+            ],
+            [
+                "add_idioma",
+                "main",
+                "idioma"
+            ],
+            [
+                "change_idioma",
+                "main",
+                "idioma"
+            ],
+            [
+                "delete_idioma",
+                "main",
+                "idioma"
+            ],
+            [
+                "view_idioma",
+                "main",
+                "idioma"
+            ],
+            [
+                "add_leitura",
+                "main",
+                "leitura"
+            ],
+            [
+                "change_leitura",
+                "main",
+                "leitura"
+            ],
+            [
+                "delete_leitura",
+                "main",
+                "leitura"
+            ],
+            [
+                "view_leitura",
+                "main",
+                "leitura"
+            ],
+            [
+                "add_livro",
+                "main",
+                "livro"
+            ],
+            [
+                "change_livro",
+                "main",
+                "livro"
+            ],
+            [
+                "delete_livro",
+                "main",
+                "livro"
+            ],
+            [
+                "view_livro",
+                "main",
+                "livro"
+            ]
+        ]
+    }
+}
+]
