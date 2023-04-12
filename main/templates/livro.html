@@ -6,6 +6,9 @@
     {% if ja_li %}
         <span class="badge bg-success">Lido</span>
     {% endif %}
+    {% if livro.esta_emprestado %}
+        <span class="badge bg-info">Emprestado para {{ livro.get_emprestimo_atual }}</span>
+    {% endif %}
 {% endblock %}
 {% block page_actions %}
     {% if pode_registrar_leitura %}
@@ -19,11 +22,11 @@
         <div class="row">
             <div class="col">
                 {% if livro.subtitulo %}
-                <div class="row">
-                    <div class="col">
-                        <p><strong>Subtítulo:</strong> {{ livro.subtitulo }}</p>
+                    <div class="row">
+                        <div class="col">
+                            <p><strong>Subtítulo:</strong> {{ livro.subtitulo }}</p>
+                        </div>
                     </div>
-                </div>
                 {% endif %}
                 <div class="row">
                     <div class="col">
@@ -107,9 +110,9 @@
                     <div class="col">
                         <p>
                             <strong>Sinopse:</strong>
-                            <ul class="list-group">
-                                    <li class="list-group-item">{{ livro.sinopse }}</li>
-                            </ul>
+                        <ul class="list-group">
+                            <li class="list-group-item">{{ livro.sinopse }}</li>
+                        </ul>
                         </p>
                     </div>
                 </div>
@@ -127,7 +130,8 @@
                                                title='Editar'>{% bs_icon 'pencil-square' %}</a>
                                             <a class='text-reset text-decoration-none'
                                                href='/leitura/{{ leitor.id }}/excluir/'
-                                               title='Excluir' onclick="return confirm('Você tem certeza?')">{% bs_icon 'x-square' %}</a>
+                                               title='Excluir'
+                                               onclick="return confirm('Você tem certeza?')">{% bs_icon 'x-square' %}</a>
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -139,10 +143,32 @@
                         </p>
                     </div>
                 </div>
-                </div>
-                <div class="col">
-                    <img src="/uploaded_files/{{ livro.capa }}">
-                </div>
+                {% if livro.leitura_set.all.exists %}
+                    <div class="row">
+                        <div class="col">
+                            <p>
+                                <strong>Empréstimos:</strong>
+                                <ul class="list-group">
+                                    {% for emprestimo in livro.emprestimo_set.all %}
+                                        <li class="list-group-item">{{ emprestimo.pessoa }} em
+                                            {{ emprestimo.data_inicio|date:"SHORT_DATE_FORMAT" }}
+                                            {% if emprestimo.data_fim %}
+                                                &nbsp;a {{ emprestimo.data_inicio|date:"SHORT_DATE_FORMAT" }}
+                                            {% endif %}
+                                            <a class='text-reset text-decoration-none'
+                                               href="{{ emprestimo.get_edit_url }}"
+                                               title='Editar'>{% bs_icon 'pencil-square' %}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col">
+                <img src="/uploaded_files/{{ livro.capa }}">
+            </div>
         </div>
     </div>
 {% endblock %}

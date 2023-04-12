@@ -1,6 +1,7 @@
 from datetime import date, timezone
 
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
@@ -226,6 +227,13 @@ class Livro(models.Model):
     def get_absolute_url(self):
         return '/livro/{}/'.format(self.id)
 
+    def get_emprestimo_atual(self):
+        return self.emprestimo_set.filter(data_fim__isnull=True).first().pessoa if self.esta_emprestado else None
+
+    @property
+    def esta_emprestado(self):
+        return self.emprestimo_set.filter(data_fim__isnull=True).exists()
+
 
 class Leitura(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, verbose_name="Usuário")
@@ -244,13 +252,19 @@ class Emprestimo(models.Model):
     data_inicio = models.DateField(verbose_name="Data de Empréstimo")
     data_fim = models.DateField(verbose_name="Data de Devolução", null=True, blank=True)
 
-    def __str__(self):
-        return '{} ({})'.format(self.livro, self.pessoa)
-
     class Meta:
         verbose_name = "Empréstimo"
         verbose_name_plural = "Empréstimos"
         ordering = ['data_inicio', 'data_fim']
+
+    def __str__(self):
+        return '{} ({})'.format(self.livro, self.pessoa)
+
+    def clean(self, *args, **kwargs):
+        emprestimos_anteriores = Emprestimo.objects.filter(livro=self.livro, data_fim__isnull=True).exists()
+        if self.data_fim is None and emprestimos_anteriores:
+            raise ValidationError("Não podem existir empréstimos simultâneos para o mesmo livro.")
+        return super().clean(*args, **kwargs)
 
     def get_edit_url(self):
         return '/admin/main/emprestimo/{}/change/'.format(self.id)
