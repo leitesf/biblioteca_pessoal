@@ -1,5 +1,5 @@
 from ajax_select.fields import AutoCompleteSelectField
-from django.forms import ModelForm, Form
+from django.forms import ModelForm, Form, DateInput
 
 from biblioteca_pessoal import settings
 from main.models import Usuario, Leitura, Livro
@@ -27,6 +27,9 @@ class LeituraForm(ModelForm):
     class Meta:
         model = Leitura
         fields = ['livro', 'usuario', 'data']
+        widgets = {
+            'data': DateInput(attrs={'type': 'date'})
+        }
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
