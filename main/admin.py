@@ -157,6 +157,9 @@ class EmprestimoAdmin(AdminBasico):
             "<a href='{}' title='Editar'><img src='{}'></a>".format(obj.get_edit_url(), pencil)
         )
 
+    get_links.short_description = '#'
+    get_links.allow_tags = True
+
 
 admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(Estante, EstanteAdmin)
