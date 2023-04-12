@@ -249,6 +249,7 @@ JAZZMIN_SETTINGS = {
         "main.estante": "fas fa-bookmark",
         "main.idioma": "fas fa-language",
         "main.livro": "fas fa-book",
+        "main.emprestimo": "fas fa-stamp",
         # "main.configuracaopercentualcorretor": "fas fa-percentage",
         # "main.configuracaoprecoregularizacao": "fas fa-money-bill",
         # "main.configuracaovalortecnico": "fas fa-dollar-sign",

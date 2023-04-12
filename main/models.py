@@ -238,6 +238,24 @@ class Leitura(models.Model):
         ordering = ['livro__autor_principal__nome_ordenado', 'livro__titulo', 'data']
 
 
+class Emprestimo(models.Model):
+    livro = models.ForeignKey(Livro, on_delete=models.CASCADE)
+    pessoa = models.CharField("Pessoa", max_length=100)
+    data_inicio = models.DateField(verbose_name="Data de Empréstimo")
+    data_fim = models.DateField(verbose_name="Data de Devolução", null=True, blank=True)
+
+    def __str__(self):
+        return '{} ({})'.format(self.livro, self.pessoa)
+
+    class Meta:
+        verbose_name = "Empréstimo"
+        verbose_name_plural = "Empréstimos"
+        ordering = ['data_inicio', 'data_fim']
+
+    def get_edit_url(self):
+        return '/admin/main/emprestimo/{}/change/'.format(self.id)
+
+
 class ConfiguracaoSistema(SingletonModel):
     usuario_principal = models.ForeignKey(Usuario, on_delete=models.SET_NULL, verbose_name="Usuário Principal", null=True)
 

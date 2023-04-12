@@ -4,7 +4,8 @@ from django_bootstrap_icons.templatetags.bootstrap_icons import bs_icon
 from solo.admin import SingletonModelAdmin
 
 from main.forms import UsuarioForm
-from main.models import Usuario, Estante, Categoria, Autor, Idioma, Editora, Livro, Colecao, ConfiguracaoSistema
+from main.models import Usuario, Estante, Categoria, Autor, Idioma, Editora, Livro, Colecao, ConfiguracaoSistema, \
+    Emprestimo
 from django.templatetags.static import static
 
 
@@ -145,6 +146,18 @@ class LivroAdmin(AdminBasico):
         return categorias
 
 
+class EmprestimoAdmin(AdminBasico):
+    list_display = ('get_links', 'livro', 'pessoa', 'data_inicio', 'data_fim')
+    search_fields = ('livro', 'pessoa', )
+    list_display_links = None
+
+    def get_links(self, obj):
+        pencil = static('svg/pencil-square.svg')
+        return mark_safe(
+            "<a href='{}' title='Editar'><img src='{}'></a>".format(obj.get_edit_url(), pencil)
+        )
+
+
 admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(Estante, EstanteAdmin)
 admin.site.register(Categoria, CategoriaAdmin)
@@ -153,5 +166,6 @@ admin.site.register(Idioma, IdiomaAdmin)
 admin.site.register(Colecao, ColecaoAdmin)
 admin.site.register(Autor, AutorAdmin)
 admin.site.register(Livro, LivroAdmin)
+admin.site.register(Emprestimo, EmprestimoAdmin)
 admin.site.register(ConfiguracaoSistema, SingletonModelAdmin)
 # admin.site.index_template = "index.html"

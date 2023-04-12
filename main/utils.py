@@ -32,6 +32,11 @@ def gerar_menu(usuario, ativo=None):
         side_menu_list[0]['models'].append(
             {'name': 'Editoras', 'object_name': 'Editoras', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/editora/', 'add_url': '/admin/main/editora/add/', 'view_only': False, 'url': '/admin/main/editora/', 'model_str': 'main.editora', 'icon': 'fas fa-university', 'is_active': is_active}
         )
+    if usuario.has_perm('main.change_emprestimo'):
+        is_active = True if ativo == 'emprestimo' else False
+        side_menu_list[0]['models'].append(
+            {'name': 'Empréstimos', 'object_name': 'Empréstimos', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/emprestimo/', 'add_url': '/admin/main/emprestimo/add/', 'view_only': False, 'url': '/admin/main/emprestimo/', 'model_str': 'main.emprestimo', 'icon': 'fas fa-stamp', 'is_active': is_active}
+        )
     if usuario.has_perm('main.change_estante'):
         is_active = True if ativo == 'estante' else False
         side_menu_list[0]['models'].append(
