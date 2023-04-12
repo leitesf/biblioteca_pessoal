@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'isbn_field',
     'solo',
     'ajax_select',
-    # 'fixture_magic'
+    'fixture_magic'
 ]
 
 MIDDLEWARE = [
