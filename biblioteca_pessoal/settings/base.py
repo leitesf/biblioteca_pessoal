@@ -1,11 +1,17 @@
 import os
 from pathlib import Path
+
+import dj_database_url
+from dotenv import load_dotenv
+
 from os.path import join
 
 from django.contrib import staticfiles
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+load_dotenv(BASE_DIR / '.env')
+
 MEDIA_URL = "/uploaded_files/"
 MEDIA_ROOT = "{}/uploaded_files/".format(BASE_DIR)
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -14,11 +20,14 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'main/static'),]
 STATIC_ROOT = os.path.join(BASE_DIR, 'main/staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-SECRET_KEY = 'django-insecure-!j0m-x)(z6)zu-wns98lhgde-o(_f14*8*xeo)sk%x6f2p+z+x'
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG = True
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(' ')
 
 INSTALLED_APPS = [
     'jazzmin',
@@ -74,10 +83,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'biblioteca_pessoal.wsgi.application'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'), conn_max_age=600),
 }
 
 AUTH_PASSWORD_VALIDATORS = [
