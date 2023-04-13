@@ -82,7 +82,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'biblioteca_pessoal.wsgi.application'
 
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'), conn_max_age=600),
+    'default': dj_database_url.parse(os.environ['DATABASE_URL'], conn_max_age=600)
 }
 
 AUTH_PASSWORD_VALIDATORS = [
