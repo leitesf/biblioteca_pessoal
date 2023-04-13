@@ -113,13 +113,13 @@ AUTH_USER_MODEL = 'main.Usuario'
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
-    "site_title": "Biblioteca Pessoal",
+    "site_title": "Hastings",
 
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "Biblioteca Pessoal",
+    "site_header": "Hastings",
 
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_brand": "Biblioteca Pessoal",
+    "site_brand": "Hastings",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
     "site_logo": "img/logo/logo.png",
