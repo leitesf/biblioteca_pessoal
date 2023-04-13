@@ -45,8 +45,7 @@ INSTALLED_APPS = [
     'django_countries',
     'isbn_field',
     'solo',
-    'ajax_select',
-    'fixture_magic'
+    'ajax_select'
 ]
 
 MIDDLEWARE = [
