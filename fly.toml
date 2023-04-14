@@ -47,4 +47,4 @@ processes = []
 
 [mounts]
   source="hastings_data"
-  destination="/app/data"
+  destination="/code/data"
