@@ -136,7 +136,7 @@ class Colecao(models.Model):
 class Autor(models.Model):
     nome = models.CharField("Nome", max_length=100, unique=True)
     nome_ordenado = models.CharField("Nome Ordenado", max_length=100)
-    nacionalidade = CountryField(verbose_name="Nacionalidade", null=True)
+    nacionalidade = CountryField(verbose_name="Nacionalidade", null=True, blank=True)
     pseudonimo_de = models.ForeignKey(
         'main.Autor',
         related_name="pseudonimos",
