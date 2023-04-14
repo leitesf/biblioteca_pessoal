@@ -189,7 +189,8 @@ class Livro(models.Model):
     autores_secundarios = models.ManyToManyField(
         Autor,
         verbose_name="Autores Secundários",
-        related_name='livros_como_secundario'
+        related_name='livros_como_secundario',
+        blank=True
     )
     isbn = ISBNField(blank=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.RESTRICT, verbose_name="Categoria")
