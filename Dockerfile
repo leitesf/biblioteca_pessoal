@@ -16,8 +16,8 @@ RUN pipenv install --deploy --system
 COPY . /code
 RUN pip install -r requirements.txt
 
-#RUN python manage.py collectstatic --noinput
-
+ENV SECRET_KEY "non-secret-key-for-building-purposes"  # <-- Updated!
+RUN python manage.py collectstatic --noinput
 EXPOSE 8000
 
 # TODO: replace demo.wsgi with <project_name>.wsgi

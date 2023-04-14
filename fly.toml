@@ -42,7 +42,7 @@ processes = []
     timeout = "2s"
 
 [[statics]]
-  guest_path = "/code/static"
+  guest_path = "/code/staticfiles"
   url_prefix = "/static/"
 
 [mounts]
