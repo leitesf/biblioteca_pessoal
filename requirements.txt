@@ -13,7 +13,7 @@ filelock==3.10.0
 idna==3.4
 pipenv==2023.3.20
 platformdirs==3.1.1
-psycopg2==2.9.5
+psycopg2-binary==2.9.5
 python-stdnum==1.18
 pytz==2022.7.1
 requests==2.28.2
