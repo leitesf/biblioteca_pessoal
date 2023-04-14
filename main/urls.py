@@ -22,4 +22,5 @@ urlpatterns = [
     path('leitura/<int:livro_id>/registrar/', views.form_leitura),
     path('leitura/<int:leitura_id>/editar/', views.form_leitura),
     path('leitura/<int:leitura_id>/excluir/', views.excluir_leitura),
+    path('usuario/<int:usuario_id>/alterar_senha/', views.alterar_senha),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

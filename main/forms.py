@@ -1,5 +1,5 @@
 from ajax_select.fields import AutoCompleteSelectField
-from django.forms import ModelForm, Form, DateInput
+from django.forms import ModelForm, Form, DateInput, CharField, PasswordInput
 
 from biblioteca_pessoal import settings
 from main.models import Usuario, Leitura, Livro
@@ -47,3 +47,15 @@ class MesclarAutoresForm(Form):
 class MesclarEditorasForm(Form):
     editora_primaria = AutoCompleteSelectField('editoras', help_text="Selecione a editora que continuará existindo", show_help_text=False)
     editora_secundaria = AutoCompleteSelectField('editoras', help_text="Selecione a editora que deixará de existir", show_help_text=False)
+
+
+class PasswordForm(ModelForm):
+    senha = CharField(widget=PasswordInput)
+
+    class Meta:
+        model = Usuario
+        fields = ['username']
+
+    def __init__(self, *args, **kwargs):
+        super(PasswordForm,self).__init__(*args,**kwargs)
+        self.fields['username'].widget.attrs['readonly'] = True

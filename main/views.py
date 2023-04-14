@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, get_object_or_404, redirect
 
-from main.forms import LeituraForm, MesclarAutoresForm, MesclarEditorasForm
+from main.forms import LeituraForm, MesclarAutoresForm, MesclarEditorasForm, PasswordForm
 from main.models import Autor, Livro, Categoria, Editora, Idioma, Estante, Colecao, Leitura, Usuario
 from main.utils import gerar_menu
 
@@ -148,4 +148,21 @@ def excluir_leitura(request, leitura_id=None):
         messages.success(request, 'Leitura removida com sucesso.')
         return redirect(livro.get_absolute_url(), )
 
-# Create your views here.
+
+@permission_required('main.add_usuario')
+def alterar_senha(request, usuario_id):
+    usuario = get_object_or_404(Usuario, id=usuario_id)
+    side_menu_list = gerar_menu(request.user)
+    titulo = "Alterar senha de Usuário"
+
+    if request.method == "POST":
+        form = PasswordForm(request.POST, instance=usuario)
+        if form.is_valid():
+            usuario.set_password(form.cleaned_data['senha'])
+            usuario.save()
+            messages.success(request, 'Senha alterada com sucesso.')
+            return redirect('/admin/main/usuario/')
+    else:
+        form = PasswordForm(instance=usuario)
+    return render(request, 'form.html', locals())
+
