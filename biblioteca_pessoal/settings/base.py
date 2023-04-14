@@ -12,12 +12,14 @@ from django.contrib import staticfiles
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 load_dotenv(BASE_DIR / '.env')
 
-MEDIA_URL = "/uploaded_files/"
-MEDIA_ROOT = "{}/uploaded_files/".format(BASE_DIR)
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'main/static'),]
-STATIC_ROOT = os.path.join(BASE_DIR, 'main/staticfiles')
+STATIC_ROOT = BASE_DIR / 'data/staticfiles'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'data/mediafiles'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "/static")
+]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -26,8 +28,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
-CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(' ')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ') if os.getenv('ALLOWED_HOSTS') else ['127.0.0.1', 'localhost']
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(' ') if os.getenv('CSRF_TRUSTED_ORIGINS') else []
 
 INSTALLED_APPS = [
     'jazzmin',
@@ -81,9 +83,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'biblioteca_pessoal.wsgi.application'
 
-DATABASES = {
-    'default': dj_database_url.parse(os.getenv('DATABASE_URL'), conn_max_age=600)
-}
+if os.getenv('DATABASE_URL'):
+    DATABASES = {
+        'default': dj_database_url.parse(os.getenv('DATABASE_URL'), conn_max_age=600)
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -110,7 +113,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATIC_URL = 'main/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

@@ -129,6 +129,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-uploaded_files/
+media/
 biblioteca_pessoal/settings/local.py
 livros.json
