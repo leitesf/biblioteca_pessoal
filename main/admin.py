@@ -100,7 +100,8 @@ class ColecaoAdmin(AdminBasico):
 
 class AutorAdmin(AdminBasico):
     list_display = ('get_links', 'nome', 'nome_ordenado', 'nacionalidade', 'pseudonimo_de')
-    search_fields = ('nome', 'pseudonimo_de', )
+    exclude = ['nome_ordenado']
+    search_fields = ('nome', 'pseudonimo_de__nome', )
     list_filter = (
         ('nacionalidade',)
     )
