@@ -337,6 +337,6 @@ JAZZMIN_UI_TWEAKS = {
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-DEFAULT_PASSWORD = '1'
+DEFAULT_PASSWORD = os.getenv('DEFAULT_PASSWORD') if os.getenv('DEFAULT_PASSWORD') else 'trocar_senha'
 
 REMETENTE_EMAILS = 'contato@teste.com'
