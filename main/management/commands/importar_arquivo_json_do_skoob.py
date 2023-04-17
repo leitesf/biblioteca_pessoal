@@ -32,6 +32,7 @@ class Command(BaseCommand):
                     usuario_principal.skoob_user)
             ).json()
             print("Importando livros do usuário principal")
+            livros_adicionados=[]
             for item in tqdm(dados['response']):
                 if not Livro.objects.filter(skoob_id=item['edicao']['id']).exists():
                     livro = Livro()
@@ -75,13 +76,16 @@ class Command(BaseCommand):
                     img_temp.write(capa.content)
                     img_temp.flush()
                     livro.capa.save('capa-{}.jpg'.format(livro.id), File(img_temp), save=True)
-                    print(livro.id)
+                    livros_adicionados.append(livro)
+            for livro in livros_adicionados:
+                print('Livro adicionado: {} ({})'.format(livro.titulo, livro.autor_principal))
             for usuario in Usuario.objects.filter(skoob_user__isnull=False):
                 dados = requests.get(
                     "https://www.skoob.com.br/v1/bookcase/books/{}/shelf_id:1/page:0/limit:1000".format(
                         usuario.skoob_user)
                 ).json()
                 print("Buscando livros lidos por {}".format(usuario.get_full_name()))
+                livros_lidos=[]
                 for item in tqdm(dados['response']):
                     if Livro.objects.filter(skoob_id=item['edicao']['id']).exists() and not \
                             Leitura.objects.filter(usuario=usuario, livro__skoob_id=item['edicao']['id']).exists():
@@ -92,3 +96,6 @@ class Command(BaseCommand):
                                 livro=livro,
                                 data=datetime.strptime(item['dt_leitura'], '%Y-%m-%d %H:%M:%S').date()
                             )
+                            livros_lidos.append(livro)
+                for livro in livros_lidos:
+                    print("Livro marcado como lido: {} ({})".format(livro.titulo, livro.autor_principal))
