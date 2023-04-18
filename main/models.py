@@ -13,6 +13,7 @@ from solo.models import SingletonModel
 class Usuario(AbstractUser):
     contato = models.CharField("Contato", max_length=100)
     skoob_user = models.IntegerField("Usuário no Skoob", blank=True, null=True)
+    steam_user = models.IntegerField("Usuário na Steam", blank=True, null=True)
 
     class Meta:
         verbose_name = 'Usuário'
@@ -273,6 +274,7 @@ class Emprestimo(models.Model):
 
 class ConfiguracaoSistema(SingletonModel):
     usuario_principal = models.ForeignKey(Usuario, on_delete=models.SET_NULL, verbose_name="Usuário Principal", null=True)
+    steam_api_key = models.CharField("Chave da API do Steam", max_length=100, blank=True, null=True)
 
     def __str__(self):
         return "Configuração do Sistema"
