@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content_title %}Genero: {{ genero.descricao }}{% endblock %}
+{% block content %}
+    <div class="container">
+        <br>
+        <h5>Jogos:</h5>
+        {% if genero.jogo_set.exists %}
+            {% include "includes/lista_de_jogos.html" with jogos=genero.jogo_set.all %}
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                Não existem jogos cadastrados para esse gênero.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content_title %}Plataforma: {{ plataforma.nome }}{% endblock %}
+{% block content %}
+    <div class="container">
+        <br>
+        <h5>Jogos:</h5>
+        {% if plataforma.jogos.exists %}
+            {% include "includes/lista_de_jogos.html" with jogos=plataforma.jogos.all %}
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                Não existem jogos cadastrados para essa plataforma.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

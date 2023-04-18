@@ -72,7 +72,7 @@ class Jogo(models.Model):
     titulo = models.CharField("Titulo", max_length=100)
     tipo = models.CharField("Tipo", choices=TipoJogo.TIPOS, max_length=7, default=TipoJogo.DIGITAL)
     genero = models.ForeignKey(Genero, on_delete=models.RESTRICT, verbose_name="Gênero", null=True, blank=True)
-    lojas = models.ManyToManyField(Loja, verbose_name="Loja", related_name='jogos', blank=True)
+    lojas = models.ManyToManyField(Loja, verbose_name="Lojas", related_name='jogos', blank=True)
     plataformas = models.ManyToManyField(
         Plataforma, verbose_name="Plataformas", related_name='jogos', blank=True
     )
@@ -94,7 +94,7 @@ class Jogo(models.Model):
         return '/jogo/{}/'.format(self.id)
 
     def lista_lojas(self):
-        return " / ".join([item.nome for item in self.loja.all().order_by('id')])
+        return " / ".join([item.nome for item in self.lojas.all()])
 
     def lista_plataformas(self):
-        return " / ".join([item.nome for item in self.plataforma.all().order_by('id')])
+        return " / ".join([item.nome for item in self.plataformas.all()])

@@ -23,7 +23,7 @@ class GeneroAdmin(AdminBasico):
 
 
 class JogoAdmin(AdminBasico):
-    list_display = ('get_links', 'titulo', 'tipo', 'genero', 'get_lojas', 'get_plataformas')
+    list_display = ('get_links', 'titulo', 'tipo', 'genero', 'get_plataformas', 'get_lojas')
     search_fields = ('titulo', )
     list_filter = (
         ('genero', admin.RelatedOnlyFieldListFilter),

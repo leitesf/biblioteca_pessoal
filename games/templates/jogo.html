@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load bootstrap_icons %}
+
+{% block content_title %}
+    Jogo: {{ jogo.titulo }}
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Tipo:</strong> {{ jogo.tipo }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Gênero:</strong> {{ jogo.genero }}<a class='text-reset text-decoration-none' ref='{{ jogo.genero.get_absolute_url }}'                       title='Visualizar'>{% bs_icon 'info-square' %}</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Plataformas:</strong></p>
+                        <ul class="list-group">
+                            {% if jogo.plataformas.exists %}
+                                {% for plataforma in jogo.plataformas.all %}
+                                    <li class="list-group-item">{{ plataforma }} <a class='text-reset text-decoration-none' href='{{ plataforma.get_absolute_url }}' title='Visualizar'>{% bs_icon 'info-square' %}</a>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Lojas:</strong></p>
+                        <ul class="list-group">
+                            {% if jogo.lojas.exists %}
+                                {% for loja in jogo.lojas.all %}
+                                    <li class="list-group-item">{{ loja }} <a class='text-reset text-decoration-none' href='{{ loja.get_absolute_url }}' title='Visualizar'>{% bs_icon 'info-square' %}</a>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <img src="/media/{{ jogo.capa }}">
+            </div>
+        </div>
+    </div>
+{% endblock %}

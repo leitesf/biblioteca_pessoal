@@ -1,0 +1,32 @@
+{% load bootstrap_icons %}
+{% load bootstrap5 %}
+{% load static %}
+
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Título</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Genero</th>
+        <th scope="col">Plataformas</th>
+        <th scope="col">Lojas</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for jogo in jogos %}
+        <tr>
+            <td>
+                <a class='text-reset text-decoration-none' href="{{ jogo.get_absolute_url }}"><img src="{% static 'svg/info-square.svg' %}" /></a>
+                <a class='text-reset text-decoration-none' href="{{ jogo.get_edit_url }}"><img src="{% static 'svg/pencil-square.svg' %}" /></a>
+            </td>
+            <td>{{ jogo.titulo }}</td>
+            <td>{{ jogo.tipo }}</td>
+            <td>{{ jogo.genero|default:'-' }}</td>
+            <td>{{ jogo.lista_plataformas }}</td>
+            <td>{{ jogo.lista_lojas }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

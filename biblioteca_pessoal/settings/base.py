@@ -204,7 +204,7 @@ JAZZMIN_SETTINGS = {
     "hide_models": ['main.usuario', 'main.configuracaosistema'],
 
     # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
-    "order_with_respect_to": ["main", "games", "autenticacao"],
+    "order_with_respect_to": ["main.livro", "main", "games", "games.jogo", "auth"],
 
     # Custom links to append to app groups, keyed on app name
     "custom_links": {
@@ -258,12 +258,10 @@ JAZZMIN_SETTINGS = {
         "main.idioma": "fas fa-language",
         "main.livro": "fas fa-book",
         "main.emprestimo": "fas fa-stamp",
-        # "main.configuracaopercentualcorretor": "fas fa-percentage",
-        # "main.configuracaoprecoregularizacao": "fas fa-money-bill",
-        # "main.configuracaovalortecnico": "fas fa-dollar-sign",
-        # "main.imovel": "fas fa-building",
-        # "main.ordemservico": "fas fa-receipt",
-        # "main.tiporegularizacao": "fas fa-tags",
+        "games.jogo": "fas fa-gamepad",
+        "games.genero": "fas fa-tag",
+        "games.loja": "fas fa-store",
+        "games.plataforma": "fas fa-globe",
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",
