@@ -2,66 +2,77 @@
   {
     "model": "games.plataforma",
     "fields": {
+      "id": 1,
       "nome": "PC"
     }
   },
   {
     "model": "games.plataforma",
     "fields": {
+      "id": 2,
       "nome": "Nintendo 3DS"
     }
   },
   {
     "model": "games.plataforma",
     "fields": {
+      "id": 3,
       "nome": "Nintendo Switch"
     }
   },
   {
     "model": "games.loja",
     "fields": {
+      "id": 1,
       "nome": "eShop"
     }
   },
   {
     "model": "games.loja",
     "fields": {
+      "id": 2,
       "nome": "Steam"
     }
   },
   {
     "model": "games.loja",
     "fields": {
+      "id": 3,
       "nome": "Nuuvem"
     }
   },
   {
     "model": "games.loja",
     "fields": {
+      "id": 4,
       "nome": "Epic Games"
     }
   },
   {
     "model": "games.loja",
     "fields": {
+      "id": 5,
       "nome": "Amazon Gaming"
     }
   },
   {
     "model": "games.loja",
     "fields": {
+      "id": 6,
       "nome": "GOG"
     }
   },
   {
     "model": "games.loja",
     "fields": {
+      "id": 7,
       "nome": "Legacy Games"
     }
   },
   {
     "model": "games.loja",
     "fields": {
+      "id": 8,
       "nome": "Origin"
     }
   }
