@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django_countries',
     'isbn_field',
     'solo',
-    'fixture_magic',
+    # 'fixture_magic',
     'ajax_select'
 ]
 
