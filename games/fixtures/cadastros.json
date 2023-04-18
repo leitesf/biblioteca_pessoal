@@ -1,0 +1,68 @@
+[
+  {
+    "model": "games.plataforma",
+    "fields": {
+      "nome": "PC"
+    }
+  },
+  {
+    "model": "games.plataforma",
+    "fields": {
+      "nome": "Nintendo 3DS"
+    }
+  },
+  {
+    "model": "games.plataforma",
+    "fields": {
+      "nome": "Nintendo Switch"
+    }
+  },
+  {
+    "model": "games.loja",
+    "fields": {
+      "nome": "eShop"
+    }
+  },
+  {
+    "model": "games.loja",
+    "fields": {
+      "nome": "Steam"
+    }
+  },
+  {
+    "model": "games.loja",
+    "fields": {
+      "nome": "Nuuvem"
+    }
+  },
+  {
+    "model": "games.loja",
+    "fields": {
+      "nome": "Epic Games"
+    }
+  },
+  {
+    "model": "games.loja",
+    "fields": {
+      "nome": "Amazon Gaming"
+    }
+  },
+  {
+    "model": "games.loja",
+    "fields": {
+      "nome": "GOG"
+    }
+  },
+  {
+    "model": "games.loja",
+    "fields": {
+      "nome": "Legacy Games"
+    }
+  },
+  {
+    "model": "games.loja",
+    "fields": {
+      "nome": "Origin"
+    }
+  }
+]

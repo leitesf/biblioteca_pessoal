@@ -63,6 +63,34 @@
     }
 },
 {
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "games",
+        "model": "plataforma"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "games",
+        "model": "loja"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "games",
+        "model": "jogo"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "games",
+        "model": "genero"
+    }
+},
+{
     "model": "auth.permission",
     "fields": {
         "name": "Can view Livro",
@@ -481,10 +509,206 @@
     }
 },
 {
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Plataforma",
+        "content_type": [
+            "games",
+            "plataforma"
+        ],
+        "codename": "view_plataforma"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Plataforma",
+        "content_type": [
+            "games",
+            "plataforma"
+        ],
+        "codename": "delete_plataforma"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Plataforma",
+        "content_type": [
+            "games",
+            "plataforma"
+        ],
+        "codename": "change_plataforma"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Plataforma",
+        "content_type": [
+            "games",
+            "plataforma"
+        ],
+        "codename": "add_plataforma"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Loja",
+        "content_type": [
+            "games",
+            "loja"
+        ],
+        "codename": "view_loja"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Loja",
+        "content_type": [
+            "games",
+            "loja"
+        ],
+        "codename": "delete_loja"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Loja",
+        "content_type": [
+            "games",
+            "loja"
+        ],
+        "codename": "change_loja"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Loja",
+        "content_type": [
+            "games",
+            "loja"
+        ],
+        "codename": "add_loja"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Jogo",
+        "content_type": [
+            "games",
+            "jogo"
+        ],
+        "codename": "view_jogo"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Jogo",
+        "content_type": [
+            "games",
+            "jogo"
+        ],
+        "codename": "delete_jogo"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Jogo",
+        "content_type": [
+            "games",
+            "jogo"
+        ],
+        "codename": "change_jogo"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Jogo",
+        "content_type": [
+            "games",
+            "jogo"
+        ],
+        "codename": "add_jogo"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Gênero",
+        "content_type": [
+            "games",
+            "genero"
+        ],
+        "codename": "view_genero"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Gênero",
+        "content_type": [
+            "games",
+            "genero"
+        ],
+        "codename": "delete_genero"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Gênero",
+        "content_type": [
+            "games",
+            "genero"
+        ],
+        "codename": "change_genero"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Gênero",
+        "content_type": [
+            "games",
+            "genero"
+        ],
+        "codename": "add_genero"
+    }
+},
+{
     "model": "auth.group",
     "fields": {
         "name": "Consultador",
         "permissions": [
+            [
+                "view_genero",
+                "games",
+                "genero"
+            ],
+            [
+                "view_jogo",
+                "games",
+                "jogo"
+            ],
+            [
+                "view_loja",
+                "games",
+                "loja"
+            ],
+            [
+                "view_plataforma",
+                "games",
+                "plataforma"
+            ],
             [
                 "view_autor",
                 "main",
@@ -533,6 +757,86 @@
     "fields": {
         "name": "Cadastrador",
         "permissions": [
+            [
+                "add_genero",
+                "games",
+                "genero"
+            ],
+            [
+                "change_genero",
+                "games",
+                "genero"
+            ],
+            [
+                "delete_genero",
+                "games",
+                "genero"
+            ],
+            [
+                "view_genero",
+                "games",
+                "genero"
+            ],
+            [
+                "add_jogo",
+                "games",
+                "jogo"
+            ],
+            [
+                "change_jogo",
+                "games",
+                "jogo"
+            ],
+            [
+                "delete_jogo",
+                "games",
+                "jogo"
+            ],
+            [
+                "view_jogo",
+                "games",
+                "jogo"
+            ],
+            [
+                "add_loja",
+                "games",
+                "loja"
+            ],
+            [
+                "change_loja",
+                "games",
+                "loja"
+            ],
+            [
+                "delete_loja",
+                "games",
+                "loja"
+            ],
+            [
+                "view_loja",
+                "games",
+                "loja"
+            ],
+            [
+                "add_plataforma",
+                "games",
+                "plataforma"
+            ],
+            [
+                "change_plataforma",
+                "games",
+                "plataforma"
+            ],
+            [
+                "delete_plataforma",
+                "games",
+                "plataforma"
+            ],
+            [
+                "view_plataforma",
+                "games",
+                "plataforma"
+            ],
             [
                 "add_autor",
                 "main",

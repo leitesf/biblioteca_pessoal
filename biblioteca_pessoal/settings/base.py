@@ -38,12 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'localflavor',
     'main',
+    'games',
     'bootstrap5',
     'django_bootstrap_icons',
     'django_middleware_global_request',
     'django_countries',
     'isbn_field',
     'solo',
+    'fixture_magic',
     'ajax_select'
 ]
 
@@ -202,7 +204,7 @@ JAZZMIN_SETTINGS = {
     "hide_models": ['main.usuario', 'main.configuracaosistema'],
 
     # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
-    "order_with_respect_to": ["main", "autenticacao"],
+    "order_with_respect_to": ["main", "games", "autenticacao"],
 
     # Custom links to append to app groups, keyed on app name
     "custom_links": {
