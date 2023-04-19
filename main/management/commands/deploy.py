@@ -14,3 +14,6 @@ class Command(BaseCommand):
         configuracao = ConfiguracaoSistema.objects.first()
         if configuracao and configuracao.usuario_principal and configuracao.usuario_principal.skoob_user:
             call_command('importar_skoob')
+        if configuracao and configuracao.usuario_principal and configuracao.usuario_principal.steam_user and \
+                configuracao.steam_api_key:
+            call_command('importar_steam')
