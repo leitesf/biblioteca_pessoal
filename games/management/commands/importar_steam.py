@@ -36,7 +36,7 @@ class Command(BaseCommand):
                 # import ipdb; ipdb.set_trace()
                 for item in tqdm(dados['response']['games']):
                     if not Jogo.objects.filter(titulo=item['name'], tipo='Digital').exists() and \
-                            not Jogo.objects.filter(steam_id=item['steam_id']).exists():
+                            not Jogo.objects.filter(steam_id=item['appid']).exists():
                         jogo = Jogo()
                         jogo.titulo = item['name']
                         jogo.steam_id = item['appid']
@@ -45,7 +45,7 @@ class Command(BaseCommand):
                         jogo.plataformas.add(pc)
                         jogo.save()
                         jogos_adicionados.append(jogo)
-                    elif Jogo.objects.filter(steam_id=item['steam_id']).exists():
+                    elif Jogo.objects.filter(steam_id=item['appid']).exists():
                         pass
                     else:
                         jogo = Jogo.objects.get(titulo=item['name'], tipo='Digital')
@@ -55,7 +55,7 @@ class Command(BaseCommand):
                         if pc not in jogo.plataformas.all():
                             jogo.plataformas.add(pc)
                             adicionados_ao_pc.append(jogo)
-                        jogo.steam_id = item['steam_id']
+                        jogo.steam_id = item['appid']
                         jogo.save()
                 for jogo in jogos_adicionados:
                     print('Jogo adicionado: {}'.format(jogo.titulo))
