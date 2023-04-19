@@ -13,7 +13,7 @@ from solo.models import SingletonModel
 class Usuario(AbstractUser):
     contato = models.CharField("Contato", max_length=100)
     skoob_user = models.IntegerField("Usuário no Skoob", blank=True, null=True)
-    steam_user = models.IntegerField("Usuário na Steam", blank=True, null=True)
+    steam_user = models.CharField("Usuário na Steam", blank=True, null=True, max_length=20)
 
     class Meta:
         verbose_name = 'Usuário'

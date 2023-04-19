@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Plataforma(models.Model):
-    nome = models.CharField("Nome", max_length=50)
+    nome = models.CharField("Nome", max_length=50, unique=True)
 
     class Meta:
         verbose_name = 'Plataforma'
@@ -20,7 +20,7 @@ class Plataforma(models.Model):
 
 
 class Loja(models.Model):
-    nome = models.CharField("Nome", max_length=50)
+    nome = models.CharField("Nome", max_length=50, unique=True)
 
     class Meta:
         verbose_name = 'Loja'
@@ -83,6 +83,7 @@ class Jogo(models.Model):
         verbose_name = 'Jogo'
         verbose_name_plural = 'Jogos'
         ordering = ['titulo']
+        unique_together = ['titulo', 'tipo']
 
     def __str__(self):
         return self.titulo
