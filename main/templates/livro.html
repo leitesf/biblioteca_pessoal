@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load bootstrap_icons %}
+{% load static %}
 
 {% block content_title %}
     Livro: {{ livro.titulo }}
@@ -167,7 +168,11 @@
                 {% endif %}
             </div>
             <div class="col">
-                <img src="/media/{{ livro.capa }}">
+                {% if livro.capa %}
+                    <img src="{{ livro.capa.url }}">
+                {% else %}
+                    <img src="{% static 'img/placeholder.png' %}">
+                {% endif %}
             </div>
         </div>
     </div>
