@@ -65,3 +65,17 @@ class Command(BaseCommand):
                     print('Jogo adicionado ao PC: {}'.format(jogo.titulo))
         else:
             print("Verifique se o usuário principal possui steam user configurado e se a steam key está configurada.")
+        print("Atualizando capas dos jogos do steam")
+        capas_adicionadas = []
+        for jogo in tqdm(Jogo.objects.filter(steam_id__isnull=False, capa='')):
+            capa = requests.get(
+                "https://steamcdn-a.akamaihd.net/steam/apps/{}/library_600x900.jpg".format(jogo.steam_id)
+            )
+            img_temp = NamedTemporaryFile(delete=True)
+            img_temp.write(capa.content)
+            img_temp.flush()
+            jogo.capa.save('capa-{}.jpg'.format(jogo.id), File(img_temp), save=True)
+            capas_adicionadas.append(jogo)
+        for jogo in capas_adicionadas:
+            print('Capa adicionada: {}'.format(jogo.titulo))
+
