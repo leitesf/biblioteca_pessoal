@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import steamfront
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 import requests
@@ -57,15 +58,20 @@ class Command(BaseCommand):
                             adicionados_ao_pc.append(jogo)
                         jogo.steam_id = item['appid']
                         jogo.save()
-                for jogo in jogos_adicionados:
-                    print('Jogo adicionado: {}'.format(jogo.titulo))
-                for jogo in adicionados_ao_steam:
-                    print('Jogo adicionado ao Steam: {}'.format(jogo.titulo))
-                for jogo in adicionados_ao_pc:
-                    print('Jogo adicionado ao PC: {}'.format(jogo.titulo))
         else:
             print("Verifique se o usuário principal possui steam user configurado e se a steam key está configurada.")
         print("Atualizando capas dos jogos do steam")
+        steam_ids_adicionadas = []
+        client = steamfront.Client()
+        jogos_nao_encontrados_no_steam = []
+        for jogo in tqdm(Jogo.objects.filter(steam_id__isnull=True)):
+            try:
+                busca = client.getApp(name=jogo.titulo)
+                jogo.steam_id = busca.appid
+                jogo.save()
+                steam_ids_adicionadas.append(jogo)
+            except:
+                jogos_nao_encontrados_no_steam.append(jogo)
         capas_adicionadas = []
         for jogo in tqdm(Jogo.objects.filter(steam_id__isnull=False, capa='')):
             capa = requests.get(
@@ -76,6 +82,17 @@ class Command(BaseCommand):
             img_temp.flush()
             jogo.capa.save('capa-{}.jpg'.format(jogo.id), File(img_temp), save=True)
             capas_adicionadas.append(jogo)
+        for jogo in jogos_adicionados:
+            print('Jogo adicionado: {}'.format(jogo.titulo))
+        for jogo in adicionados_ao_steam:
+            print('Jogo adicionado ao Steam: {}'.format(jogo.titulo))
+        for jogo in adicionados_ao_pc:
+            print('Jogo adicionado ao PC: {}'.format(jogo.titulo))
+        for jogo in steam_ids_adicionadas:
+            print('Steam ids adicionadas: {}'.format(jogo.titulo))
+        for jogo in jogos_nao_encontrados_no_steam:
+            print('Jogos não encontrados no steam: {}'.format(jogo.titulo))
         for jogo in capas_adicionadas:
             print('Capa adicionada: {}'.format(jogo.titulo))
+
 
