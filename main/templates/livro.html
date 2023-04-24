@@ -20,159 +20,177 @@
 {% endblock %}
 {% block content %}
     <div class="container">
-        <div class="row">
-            <div class="col">
-                {% if livro.subtitulo %}
-                    <div class="row">
-                        <div class="col">
-                            <p><strong>Subtítulo:</strong> {{ livro.subtitulo }}</p>
-                        </div>
-                    </div>
-                {% endif %}
-                <div class="row">
-                    <div class="col">
-                        <p><strong>Autor Principal:</strong>
-                            {{ livro.autor_principal }} <a class='text-reset text-decoration-none'
-                                                           href='{{ livro.autor_principal.get_absolute_url }}'
-                                                           title='Visualizar'>{% bs_icon 'info-square' %}</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    {% if livro.autores_secundarios.exists %}
-                        <div class="col">
-                            <p><strong>Autores Secundários:</strong>
-                            <ul class="list-group">
-                                {% for autor in livro.autores_secundarios.all %}
-                                    <li class="list-group-item">{{ autor }} <a class='text-reset text-decoration-none'
-                                                                               href='{{ autor.get_absolute_url }}'
-                                                                               title='Visualizar'>{% bs_icon 'info-square' %}</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                            </p>
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p><strong>ISBN:</strong> {{ livro.isbn|default:"-" }}</p>
-                    </div>
-                    <div class="col">
-                        <p><strong>Editora:</strong> {{ livro.editora }} <a class='text-reset text-decoration-none'
-                                                                            href='{{ livro.editora.get_absolute_url }}'
-                                                                            title='Visualizar'>{% bs_icon 'info-square' %}</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p><strong>Ano:</strong> {{ livro.ano|default:"-" }}</p>
-                    </div>
-                    <div class="col">
-                        <p><strong>Páginas:</strong> {{ livro.paginas }}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p>
-                            <strong>Coleção:</strong>
-                            {% if livro.colecao %}
-                                {{ livro.colecao }}
-                                <a class='text-reset text-decoration-none' href='{{ livro.colecao.get_absolute_url }}'
-                                   title='Visualizar'>{% bs_icon 'info-square' %}</a>
-                            {% else %}
+        <div class="card mb-3">
+            <div class="row no-gutters">
+                <div class="col-md-12">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                {% if livro.subtitulo %}
+                                    <div class="row">
+                                        <div class="col">
+                                            <p><strong>Subtítulo:</strong> {{ livro.subtitulo }}</p>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <div class="row">
+                                    <div class="col">
+                                        <p><strong>Autor Principal:</strong>
+                                            {{ livro.autor_principal }} <a class='text-reset text-decoration-none'
+                                                                           href='{{ livro.autor_principal.get_absolute_url }}'
+                                                                           title='Visualizar'>{% bs_icon 'info-square' %}</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    {% if livro.autores_secundarios.exists %}
+                                        <div class="col">
+                                            <p><strong>Autores Secundários:</strong>
+                                            <ul class="list-group">
+                                                {% for autor in livro.autores_secundarios.all %}
+                                                    <li class="list-group-item">{{ autor }} <a
+                                                            class='text-reset text-decoration-none'
+                                                            href='{{ autor.get_absolute_url }}'
+                                                            title='Visualizar'>{% bs_icon 'info-square' %}</a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                            </p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p><strong>ISBN:</strong> {{ livro.isbn|default:"-" }}</p>
+                                    </div>
+                                    <div class="col">
+                                        <p><strong>Editora:</strong> {{ livro.editora }} <a
+                                                class='text-reset text-decoration-none'
+                                                href='{{ livro.editora.get_absolute_url }}'
+                                                title='Visualizar'>{% bs_icon 'info-square' %}</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p><strong>Ano:</strong> {{ livro.ano|default:"-" }}</p>
+                                    </div>
+                                    <div class="col">
+                                        <p><strong>Páginas:</strong> {{ livro.paginas }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p>
+                                            <strong>Coleção:</strong>
+                                            {% if livro.colecao %}
+                                                {{ livro.colecao }}
+                                                <a class='text-reset text-decoration-none'
+                                                   href='{{ livro.colecao.get_absolute_url }}'
+                                                   title='Visualizar'>{% bs_icon 'info-square' %}</a>
+                                            {% else %}
 
-                            {% endif %}
-                        </p>
-                    </div>
-                    <div class="col">
-                        <p><strong>Estante:</strong> {{ livro.estante }} <a class='text-reset text-decoration-none'
-                                                                            href='{{ livro.estante.get_absolute_url }}'
-                                                                            title='Visualizar'>{% bs_icon 'info-square' %}</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p><strong>Idioma:</strong> {{ livro.idioma }} <a class='text-reset text-decoration-none'
-                                                                          href='{{ livro.idioma.get_absolute_url }}'
-                                                                          title='Visualizar'>{% bs_icon 'info-square' %}
-                        </p>
-                    </div>
-                    <div class="col">
-                        <p><strong>Categoria:</strong> {{ livro.categoria }} <a class='text-reset text-decoration-none'
-                                                                                href='{{ livro.categoria.get_absolute_url }}'
-                                                                                title='Visualizar'>{% bs_icon 'info-square' %}</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p>
-                            <strong>Sinopse:</strong>
-                        <ul class="list-group">
-                            <li class="list-group-item text-justify">{{ livro.sinopse }}</li>
-                        </ul>
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p>
-                            <strong>Lido por:</strong>
-                            {% if livro.leitura_set.all.exists %}
-                                <ul class="list-group">
-                                    {% for leitor in livro.leitura_set.all %}
-                                        <li class="list-group-item">{{ leitor.usuario.get_full_name }} em
-                                            {{ leitor.data|date:"SHORT_DATE_FORMAT" }}
-                                            <a class='text-reset text-decoration-none'
-                                               href='/leitura/{{ leitor.id }}/editar/'
-                                               title='Editar'>{% bs_icon 'pencil-square' %}</a>
-                                            <a class='text-reset text-decoration-none'
-                                               href='/leitura/{{ leitor.id }}/excluir/'
-                                               title='Excluir'
-                                               onclick="return confirm('Você tem certeza?')">{% bs_icon 'x-square' %}</a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            {% else %}
-                                <ul class="list-group">
-                                    <li class="list-group-item">Este livro não foi lido por nenhum usuário</li>
-                                </ul>
-                            {% endif %}
-                        </p>
-                    </div>
-                </div>
-                {% if livro.emprestimo_set.all.exists %}
-                    <div class="row">
-                        <div class="col">
-                            <p>
-                                <strong>Empréstimos:</strong>
-                                <ul class="list-group">
-                                    {% for emprestimo in livro.emprestimo_set.all %}
-                                        <li class="list-group-item">{{ emprestimo.pessoa }} em
-                                            {{ emprestimo.data_inicio|date:"SHORT_DATE_FORMAT" }}
-                                            {% if emprestimo.data_fim %}
-                                                &nbsp;a {{ emprestimo.data_inicio|date:"SHORT_DATE_FORMAT" }}
                                             {% endif %}
-                                            <a class='text-reset text-decoration-none'
-                                               href="{{ emprestimo.get_edit_url }}"
-                                               title='Editar'>{% bs_icon 'pencil-square' %}</a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </p>
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p><strong>Estante:</strong> {{ livro.estante }} <a
+                                                class='text-reset text-decoration-none'
+                                                href='{{ livro.estante.get_absolute_url }}'
+                                                title='Visualizar'>{% bs_icon 'info-square' %}</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p><strong>Idioma:</strong> {{ livro.idioma }} <a
+                                                class='text-reset text-decoration-none'
+                                                href='{{ livro.idioma.get_absolute_url }}'
+                                                title='Visualizar'>{% bs_icon 'info-square' %}
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p><strong>Categoria:</strong> {{ livro.categoria }} <a
+                                                class='text-reset text-decoration-none'
+                                                href='{{ livro.categoria.get_absolute_url }}'
+                                                title='Visualizar'>{% bs_icon 'info-square' %}</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p>
+                                            <strong>Sinopse:</strong>
+                                        <ul class="list-group">
+                                            <li class="list-group-item text-justify">{{ livro.sinopse }}</li>
+                                        </ul>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p>
+                                            <strong>Lido por:</strong>
+                                            {% if livro.leitura_set.all.exists %}
+                                                <ul class="list-group">
+                                                    {% for leitor in livro.leitura_set.all %}
+                                                        <li class="list-group-item">{{ leitor.usuario.get_full_name }}
+                                                            em
+                                                            {{ leitor.data|date:"SHORT_DATE_FORMAT" }}
+                                                            <a class='text-reset text-decoration-none'
+                                                               href='/leitura/{{ leitor.id }}/editar/'
+                                                               title='Editar'>{% bs_icon 'pencil-square' %}</a>
+                                                            <a class='text-reset text-decoration-none'
+                                                               href='/leitura/{{ leitor.id }}/excluir/'
+                                                               title='Excluir'
+                                                               onclick="return confirm('Você tem certeza?')">{% bs_icon 'x-square' %}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% else %}
+                                                <ul class="list-group">
+                                                    <li class="list-group-item">Este livro não foi lido por nenhum
+                                                        usuário
+                                                    </li>
+                                                </ul>
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                                {% if livro.emprestimo_set.all.exists %}
+                                    <div class="row">
+                                        <div class="col">
+                                            <p>
+                                                <strong>Empréstimos:</strong>
+                                            <ul class="list-group">
+                                                {% for emprestimo in livro.emprestimo_set.all %}
+                                                    <li class="list-group-item">{{ emprestimo.pessoa }} em
+                                                        {{ emprestimo.data_inicio|date:"SHORT_DATE_FORMAT" }}
+                                                        {% if emprestimo.data_fim %}
+                                                            &nbsp;a
+                                                            {{ emprestimo.data_inicio|date:"SHORT_DATE_FORMAT" }}
+                                                        {% endif %}
+                                                        <a class='text-reset text-decoration-none'
+                                                           href="{{ emprestimo.get_edit_url }}"
+                                                           title='Editar'>{% bs_icon 'pencil-square' %}</a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                            </p>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4">
+                                {% if livro.capa %}
+                                    <img src="{{ livro.capa.url }}">
+                                {% else %}
+                                    <img src="{% static 'img/placeholder.png' %}">
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
-                {% endif %}
-            </div>
-            <div class="col">
-                {% if livro.capa %}
-                    <img src="{{ livro.capa.url }}">
-                {% else %}
-                    <img src="{% static 'img/placeholder.png' %}">
-                {% endif %}
+                </div>
             </div>
         </div>
     </div>
