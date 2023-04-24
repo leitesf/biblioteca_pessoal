@@ -9,6 +9,7 @@ from django.db import transaction
 from tqdm import tqdm
 
 from games.models import Loja, Jogo, Plataforma
+from games.utils import get_genero_equivalente
 from main.models import *
 
 
@@ -60,39 +61,53 @@ class Command(BaseCommand):
                         jogo.save()
         else:
             print("Verifique se o usuário principal possui steam user configurado e se a steam key está configurada.")
-        print("Atualizando capas dos jogos do steam")
-        steam_ids_adicionadas = []
+        # print("Buscando jogos sem steam_id no steam")
+        # steam_ids_adicionadas = []
         client = steamfront.Client()
-        jogos_nao_encontrados_no_steam = []
-        for jogo in tqdm(Jogo.objects.filter(steam_id__isnull=True)):
-            try:
-                busca = client.getApp(name=jogo.titulo)
-                jogo.steam_id = busca.appid
-                jogo.save()
-                steam_ids_adicionadas.append(jogo)
-            except:
-                jogos_nao_encontrados_no_steam.append(jogo)
+        # jogos_nao_encontrados_no_steam = []
+        # for jogo in tqdm(Jogo.objects.filter(steam_id__isnull=True)):
+        #     try:
+        #         busca = client.getApp(name=jogo.titulo)
+        #         jogo.steam_id = busca.appid
+        #         jogo.save()
+        #         steam_ids_adicionadas.append(jogo)
+        #     except:
+        #         jogos_nao_encontrados_no_steam.append(jogo)
         capas_adicionadas = []
-        for jogo in tqdm(Jogo.objects.filter(steam_id__isnull=False, capa='')):
-            capa = requests.get(
-                "https://steamcdn-a.akamaihd.net/steam/apps/{}/library_600x900.jpg".format(jogo.steam_id)
-            )
-            img_temp = NamedTemporaryFile(delete=True)
-            img_temp.write(capa.content)
-            img_temp.flush()
-            jogo.capa.save('capa-{}.jpg'.format(jogo.id), File(img_temp), save=True)
-            capas_adicionadas.append(jogo)
+        genero_adicionado = []
+        print("Atualizando capas e gêneros dos jogos do steam")
+        for jogo in tqdm(Jogo.objects.filter(steam_id__isnull=False)):
+            if not jogo.capa:
+                capa = requests.get(
+                    "https://steamcdn-a.akamaihd.net/steam/apps/{}/library_600x900.jpg".format(jogo.steam_id)
+                )
+                img_temp = NamedTemporaryFile(delete=True)
+                img_temp.write(capa.content)
+                img_temp.flush()
+                jogo.capa.save('capa-{}.jpg'.format(jogo.id), File(img_temp), save=True)
+                capas_adicionadas.append(jogo)
+            if not jogo.genero:
+                try:
+                    busca = client.getApp(appid=jogo.steam_id)
+                    if 'genres' in busca.raw:
+                        jogo.genero = get_genero_equivalente(busca.genres[0])
+                        jogo.save()
+                    genero_adicionado.append(jogo)
+                except:
+                    pass
         for jogo in jogos_adicionados:
             print('Jogo adicionado: {}'.format(jogo.titulo))
         for jogo in adicionados_ao_steam:
             print('Jogo adicionado ao Steam: {}'.format(jogo.titulo))
         for jogo in adicionados_ao_pc:
             print('Jogo adicionado ao PC: {}'.format(jogo.titulo))
-        for jogo in steam_ids_adicionadas:
-            print('Steam ids adicionadas: {}'.format(jogo.titulo))
-        for jogo in jogos_nao_encontrados_no_steam:
-            print('Jogos não encontrados no steam: {}'.format(jogo.titulo))
+        # for jogo in steam_ids_adicionadas:
+        #     print('Steam ids adicionadas: {}'.format(jogo.titulo))
+        # for jogo in jogos_nao_encontrados_no_steam:
+        #     print('Jogos não encontrados no steam: {}'.format(jogo.titulo))
         for jogo in capas_adicionadas:
             print('Capa adicionada: {}'.format(jogo.titulo))
+        for jogo in genero_adicionado:
+            print('Gênero adicionado: {}'.format(jogo.titulo))
 
 
