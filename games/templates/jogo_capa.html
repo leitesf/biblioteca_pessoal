@@ -1,0 +1,6 @@
+{% load static %}
+{% if jogo.capa %}
+    <img src="{{ jogo.capa.url }}">
+{% else %}
+    <img src="{% static 'img/placeholder.png' %}">
+{% endif %}

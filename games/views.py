@@ -32,4 +32,9 @@ def show_jogo(request, jogo_id):
     side_menu_list = gerar_menu(request.user, 'jogo')
     pode_editar = request.user.has_perm('games.edit_jogo')
     return render(request, 'jogo.html', locals())
-# Create your views here.
+
+
+@login_required
+def show_capa_jogo(request, jogo_id):
+    jogo = get_object_or_404(Jogo, id=jogo_id)
+    return render(request, 'jogo_capa.html', locals())
