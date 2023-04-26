@@ -29,21 +29,26 @@ class Command(BaseCommand):
                 for row in tqdm(csv_reader):
                     loja = Loja.objects.get_or_create(nome=row['loja'])[0]
                     plataforma = Plataforma.objects.get_or_create(nome=row['plataforma'])[0]
-                    if not Jogo.objects.filter(titulo=row['titulo'], tipo='Digital').exists():
+                    steam_id=None
+                    try:
+                        busca = client.getApp(name=jogo.titulo)
+                        steam_id = busca.appid
+                    except:
+                        jogos_nao_encontrados_no_steam.append(jogo)
+                    if not Jogo.objects.filter(titulo=row['titulo'], tipo='Digital').exists() and steam_id and \
+                            not Jogo.objects.filter(steam_id=steam_id).exists():
                         jogo = Jogo()
                         jogo.titulo = row['titulo']
-                        try:
-                            busca = client.getApp(name=jogo.titulo)
-                            jogo.steam_id = busca.appid
-                        except:
-                            jogos_nao_encontrados_no_steam.append(jogo)
+                        jogo.steam_id = steam_id
                         jogo.save()
                         jogo.lojas.add(loja)
                         jogo.plataformas.add(plataforma)
                         jogo.save()
                         jogos_adicionados.append(jogo)
                     else:
-                        jogo = Jogo.objects.get(titulo=row['titulo'], tipo='Digital')
+                        jogo = Jogo.objects.get(titulo=row['titulo'], tipo='Digital') \
+                            if Jogo.objects.filter(titulo=row['titulo'], tipo='Digital').exists() \
+                            else Jogo.objects.get(steam_id=steam_id)
                         if loja not in jogo.lojas.all():
                             jogo.lojas.add(loja)
                             adicionados_a_nova_loja.append(jogo)
