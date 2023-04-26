@@ -31,10 +31,10 @@ class Command(BaseCommand):
                     plataforma = Plataforma.objects.get_or_create(nome=row['plataforma'])[0]
                     steam_id=None
                     try:
-                        busca = client.getApp(name=jogo.titulo)
+                        busca = client.getApp(name=row['titulo'])
                         steam_id = busca.appid
                     except:
-                        jogos_nao_encontrados_no_steam.append(jogo)
+                        jogos_nao_encontrados_no_steam.append(row['titulo'])
                     if not Jogo.objects.filter(titulo=row['titulo'], tipo='Digital').exists() and steam_id and \
                             not Jogo.objects.filter(steam_id=steam_id).exists():
                         jogo = Jogo()
