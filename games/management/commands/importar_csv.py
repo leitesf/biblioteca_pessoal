@@ -19,7 +19,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         configuracao = ConfiguracaoSistema.objects.first()
         client = steamfront.Client()
-        pc = Plataforma.objects.get_or_create(nome='PC')[0]
         jogos_adicionados = []
         adicionados_a_nova_loja = []
         adicionados_ao_pc = []
@@ -29,6 +28,7 @@ class Command(BaseCommand):
                 csv_reader = csv.DictReader(csv_file, delimiter=';')
                 for row in tqdm(csv_reader):
                     loja = Loja.objects.get_or_create(nome=row['loja'])[0]
+                    plataforma = Plataforma.objects.get_or_create(nome=row['plataforma'])[0]
                     if not Jogo.objects.filter(titulo=row['titulo'], tipo='Digital').exists():
                         jogo = Jogo()
                         jogo.titulo = row['titulo']
@@ -47,8 +47,8 @@ class Command(BaseCommand):
                         if loja not in jogo.lojas.all():
                             jogo.lojas.add(loja)
                             adicionados_a_nova_loja.append(jogo)
-                        if pc not in jogo.plataformas.all():
-                            jogo.plataformas.add(pc)
+                        if plataforma not in jogo.plataformas.all():
+                            jogo.plataformas.add(plataforma)
                             adicionados_ao_pc.append(jogo)
         for jogo in jogos_adicionados:
             print('Jogo adicionado: {}'.format(jogo.titulo))

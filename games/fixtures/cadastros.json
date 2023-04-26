@@ -75,5 +75,12 @@
       "id": 8,
       "nome": "Origin"
     }
+  },
+  {
+    "model": "games.loja",
+    "fields": {
+      "id": 9,
+      "nome": "Ubisoft"
+    }
   }
 ]
