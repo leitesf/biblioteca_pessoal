@@ -32,7 +32,8 @@ class JogoAdmin(AdminBasico):
         ('lojas', admin.RelatedOnlyFieldListFilter),
         ('plataformas', admin.RelatedOnlyFieldListFilter),
         'tipo',
-        ('capa', admin.EmptyFieldListFilter)
+        ('capa', admin.EmptyFieldListFilter),
+        ('steam_id', admin.EmptyFieldListFilter)
     )
     list_display_links = None
 
