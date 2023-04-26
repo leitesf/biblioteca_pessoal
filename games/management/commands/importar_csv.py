@@ -39,7 +39,7 @@ class Command(BaseCommand):
                             jogos_nao_encontrados_no_steam.append(jogo)
                         jogo.save()
                         jogo.lojas.add(loja)
-                        jogo.plataformas.add(pc)
+                        jogo.plataformas.add(plataforma)
                         jogo.save()
                         jogos_adicionados.append(jogo)
                     else:
