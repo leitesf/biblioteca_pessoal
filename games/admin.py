@@ -25,8 +25,8 @@ class GeneroAdmin(AdminBasico):
 
 
 class JogoAdmin(AdminBasico):
-    list_display = ('get_links', 'titulo', 'tipo', 'genero', 'get_plataformas', 'get_lojas', 'possui_capa')
-    search_fields = ('titulo', )
+    list_display = ('get_links', 'titulo', 'tipo', 'genero', 'get_plataformas', 'get_lojas', 'steam_id', 'possui_capa')
+    search_fields = ('titulo', 'steam_id',)
     list_filter = (
         ('genero', admin.RelatedOnlyFieldListFilter),
         ('lojas', admin.RelatedOnlyFieldListFilter),

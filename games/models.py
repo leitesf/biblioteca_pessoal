@@ -77,6 +77,11 @@ class Jogo(models.Model):
         Plataforma, verbose_name="Plataformas", related_name='jogos', blank=True
     )
     steam_id = models.IntegerField('ID no Steam', blank=True, null=True, unique=True)
+    nao_existe_no_steam = models.BooleanField(
+        verbose_name="Não existe no steam",
+        help_text="Marque esse campo para evitar que se realize a busca no steam desse título",
+        default=False
+    )
     capa = models.ImageField("Capa do Jogo", upload_to="capas_jogo", null=True, blank=True)
 
     class Meta:
