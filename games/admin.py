@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.shortcuts import redirect
 from django.utils.safestring import mark_safe
 
 from games.models import Plataforma, Loja, Genero, Jogo
@@ -60,6 +61,11 @@ class JogoAdmin(AdminBasico):
         return mark_safe('<span class="badge badge-success">Sim</span>' if obj.capa else '<span class="badge badge-danger">Não</span>')
     possui_capa.short_description = 'Possui capa'
 
+    def response_add(self, request, obj, post_url_continue=None):
+        return redirect(obj.get_absolute_url())
+
+    def response_change(self, request, obj, post_url_continue=None):
+        return redirect(obj.get_absolute_url())
     # def get_actions(self, request):
     #     categorias = dict(
     #         create_action_de_categoria(categoria) for categoria in Categoria.objects.exclude(descricao="A definir")
