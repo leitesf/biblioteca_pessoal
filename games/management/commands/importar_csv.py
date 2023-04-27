@@ -5,6 +5,7 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 from tqdm import tqdm
 
+from games.importador import ImportadorSteamFront
 from games.models import Loja, Jogo, Plataforma
 
 
@@ -17,17 +18,15 @@ class Command(BaseCommand):
         adicionados_a_nova_loja = []
         adicionados_ao_pc = []
         jogos_nao_encontrados_no_steam = []
+        importador_steam_front = ImportadorSteamFront()
         with transaction.atomic():
             with open('jogos_para_importar.csv', mode='r') as csv_file:
                 csv_reader = csv.DictReader(csv_file, delimiter=';')
                 for row in tqdm(csv_reader):
                     loja = Loja.objects.get_or_create(nome=row['loja'])[0]
                     plataforma = Plataforma.objects.get_or_create(nome=row['plataforma'])[0]
-                    steam_id = None
-                    try:
-                        busca = client.getApp(name=row['titulo'])
-                        steam_id = busca.appid
-                    except:
+                    steam_id = importador_steam_front.buscar_steam_id(row['titulo'])
+                    if not steam_id:
                         jogos_nao_encontrados_no_steam.append(row['titulo'])
                     if Jogo.objects.filter(titulo=row['titulo'], tipo='Digital').exists():
                         jogo = Jogo.objects.get(titulo=row['titulo'], tipo='Digital')

@@ -6,11 +6,13 @@ from django.core.files.temp import NamedTemporaryFile
 import requests
 from django.core.management.base import BaseCommand
 from django.db import transaction
+from steamfront.errors import AppNotFound
 from tqdm import tqdm
 
 from games.models import Loja, Jogo, Plataforma
 from games.utils import get_genero_equivalente
 from main.models import *
+from games.importador import ImportadorSteam, ImportadorSteamFront
 
 
 class Command(BaseCommand):
@@ -20,78 +22,27 @@ class Command(BaseCommand):
         configuracao = ConfiguracaoSistema.objects.first()
         usuario_principal = configuracao.usuario_principal
         steam_api_key = configuracao.steam_api_key
+        steam = Loja.objects.get_or_create(nome='Steam')[0]
+        pc = Plataforma.objects.get_or_create(nome='PC')[0]
         if steam_api_key and usuario_principal and usuario_principal.steam_user:
-            with transaction.atomic():
-                steam = Loja.objects.get_or_create(nome='Steam')[0]
-                pc = Plataforma.objects.get_or_create(nome='PC')[0]
-
-                dados = requests.get(
-                    "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={}&steamid={}&include_appinfo=true&format=json".format(
-                        steam_api_key,
-                        usuario_principal.steam_user
-                    )
-                ).json()
-                print("Importando jogos do usuário principal")
-                jogos_adicionados = []
-                adicionados_ao_steam = []
-                adicionados_ao_pc = []
-                # import ipdb; ipdb.set_trace()
-                for item in tqdm(dados['response']['games']):
-                    if not Jogo.objects.filter(titulo=item['name'], tipo='Digital').exists() and \
-                            not Jogo.objects.filter(steam_id=item['appid']).exists():
-                        jogo = Jogo()
-                        jogo.titulo = item['name']
-                        jogo.steam_id = item['appid']
-                        jogo.save()
-                        jogo.lojas.add(steam)
-                        jogo.plataformas.add(pc)
-                        jogo.save()
-                        jogos_adicionados.append(jogo)
-                    elif Jogo.objects.filter(steam_id=item['appid']).exists():
-                        pass
-                    else:
-                        jogo = Jogo.objects.get(titulo=item['name'], tipo='Digital')
-                        if steam not in jogo.lojas.all():
-                            jogo.lojas.add(steam)
-                            adicionados_ao_steam.append(jogo)
-                        if pc not in jogo.plataformas.all():
-                            jogo.plataformas.add(pc)
-                            adicionados_ao_pc.append(jogo)
-                        jogo.steam_id = item['appid']
-                        jogo.save()
+            importador_steam = ImportadorSteam(steam_api_key, usuario_principal.steam_user)
+            jogos_adicionados, adicionados_ao_steam, adicionados_ao_pc = importador_steam.importar_jogos_do_usuario(steam, pc)
         else:
+            jogos_adicionados, adicionados_ao_steam, adicionados_ao_pc = [], [], []
             print("Verifique se o usuário principal possui steam user configurado e se a steam key está configurada.")
-        # print("Buscando jogos sem steam_id no steam")
-        # steam_ids_adicionadas = []
-        client = steamfront.Client()
-        # jogos_nao_encontrados_no_steam = []
-        # for jogo in tqdm(Jogo.objects.filter(steam_id__isnull=True)):
-        #     try:
-        #         busca = client.getApp(name=jogo.titulo)
-        #         jogo.steam_id = busca.appid
-        #         jogo.save()
-        #         steam_ids_adicionadas.append(jogo)
-        #     except:
-        #         jogos_nao_encontrados_no_steam.append(jogo)
+
+        importador_steam_front = ImportadorSteamFront()
+        steam_ids_adicionadas, jogos_nao_encontrados_no_steam = importador_steam_front.buscar_steam_id_de_jogos_sem_steam_id()
         capas_adicionadas = []
         genero_adicionado = []
         print("Atualizando capas e gêneros dos jogos do steam")
-        for jogo in tqdm(Jogo.objects.filter(steam_id__isnull=False)):
+        for jogo in tqdm(Jogo.objects.filter(steam_id__isnull=False, nao_existe_no_steam=False)):
             if not jogo.capa:
-                capa = requests.get(
-                    "https://steamcdn-a.akamaihd.net/steam/apps/{}/library_600x900.jpg".format(jogo.steam_id)
-                )
-                img_temp = NamedTemporaryFile(delete=True)
-                img_temp.write(capa.content)
-                img_temp.flush()
-                jogo.capa.save('capa-{}.jpg'.format(jogo.id), File(img_temp), save=True)
+                importador_steam_front.atualizar_capa_de_jogo(jogo)
                 capas_adicionadas.append(jogo)
             if not jogo.genero:
                 try:
-                    busca = client.getApp(appid=jogo.steam_id)
-                    if 'genres' in busca.raw:
-                        jogo.genero = get_genero_equivalente(busca.genres[0])
-                        jogo.save()
+                    importador_steam_front.atualizar_genero_de_jogo(jogo)
                     genero_adicionado.append(jogo)
                 except:
                     pass
@@ -101,10 +52,10 @@ class Command(BaseCommand):
             print('Jogo adicionado ao Steam: {}'.format(jogo.titulo))
         for jogo in adicionados_ao_pc:
             print('Jogo adicionado ao PC: {}'.format(jogo.titulo))
-        # for jogo in steam_ids_adicionadas:
-        #     print('Steam ids adicionadas: {}'.format(jogo.titulo))
-        # for jogo in jogos_nao_encontrados_no_steam:
-        #     print('Jogos não encontrados no steam: {}'.format(jogo.titulo))
+        for jogo in steam_ids_adicionadas:
+            print('Steam ids adicionadas: {}'.format(jogo.titulo))
+        for jogo in jogos_nao_encontrados_no_steam:
+            print('Jogos não encontrados no steam: {}'.format(jogo.titulo))
         for jogo in capas_adicionadas:
             print('Capa adicionada: {}'.format(jogo.titulo))
         for jogo in genero_adicionado:
