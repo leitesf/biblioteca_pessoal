@@ -3,9 +3,9 @@ import steamfront
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.db import transaction
-from steamfront.errors import AppNotFound
 from tqdm import tqdm
-from games.models import Loja, Jogo, Plataforma
+
+from games.models import Jogo
 from games.utils import get_genero_equivalente
 
 
@@ -20,7 +20,8 @@ class ImportadorSteam:
         adicionados_ao_pc = []
         print("Importando jogos do usuário principal")
         dados = requests.get(
-            "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={}&steamid={}&include_appinfo=true&format=json".format(
+            "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/" +
+            "?key={}&steamid={}&include_appinfo=true&format=json".format(
                 self.steam_api_key,
                 self.steam_user
             )

@@ -1,18 +1,9 @@
-from datetime import datetime
-
-import steamfront
-from django.core.files import File
-from django.core.files.temp import NamedTemporaryFile
-import requests
 from django.core.management.base import BaseCommand
-from django.db import transaction
-from steamfront.errors import AppNotFound
 from tqdm import tqdm
 
-from games.models import Loja, Jogo, Plataforma
-from games.utils import get_genero_equivalente
-from main.models import *
 from games.importador import ImportadorSteam, ImportadorSteamFront
+from games.models import Loja, Jogo, Plataforma
+from main.models import *
 
 
 class Command(BaseCommand):

@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 
 class Plataforma(models.Model):
@@ -104,3 +107,13 @@ class Jogo(models.Model):
 
     def lista_plataformas(self):
         return " / ".join([item.nome for item in self.plataformas.all()])
+
+
+@receiver(post_save, sender=Jogo)
+def importar_capa_e_genero(sender, instance, **kwargs):
+    from games.importador import ImportadorSteamFront
+    importador = ImportadorSteamFront()
+    if instance.steam_id and not instance.capa:
+        importador.atualizar_capa_de_jogo(instance)
+    if instance.steam_id and not instance.genero:
+        importador.atualizar_genero_de_jogo(instance)
