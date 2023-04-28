@@ -274,6 +274,7 @@ JAZZMIN_SETTINGS = {
         "main.livro": "fas fa-book",
         "main.emprestimo": "fas fa-stamp",
         "games.jogo": "fas fa-gamepad",
+        "games.franquia": "fas fa-layer-group",
         "games.genero": "fas fa-tag",
         "games.loja": "fas fa-store",
         "games.plataforma": "fas fa-globe",

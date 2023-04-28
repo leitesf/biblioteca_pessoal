@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.shortcuts import redirect
 from django.utils.safestring import mark_safe
 
-from games.models import Plataforma, Loja, Genero, Jogo
+from games.models import Plataforma, Loja, Genero, Jogo, Franquia
 from main.admin import AdminBasico
 from django.templatetags.static import static
 
@@ -16,6 +16,15 @@ class PlataformaAdmin(AdminBasico):
 class LojaAdmin(AdminBasico):
     list_display = ('get_links', 'nome')
     search_fields = ('nome', )
+    list_display_links = None
+
+
+class FranquiaAdmin(AdminBasico):
+    list_display = ('get_links', 'nome', 'filha_de')
+    search_fields = ('nome', )
+    list_filter = (
+        'filha_de',
+    )
     list_display_links = None
 
 
@@ -81,6 +90,4 @@ admin.site.register(Plataforma, PlataformaAdmin)
 admin.site.register(Loja, LojaAdmin)
 admin.site.register(Genero, GeneroAdmin)
 admin.site.register(Jogo, JogoAdmin)
-
-# Register your models here.
-# Register your models here.
+admin.site.register(Franquia, FranquiaAdmin)

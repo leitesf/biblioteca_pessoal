@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 
-from games.models import Plataforma, Loja, Genero, Jogo
+from games.models import Plataforma, Loja, Genero, Jogo, Franquia
 from main.utils import gerar_menu
 
 
@@ -17,6 +17,13 @@ def show_loja(request, loja_id):
     loja = get_object_or_404(Loja, id=loja_id)
     side_menu_list = gerar_menu(request.user, 'loja')
     return render(request, 'loja.html', locals())
+
+
+@login_required
+def show_franquia(request, franquia_id):
+    franquia = get_object_or_404(Franquia, id=franquia_id)
+    side_menu_list = gerar_menu(request.user, 'franquia')
+    return render(request, 'franquia.html', locals())
 
 
 @login_required

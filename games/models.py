@@ -40,6 +40,31 @@ class Loja(models.Model):
         return '/loja/{}/'.format(self.id)
 
 
+class Franquia(models.Model):
+    nome = models.CharField("Nome", max_length=50, unique=True)
+    filha_de = models.ForeignKey(
+        'games.Franquia', on_delete=models.RESTRICT, verbose_name="Filha de", null=True, blank=True,
+        related_name='filhas'
+    )
+
+    class Meta:
+        verbose_name = 'Franquia'
+        verbose_name_plural = 'Franquias'
+        ordering = ['nome']
+
+    def __str__(self):
+        if self.filha_de:
+            return '{} ({})'.format(self.nome, self.filha_de.nome)
+        else:
+            return self.nome
+
+    def get_edit_url(self):
+        return '/admin/games/franquia/{}/change/'.format(self.id)
+
+    def get_absolute_url(self):
+        return '/franquia/{}/'.format(self.id)
+
+
 class Genero(models.Model):
     descricao = models.CharField("Descrição", max_length=50, unique=True)
 
@@ -78,6 +103,9 @@ class Jogo(models.Model):
     lojas = models.ManyToManyField(Loja, verbose_name="Lojas", related_name='jogos', blank=True)
     plataformas = models.ManyToManyField(
         Plataforma, verbose_name="Plataformas", related_name='jogos', blank=True
+    )
+    franquias = models.ManyToManyField(
+        Franquia, verbose_name="Franquias", related_name='jogos', blank=True
     )
     steam_id = models.IntegerField('ID no Steam', blank=True, null=True, unique=True)
     nao_existe_no_steam = models.BooleanField(

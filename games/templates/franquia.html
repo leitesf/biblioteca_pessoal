@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content_title %}Franquia: {{ franquia.nome }}{% endblock %}
+{% block content %}
+    <div class="container">
+        <br>
+        <h5>Jogos:</h5>
+        {% if franquia.jogos.exists %}
+            {% include "includes/lista_de_jogos.html" with jogos=franquia.jogos.all %}
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                Não existem jogos cadastrados para essa franquia.
+            </div>
+        {% endif %}
+    </div>
+    {% if franquia.filhas.exists %}
+        <div class="container">
+            <br>
+            <h5>Franquias Filhas</h5>
+            {% for subfranquia in franquia.filhas.all %}
+                <br>
+                <h6>{{ subfranquia.nome }}</h6>
+                {% if subfranquia.jogos.exists %}
+                    {% include "includes/lista_de_jogos.html" with jogos=subfranquia.jogos.all %}
+                {% else %}
+                    <div class="alert alert-warning" role="alert">
+                        Não existem jogos cadastrados para essa franquia.
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+        </div>
+    {% endif %}
+
+{% endblock %}

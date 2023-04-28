@@ -11,5 +11,6 @@ urlpatterns = [
     path('plataforma/<int:plataforma_id>/', views.show_plataforma),
     path('loja/<int:loja_id>/', views.show_loja),
     path('jogo/<int:jogo_id>/', views.show_jogo),
+    path('franquia/<int:franquia_id>/', views.show_franquia),
     path('jogo/<int:jogo_id>/capa/', views.show_capa_jogo),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

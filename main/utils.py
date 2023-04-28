@@ -79,6 +79,11 @@ def gerar_menu(usuario, ativo=None):
         side_menu_list[1]['models'].append(
             {'name': 'Jogos', 'object_name': 'Jogos', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/games/jogo/', 'add_url': '/admin/games/jogo/add/', 'view_only': False, 'url': '/admin/games/jogo/', 'model_str': 'main.jogo', 'icon': 'fas fa-gamepad', 'is_active': is_active}
         )
+    if usuario.has_perm('main.view_franquias'):
+        is_active = True if ativo == 'franquia' else False
+        side_menu_list[1]['models'].append(
+            {'name': 'Franquias', 'object_name': 'Franquias', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/games/franquia/', 'add_url': '/admin/games/franquia/add/', 'view_only': False, 'url': '/admin/games/franquia/', 'model_str': 'main.franquia', 'icon': 'fas fa-layer-group', 'is_active': is_active}
+        )
     if usuario.has_perm('main.view_generos'):
         is_active = True if ativo == 'genero' else False
         side_menu_list[1]['models'].append(

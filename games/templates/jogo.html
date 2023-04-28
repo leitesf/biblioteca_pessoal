@@ -34,6 +34,21 @@
                         </div>
                         <div class="row">
                             <div class="col">
+                                <p><strong>Franquias:</strong></p>
+                                <ul class="list-group">
+                                    {% if jogo.franquias.exists %}
+                                        {% for franquia in jogo.franquias.all %}
+                                            <li class="list-group-item">{{ franquia }} <a class='text-reset text-decoration-none' href='{{ franquia.get_absolute_url }}' title='Visualizar'>{% bs_icon 'info-square' %}</a>
+                                            </li>
+                                        {% endfor %}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
                                 <p><strong>Plataformas:</strong></p>
                                 <ul class="list-group">
                                     {% if jogo.plataformas.exists %}
