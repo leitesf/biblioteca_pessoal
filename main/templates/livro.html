@@ -22,7 +22,7 @@
     <div class="container">
         <div class="card mb-3">
             <div class="row no-gutters">
-                <div class="col-md-12">
+                <div class="col-md-11">
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
@@ -183,9 +183,9 @@
                             </div>
                             <div class="col-md-4">
                                 {% if livro.capa %}
-                                    <img src="{{ livro.capa.url }}">
+                                    <img class="img-fluid" src="{{ livro.capa.url }}">
                                 {% else %}
-                                    <img src="{% static 'img/placeholder.png' %}">
+                                    <img class="img-fluid" src="{% static 'img/placeholder.png' %}">
                                 {% endif %}
                             </div>
                         </div>

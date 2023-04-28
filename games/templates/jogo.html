@@ -16,7 +16,7 @@
     <div class="container">
         <div class="card mb-3">
             <div class="row no-gutters">
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
@@ -64,11 +64,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     {% if jogo.capa %}
-                        <img src="{{ jogo.capa.url }}">
+                        <img class="img-fluid" src="{{ jogo.capa.url }}">
                     {% else %}
-                        <img src="{% static 'img/placeholder.png' %}">
+                        <img class="img-fluid" src="{% static 'img/placeholder.png' %}">
                     {% endif %}
                 </div>
             </div>
