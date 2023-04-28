@@ -33,6 +33,11 @@ class GeneroAdmin(AdminBasico):
     search_fields = ('descricao', )
     list_display_links = None
 
+def create_action_de_franquia(franquia):
+    def action(modeladmin, request, queryset): queryset.update(franquia=franquia)
+    name = "mark_%s" % (franquia,)
+    return name, (action, name, "Definir a franquia como %s" % (franquia,))
+
 
 class JogoAdmin(AdminBasico):
     list_display = ('get_links', 'titulo', 'tipo', 'genero', 'get_plataformas', 'get_lojas', 'steam_id', 'possui_capa')
@@ -75,15 +80,12 @@ class JogoAdmin(AdminBasico):
 
     def response_change(self, request, obj, post_url_continue=None):
         return redirect(obj.get_absolute_url())
-    # def get_actions(self, request):
-    #     categorias = dict(
-    #         create_action_de_categoria(categoria) for categoria in Categoria.objects.exclude(descricao="A definir")
-    #     )
-    #     estantes = dict(
-    #         create_action_de_estante(estante) for estante in Estante.objects.exclude(descricao="A definir")
-    #     )
-    #     categorias.update(estantes)
-    #     return categorias
+
+    def get_actions(self, request):
+        franquias = dict(
+            create_action_de_franquia(franquia) for franquia in Franquia.objects.all()
+        )
+        return franquias
 
 
 admin.site.register(Plataforma, PlataformaAdmin)
