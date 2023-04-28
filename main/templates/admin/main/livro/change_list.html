@@ -1,0 +1,36 @@
+{% extends "admin/change_list.html" %}
+
+{% block content %}
+    {{  block.super }}
+    <div id="popup" class="modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Capa do Livro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extrajs %}
+    {{ block.super }}
+    {{ media.js }}
+    <script>
+        $(document).on("click", ".show-capa", function (e) {
+            e.preventDefault();
+            var $popup = $("#popup");
+            var popup_url = $(this).data("popup-url");
+            $(".modal-body", $popup).load(popup_url, function () {
+                $popup.modal();
+                $(".modal-backdrop" ).remove();
+                $("body").removeClass("modal-open");
+            });
+        });
+    </script>
+{% endblock %}

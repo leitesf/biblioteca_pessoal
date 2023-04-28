@@ -146,6 +146,17 @@ class LivroAdmin(AdminBasico):
         categorias.update(estantes)
         return categorias
 
+    def get_links(self, obj):
+        info = static('svg/info-square.svg')
+        pencil = static('svg/pencil-square.svg')
+        image = static('svg/card-image.svg')
+        return mark_safe(
+            "<a href='{}' title='Visualizar'><img src='{}'></a>&nbsp;<a href='{}' title='Editar'><img src='{}'>&nbsp;</a><a class='show-capa' href='/livro/{}/capa/' data-popup-url='/livro/{}/capa/'><img src='{}'></a>".format(obj.get_absolute_url(), info, obj.get_edit_url(), pencil, obj.id, obj.id, image)
+        )
+
+    get_links.short_description = '#'
+    get_links.allow_tags = True
+
 
 class EmprestimoAdmin(AdminBasico):
     list_display = ('get_links', 'livro', 'pessoa', 'data_inicio', 'data_fim')

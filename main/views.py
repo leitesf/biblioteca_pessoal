@@ -166,3 +166,8 @@ def alterar_senha(request, usuario_id):
         form = PasswordForm(instance=usuario)
     return render(request, 'form.html', locals())
 
+
+@login_required
+def show_capa_livro(request, livro_id):
+    livro = get_object_or_404(Livro, id=livro_id)
+    return render(request, 'livro_capa.html', locals())
