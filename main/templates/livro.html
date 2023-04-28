@@ -183,9 +183,9 @@
                             </div>
                             <div class="col-md-4">
                                 {% if livro.capa %}
-                                    <img class="img-fluid" src="{{ livro.capa.url }}">
+                                    <img class="img-fluid img-thumbnail" src="{{ livro.capa.url }}">
                                 {% else %}
-                                    <img class="img-fluid" src="{% static 'img/placeholder.png' %}">
+                                    <img class="img-fluid img-thumbnail" src="{% static 'img/placeholder.png' %}">
                                 {% endif %}
                             </div>
                         </div>

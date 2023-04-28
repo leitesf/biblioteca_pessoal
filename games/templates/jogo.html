@@ -66,9 +66,9 @@
                 </div>
                 <div class="col-md-6">
                     {% if jogo.capa %}
-                        <img class="img-fluid" src="{{ jogo.capa.url }}">
+                        <img class="img-fluid img-thumbnail" src="{{ jogo.capa.url }}">
                     {% else %}
-                        <img class="img-fluid" src="{% static 'img/placeholder.png' %}">
+                        <img class="img-fluid img-thumbnail" src="{% static 'img/placeholder.png' %}">
                     {% endif %}
                 </div>
             </div>
