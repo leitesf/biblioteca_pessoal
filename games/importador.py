@@ -61,7 +61,7 @@ class ImportadorSteamFront:
         print("Buscando jogos sem steam_id no steam")
         steam_ids_adicionadas = []
         jogos_nao_encontrados_no_steam = []
-        for jogo in tqdm(Jogo.objects.filter(steam_id__isnull=True)):
+        for jogo in tqdm(Jogo.objects.filter(steam_id__isnull=True, nao_existe_no_steam=False)):
             busca = self.buscar_steam_id(jogo.titulo)
             if busca:
                 jogo.steam_id = busca

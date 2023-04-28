@@ -115,7 +115,7 @@ class Jogo(models.Model):
             if jogo.capa.size == 146:
                 jogo.capa = None
                 jogo.save()
-                jogos.append(jogo)
+                jogos.append(jogo.titulo)
         print(', '.join(jogos))
 
 

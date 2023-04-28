@@ -27,7 +27,7 @@ class Command(BaseCommand):
         capas_adicionadas = []
         genero_adicionado = []
         print("Atualizando capas e gêneros dos jogos do steam")
-        for jogo in tqdm(Jogo.objects.filter(steam_id__isnull=False, nao_existe_no_steam=False)):
+        for jogo in tqdm(Jogo.objects.filter(steam_id__isnull=False)):
             if not jogo.capa:
                 importador_steam_front.atualizar_capa_de_jogo(jogo)
                 capas_adicionadas.append(jogo)
