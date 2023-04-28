@@ -34,16 +34,20 @@ class GeneroAdmin(AdminBasico):
     list_display_links = None
 
 def create_action_de_franquia(franquia):
-    def action(modeladmin, request, queryset): queryset.update(franquia=franquia)
+    def action(modeladmin, request, queryset):
+        for jogo in queryset.all():
+            jogo.franquias.add(franquia)
+            jogo.save()
     name = "mark_%s" % (franquia,)
     return name, (action, name, "Definir a franquia como %s" % (franquia,))
 
 
 class JogoAdmin(AdminBasico):
-    list_display = ('get_links', 'titulo', 'tipo', 'genero', 'get_plataformas', 'get_lojas', 'steam_id', 'possui_capa')
+    list_display = ('get_links', 'titulo', 'tipo', 'genero', 'get_franquias', 'get_plataformas', 'get_lojas', 'steam_id', 'possui_capa')
     search_fields = ('titulo', 'steam_id',)
     list_filter = (
         ('genero', admin.RelatedOnlyFieldListFilter),
+        ('franquias', admin.RelatedOnlyFieldListFilter),
         ('lojas', admin.RelatedOnlyFieldListFilter),
         ('plataformas', admin.RelatedOnlyFieldListFilter),
         'tipo',
@@ -66,6 +70,10 @@ class JogoAdmin(AdminBasico):
     def get_lojas(self, obj):
         return obj.lista_lojas()
     get_lojas.short_description = 'Lojas'
+
+    def get_franquias(self, obj):
+        return obj.lista_franquias()
+    get_franquias.short_description = 'Franquias'
 
     def get_plataformas(self, obj):
         return obj.lista_plataformas()

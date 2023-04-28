@@ -133,6 +133,9 @@ class Jogo(models.Model):
     def lista_lojas(self):
         return " / ".join([item.nome for item in self.lojas.all()])
 
+    def lista_franquias(self):
+        return " / ".join([item.nome for item in self.franquias.all()])
+
     def lista_plataformas(self):
         return " / ".join([item.nome for item in self.plataformas.all()])
 
