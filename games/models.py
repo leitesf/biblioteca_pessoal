@@ -108,6 +108,16 @@ class Jogo(models.Model):
     def lista_plataformas(self):
         return " / ".join([item.nome for item in self.plataformas.all()])
 
+    @classmethod
+    def limpar_capas_defeituosas(cls):
+        jogos = []
+        for jogo in cls.objects.exclude(capa__exact=''):
+            if jogo.capa.size == 146:
+                jogo.capa = None
+                jogo.save()
+                jogos.append(jogo)
+        print(', '.join(jogos))
+
 
 @receiver(post_save, sender=Jogo)
 def importar_capa_e_genero(sender, instance, **kwargs):

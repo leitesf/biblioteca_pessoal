@@ -3,6 +3,7 @@ import steamfront
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.db import transaction
+from steamfront.errors import AppNotFound
 from tqdm import tqdm
 
 from games.models import Jogo
@@ -73,15 +74,23 @@ class ImportadorSteamFront:
         capa = requests.get(
             "https://steamcdn-a.akamaihd.net/steam/apps/{}/library_600x900.jpg".format(jogo.steam_id)
         )
-        img_temp = NamedTemporaryFile(delete=True)
-        img_temp.write(capa.content)
-        img_temp.flush()
-        jogo.capa.save('capa-{}.jpg'.format(jogo.id), File(img_temp), save=True)
+        if capa.status_code == 200:
+            img_temp = NamedTemporaryFile(delete=True)
+            img_temp.write(capa.content)
+            img_temp.flush()
+            jogo.capa.save('capa-{}.jpg'.format(jogo.id), File(img_temp), save=True)
+            return True
+        else:
+            return False
 
     def atualizar_genero_de_jogo(self, jogo):
-        busca = self.cliente.getApp(appid=jogo.steam_id)
-        if 'genres' in busca.raw:
-            jogo.genero = get_genero_equivalente(busca.genres[0])
+        try:
+            busca = self.cliente.getApp(appid=jogo.steam_id)
+            if 'genres' in busca.raw:
+                jogo.genero = get_genero_equivalente(busca.genres[0])
+                jogo.save()
+        except AppNotFound:
+            jogo.steam_id = None
             jogo.save()
 
     def buscar_steam_id(self, titulo):
