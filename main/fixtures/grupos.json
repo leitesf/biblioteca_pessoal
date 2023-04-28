@@ -685,6 +685,50 @@
     }
 },
 {
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Franquia",
+        "content_type": [
+            "games",
+            "genero"
+        ],
+        "codename": "viewfranquia"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Franquia",
+        "content_type": [
+            "games",
+            "genero"
+        ],
+        "codename": "delefranquia"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Franquia",
+        "content_type": [
+            "games",
+            "genero"
+        ],
+        "codename": "chanfranquia"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Franquia",
+        "content_type": [
+            "games",
+            "genero"
+        ],
+        "codename": "add_franquia"
+    }
+},
+{
     "model": "auth.group",
     "fields": {
         "name": "Consultador",
