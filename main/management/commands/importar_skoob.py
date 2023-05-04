@@ -38,7 +38,7 @@ class Command(BaseCommand):
                     livro = Livro()
                     livro.titulo = item['edicao']['titulo']
                     livro.subtitulo = item['edicao']['subtitulo'] if item['edicao']['subtitulo'] else None
-                    livro.ano = item['edicao']['ano']
+                    livro.ano = item['edicao']['ano'] if item['edicao']['ano'] else None
                     if Editora.objects.filter(nome=item['edicao']['editora']).exists():
                         livro.editora = Editora.objects.get(nome=item['edicao']['editora'])
                     else:
