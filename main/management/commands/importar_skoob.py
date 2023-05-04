@@ -71,7 +71,7 @@ class Command(BaseCommand):
                             data=datetime.strptime(item['dt_leitura'], '%Y-%m-%d %H:%M:%S').date()
                         )
 
-                    capa = requests.get(item['edicao']['capa_media'])
+                    capa = requests.get(item['edicao']['capa_grande'])
                     img_temp = NamedTemporaryFile(delete=True)
                     img_temp.write(capa.content)
                     img_temp.flush()
