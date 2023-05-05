@@ -80,7 +80,7 @@
     "model": "games.loja",
     "fields": {
       "id": 9,
-      "nome": "Ubisoft"
+      "nome": "Battle.net"
     }
   }
 ]
