@@ -180,7 +180,7 @@ def atualizar_nome_ordenado(sender, instance, **kwargs):
 
 
 class Livro(models.Model):
-    titulo = models.CharField("Titulo", max_length=100)
+    titulo = models.CharField("Titulo", max_length=200)
     autor_principal = models.ForeignKey(
         Autor,
         on_delete=models.RESTRICT,
@@ -201,7 +201,7 @@ class Livro(models.Model):
     idioma = models.ForeignKey(Idioma, on_delete=models.RESTRICT, verbose_name="Idioma")
     sinopse = models.TextField(verbose_name="Sinopse", blank=True)
     paginas = models.IntegerField(verbose_name="Páginas", blank=True, null=True)
-    subtitulo = models.CharField("Subtítulo", max_length=100, blank=True, null=True)
+    subtitulo = models.CharField("Subtítulo", max_length=200, blank=True, null=True)
     ano = models.IntegerField(verbose_name="Ano de Publicação", blank=True, null=True)
     skoob_id = models.IntegerField('ID no Skoob', blank=True, null=True, unique=True)
     capa = models.ImageField("Capa do Livro", upload_to="capas_livro", null=True, blank=True)
