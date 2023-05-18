@@ -3,6 +3,7 @@ from django.utils.safestring import mark_safe
 from django_bootstrap_icons.templatetags.bootstrap_icons import bs_icon
 from solo.admin import SingletonModelAdmin
 
+from main.filters import LidosFilter
 from main.forms import UsuarioForm
 from main.models import Usuario, Estante, Categoria, Autor, Idioma, Editora, Livro, Colecao, ConfiguracaoSistema, \
     Emprestimo
@@ -125,7 +126,7 @@ def create_action_de_estante(estante):
 
 class LivroAdmin(AdminBasico):
     list_display = (
-        'get_links', 'titulo', 'autor_principal', 'lista_autores', 'editora', 'categoria',
+        'get_links', 'titulo', 'lista_autores', 'editora', 'categoria',
         'colecao', 'estante', 'lido_por_mim'
     )
     search_fields = ('titulo', 'isbn', )
@@ -136,12 +137,14 @@ class LivroAdmin(AdminBasico):
         ('categoria', admin.RelatedOnlyFieldListFilter),
         ('estante', admin.RelatedOnlyFieldListFilter),
         ('colecao', admin.RelatedOnlyFieldListFilter),
+        LidosFilter
     )
     list_display_links = None
 
     def lista_autores(self, obj):
-        return obj.lista_autores_secundarios()
-    lista_autores.short_description = 'Autores Secundários'
+        return obj.lista_todos_autores()
+    lista_autores.short_description = 'Autores'
+    lista_autores.admin_order_field = ['autor_principal']
 
     def lido_por_mim(self, obj):
         return get_badge_boolean(obj.lido_por(get_request().user))
