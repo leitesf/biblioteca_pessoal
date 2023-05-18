@@ -3,7 +3,7 @@ from django.utils.safestring import mark_safe
 from django_bootstrap_icons.templatetags.bootstrap_icons import bs_icon
 from solo.admin import SingletonModelAdmin
 
-from main.filters import LidosFilter
+from main.filters import LidosFilter, AutoresFilter
 from main.forms import UsuarioForm
 from main.models import Usuario, Estante, Categoria, Autor, Idioma, Editora, Livro, Colecao, ConfiguracaoSistema, \
     Emprestimo
@@ -131,8 +131,7 @@ class LivroAdmin(AdminBasico):
     )
     search_fields = ('titulo', 'isbn', )
     list_filter = (
-        ('autor_principal', admin.RelatedOnlyFieldListFilter),
-        ('autores_secundarios', admin.RelatedOnlyFieldListFilter),
+        AutoresFilter,
         ('editora', admin.RelatedOnlyFieldListFilter),
         ('categoria', admin.RelatedOnlyFieldListFilter),
         ('estante', admin.RelatedOnlyFieldListFilter),
