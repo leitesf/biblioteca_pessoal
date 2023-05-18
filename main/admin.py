@@ -121,7 +121,9 @@ def create_action_de_estante(estante):
 
 
 class LivroAdmin(AdminBasico):
-    list_display = ('get_links', 'titulo', 'autor_principal', 'lista_autores', 'editora', 'categoria',  'estante')
+    list_display = (
+        'get_links', 'titulo', 'autor_principal', 'lista_autores', 'editora', 'categoria', 'colecao', 'estante'
+    )
     search_fields = ('titulo', 'isbn', )
     list_filter = (
         ('autor_principal', admin.RelatedOnlyFieldListFilter),
@@ -129,6 +131,7 @@ class LivroAdmin(AdminBasico):
         ('editora', admin.RelatedOnlyFieldListFilter),
         ('categoria', admin.RelatedOnlyFieldListFilter),
         ('estante', admin.RelatedOnlyFieldListFilter),
+        ('colecao', admin.RelatedOnlyFieldListFilter),
     )
     list_display_links = None
 
