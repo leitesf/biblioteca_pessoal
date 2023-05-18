@@ -7,6 +7,9 @@ from main.forms import UsuarioForm
 from main.models import Usuario, Estante, Categoria, Autor, Idioma, Editora, Livro, Colecao, ConfiguracaoSistema, \
     Emprestimo
 from django.templatetags.static import static
+from django_middleware_global_request import get_request
+
+from main.utils import get_badge_boolean
 
 
 class AdminBasico(admin.ModelAdmin):
@@ -122,7 +125,8 @@ def create_action_de_estante(estante):
 
 class LivroAdmin(AdminBasico):
     list_display = (
-        'get_links', 'titulo', 'autor_principal', 'lista_autores', 'editora', 'categoria', 'colecao', 'estante'
+        'get_links', 'titulo', 'autor_principal', 'lista_autores', 'editora', 'categoria',
+        'colecao', 'estante', 'lido_por_mim'
     )
     search_fields = ('titulo', 'isbn', )
     list_filter = (
@@ -138,6 +142,10 @@ class LivroAdmin(AdminBasico):
     def lista_autores(self, obj):
         return obj.lista_autores_secundarios()
     lista_autores.short_description = 'Autores Secundários'
+
+    def lido_por_mim(self, obj):
+        return get_badge_boolean(obj.lido_por(get_request().user))
+    lido_por_mim.short_description = 'Lido por mim?'
 
     def get_actions(self, request):
         categorias = dict(

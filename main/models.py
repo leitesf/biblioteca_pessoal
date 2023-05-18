@@ -236,6 +236,9 @@ class Livro(models.Model):
     def esta_emprestado(self):
         return self.emprestimo_set.filter(data_fim__isnull=True).exists()
 
+    def lido_por(self, usuario):
+        return self.leitura_set.filter(usuario=usuario).exists()
+
 
 class Leitura(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, verbose_name="Usuário")

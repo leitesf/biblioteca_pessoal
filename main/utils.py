@@ -141,3 +141,7 @@ def gerar_menu(usuario, ativo=None):
         }
         )
     return side_menu_list
+
+
+def get_badge_boolean(valor):
+    return mark_safe('<span class="badge badge-success">Sim</span>' if valor else '<span class="badge badge-danger">Não</span>')

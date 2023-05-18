@@ -1,5 +1,10 @@
 {% extends "admin/change_list.html" %}
 
+{% block head %}
+    {{  block.super }}
+    {% load bootstrap5 %}
+{% endblock %}
+
 {% block content %}
     {{  block.super }}
     <div id="popup" class="modal">

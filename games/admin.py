@@ -6,6 +6,8 @@ from games.models import Plataforma, Loja, Genero, Jogo, Franquia
 from main.admin import AdminBasico
 from django.templatetags.static import static
 
+from main.utils import get_badge_boolean
+
 
 class PlataformaAdmin(AdminBasico):
     list_display = ('get_links', 'nome')
@@ -80,8 +82,8 @@ class JogoAdmin(AdminBasico):
     get_plataformas.short_description = 'Plataformas'
 
     def possui_capa(self, obj):
-        return mark_safe('<span class="badge badge-success">Sim</span>' if obj.capa else '<span class="badge badge-danger">Não</span>')
-    possui_capa.short_description = 'Possui capa'
+        return get_badge_boolean(obj.capa)
+    possui_capa.short_description = 'Possui capa?'
 
     def response_add(self, request, obj, post_url_continue=None):
         return redirect(obj.get_absolute_url())
