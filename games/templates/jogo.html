@@ -8,7 +8,7 @@
 {% block page_actions %}
     {% if pode_editar %}
         <a href="{{ jogo.get_edit_url }}" class="btn btn-info float-right">
-            <i class="fa fa-plus-circle"></i> Editar
+            <i class="fa fa-edit"></i> Editar
         </a>
     {% endif %}
 {% endblock %}
@@ -22,13 +22,24 @@
                             <div class="col">
                                 <p><strong>Tipo:</strong> {{ jogo.tipo }}</p>
                             </div>
-                            <div class="col">
-                                <p><strong>Steam ID:</strong> {{ jogo.steam_id }}</p>
-                            </div>
+                            {% if jogo.steam_id %}
+                                <div class="col">
+                                    <p><strong>Steam ID:</strong> {{ jogo.steam_id }}</p>
+                                </div>
+                            {% endif %}
                         </div>
                         <div class="row">
                             <div class="col">
-                                <p><strong>Gênero:</strong> {{ jogo.genero }}<a class='text-reset text-decoration-none' ref='{{ jogo.genero.get_absolute_url }}'                       title='Visualizar'>{% bs_icon 'info-square' %}</a>
+                                <p>
+                                    <strong>Gênero:</strong> {{ jogo.genero|default:"-" }}
+                                    {% if jogo.genero %}
+                                        <a class='text-reset text-decoration-none'
+                                           ref='{{ jogo.genero.get_absolute_url }}'
+                                           title='Visualizar'
+                                        >
+                                            {% bs_icon 'info-square' %}
+                                        </a>
+                                    {% endif %}
                                 </p>
                             </div>
                         </div>
