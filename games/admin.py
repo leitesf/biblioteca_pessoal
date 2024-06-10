@@ -1,6 +1,9 @@
 from django.contrib import admin
 from django.shortcuts import redirect
+from django.urls import reverse
 from django.utils.safestring import mark_safe
+from django.utils.html import format_html
+from django.contrib import messages
 
 from games.models import Plataforma, Loja, Genero, Jogo, Franquia
 from main.admin import AdminBasico
@@ -86,7 +89,18 @@ class JogoAdmin(AdminBasico):
     possui_capa.short_description = 'Possui capa?'
 
     def response_add(self, request, obj, post_url_continue=None):
-        return redirect(obj.get_absolute_url())
+        if '_continue' in request.POST:
+            msg = "O jogo “{}” foi adicionado com sucesso, você pode continuar editando o mesmo.".format(obj.titulo)
+            self.message_user(request, msg, messages.SUCCESS)
+            return redirect(obj.get_edit_url())
+        elif '_addanother' in request.POST:
+            msg = "O jogo “{}” foi adicionado com sucesso, você pode adicionar outro abaixo.".format(obj.titulo)
+            self.message_user(request, msg, messages.SUCCESS)
+            return redirect(reverse('admin:games_jogo_add'))
+        else:
+            msg = "O jogo “{}” foi adicionado com sucesso.".format(obj.titulo)
+            self.message_user(request, msg, messages.SUCCESS)
+            return redirect(obj.get_absolute_url())
 
     def response_change(self, request, obj, post_url_continue=None):
         return redirect(obj.get_absolute_url())
