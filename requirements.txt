@@ -21,7 +21,7 @@ pytz==2022.7.1
 requests==2.32.0
 soupsieve==2.4
 sqlparse~=0.5.0
-urllib3==1.26.18
+urllib3~=1.26.19
 virtualenv==20.21.0
 virtualenv-clone==0.5.7
 whitenoise==6.4.0
