@@ -5,6 +5,7 @@ kill_signal = "SIGINT"
 kill_timeout = 5
 primary_region = "gig"
 processes = []
+swap_size_mb = 512
 
 [deploy]
   release_command = "python manage.py deploy"
