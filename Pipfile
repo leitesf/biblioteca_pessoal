@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 asgiref = "==3.6.0"
 django = "==4.2.15"
-django-jazzmin = "==2.6.0"
+django-jazzmin = "==3.0.0"
 django-localflavor = "==3.1"
 python-stdnum = "==1.18"
 pytz = "==2022.7.1"
