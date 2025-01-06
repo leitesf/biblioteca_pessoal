@@ -25,7 +25,6 @@ class Command(BaseCommand):
             for port in tqdm(ports.keys()):
                 titulo = ports[port]["attr"]["title"]
                 if "trimui-smart-pro:ALL" in ports[port]["attr"]["avail"] and Jogo.objects.filter(titulo=titulo).exists():
-                    import ipdb; ipdb.set_trace()
                     Jogo.objects.filter(titulo=titulo).update(possui_port=True)
                     ports_detectados.append(titulo)
                 elif "trimui-smart-pro:ALL" in ports[port]["attr"]["avail"] and Jogo.objects.filter(titulo__icontains=titulo).exists():
