@@ -16,8 +16,26 @@ class Command(BaseCommand):
         configuracao = ConfiguracaoSistema.objects.first()
         if configuracao and configuracao.usuario_principal and configuracao.usuario_principal.skoob_user:
             call_command('importar_skoob')
-        if os.path.isfile('jogos_para_importar.csv'):
-            call_command('importar_csv')
-        if configuracao and configuracao.usuario_principal and configuracao.usuario_principal.steam_user and \
+        try:
+            if os.path.isfile('jogos_para_importar.csv'):
+                call_command('importar_csv')
+        except:
+            print("-----------------------------------------")
+            print("-----------------------------------------")
+            print("-----------------------------------------")
+            print("Não foi possível importar dados do Skoob")
+            print("-----------------------------------------")
+            print("-----------------------------------------")
+            print("-----------------------------------------")
+        try:
+            if configuracao and configuracao.usuario_principal and configuracao.usuario_principal.steam_user and \
                 configuracao.steam_api_key:
-            call_command('importar_steam')
+                call_command('importar_steam')
+        except:
+            print("-----------------------------------------")
+            print("-----------------------------------------")
+            print("-----------------------------------------")
+            print("Não foi possível importar dados do Steam")
+            print("-----------------------------------------")
+            print("-----------------------------------------")
+            print("-----------------------------------------")
