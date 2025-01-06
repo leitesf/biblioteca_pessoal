@@ -43,6 +43,7 @@ google = "*"
 steamfront = "*"
 django-storages = {extras = ["google"], version = "*"}
 django-countries = {extras = ["pyuca"], version = "*"}
+ipdb = "*"
 
 [dev-packages]
 

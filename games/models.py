@@ -113,6 +113,10 @@ class Jogo(models.Model):
         help_text="Marque esse campo para evitar que se realize a busca no steam desse título",
         default=False
     )
+    possui_port = models.BooleanField(
+        verbose_name="Possui port no PortMaster pro Trimui",
+        default=False
+    )
     capa = models.ImageField("Capa do Jogo", upload_to="capas_jogo", null=True, blank=True)
 
     class Meta:

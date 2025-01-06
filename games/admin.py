@@ -48,7 +48,7 @@ def create_action_de_franquia(franquia):
 
 
 class JogoAdmin(AdminBasico):
-    list_display = ('get_links', 'titulo', 'tipo', 'genero', 'get_franquias', 'get_plataformas', 'get_lojas', 'steam_id', 'possui_capa')
+    list_display = ('get_links', 'titulo', 'tipo', 'genero', 'get_franquias', 'get_plataformas', 'get_lojas', 'possui_port', 'steam_id', 'possui_capa')
     search_fields = ('titulo', 'steam_id',)
     list_filter = (
         ('genero', admin.RelatedOnlyFieldListFilter),
@@ -57,6 +57,7 @@ class JogoAdmin(AdminBasico):
         ('plataformas', admin.RelatedOnlyFieldListFilter),
         'tipo',
         ('capa', admin.EmptyFieldListFilter),
+        ('possui_port', admin.BooleanFieldListFilter),
         ('steam_id', admin.EmptyFieldListFilter)
     )
     list_display_links = None
