@@ -30,7 +30,8 @@ class Command(BaseCommand):
             dados = requests.get(
                 "https://www.skoob.com.br/v1/bookcase/books/{}/shelf_id:6/page:0/limit:1000".format(
                     usuario_principal.skoob_user)
-            ).json()
+            )
+            dados = dados.json()
             print("Importando livros do usuário principal")
             livros_adicionados=[]
             for item in tqdm(dados['response']):

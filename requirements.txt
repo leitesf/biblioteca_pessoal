@@ -28,7 +28,7 @@ whitenoise
 django-countries[pyuca]
 ipython
 django-isbn-field
-Pillow
+Pillow~=11.3.0
 tqdm
 django-solo
 django-ajax-selects
