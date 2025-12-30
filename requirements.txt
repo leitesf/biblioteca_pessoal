@@ -5,13 +5,13 @@ beautifulsoup4
 certifi
 charset-normalizer
 distlib
-Django~=4.2.22
+Django~=4.2.27
 django-bootstrap-icons
 django-bootstrap-v5
 django-jazzmin
 django-localflavor
 django-middleware-global-request
-filelock
+filelock=3.20.1
 idna
 pipenv
 platformdirs
@@ -21,7 +21,7 @@ pytz
 requests
 soupsieve
 sqlparse
-urllib3
+urllib3~=2.6.0
 virtualenv
 virtualenv-clone
 whitenoise
