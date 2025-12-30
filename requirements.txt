@@ -11,7 +11,7 @@ django-bootstrap-v5
 django-jazzmin
 django-localflavor
 django-middleware-global-request
-filelock=3.20.1
+filelock~=3.20.1
 idna
 pipenv
 platformdirs
