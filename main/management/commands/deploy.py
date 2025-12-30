@@ -14,17 +14,17 @@ class Command(BaseCommand):
         call_command('loaddata', 'main/fixtures/grupos.json')
         call_command('loaddata', 'games/fixtures/cadastros.json')
         configuracao = ConfiguracaoSistema.objects.first()
-        try:
-            if configuracao and configuracao.usuario_principal and configuracao.usuario_principal.skoob_user:
-                call_command('importar_skoob')
-        except:
-            print("-----------------------------------------")
-            print("-----------------------------------------")
-            print("-----------------------------------------")
-            print("Não foi possível importar dados do Skoob")
-            print("-----------------------------------------")
-            print("-----------------------------------------")
-            print("-----------------------------------------")
+        # try:
+        #     if configuracao and configuracao.usuario_principal and configuracao.usuario_principal.skoob_user:
+        #         call_command('importar_skoob')
+        # except:
+        #     print("-----------------------------------------")
+        #     print("-----------------------------------------")
+        #     print("-----------------------------------------")
+        #     print("Não foi possível importar dados do Skoob")
+        #     print("-----------------------------------------")
+        #     print("-----------------------------------------")
+        #     print("-----------------------------------------")
         if os.path.isfile('jogos_para_importar.csv'):
             call_command('importar_csv')
         try:
