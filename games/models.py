@@ -117,6 +117,10 @@ class Jogo(models.Model):
         verbose_name="Possui port no PortMaster pro Trimui",
         default=False
     )
+    quero_jogar = models.BooleanField(
+        verbose_name="Quero jogar",
+        default=False
+    )
     capa = models.ImageField("Capa do Jogo", upload_to="capas_jogo", null=True, blank=True)
 
     class Meta:
