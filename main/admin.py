@@ -14,6 +14,9 @@ from main.utils import get_badge_boolean
 
 
 class AdminBasico(admin.ModelAdmin):
+    @admin.display(
+        description='#'
+    )
     def get_links(self, obj):
         info = static('svg/info-square.svg')
         pencil = static('svg/pencil-square.svg')
@@ -21,8 +24,6 @@ class AdminBasico(admin.ModelAdmin):
             "<a href='{}' title='Visualizar'><img src='{}'></a>&nbsp;<a href='{}' title='Editar'><img src='{}'></a>".format(obj.get_absolute_url(), info, obj.get_edit_url(), pencil)
         )
 
-    get_links.short_description = '#'
-    get_links.allow_tags = True
     list_per_page = 50
 
     def get_actions(self, request):
@@ -32,23 +33,31 @@ class AdminBasico(admin.ModelAdmin):
         return actions
 
 
+@admin.register(Usuario)
 class UsuarioAdmin(admin.ModelAdmin):
     list_display = ('get_links', 'get_nome', 'username', 'email', 'contato', 'get_grupos', 'is_superuser')
     search_fields = ('first_name', 'last_name', 'email')
     list_display_links = None
     form = UsuarioForm
 
+    @admin.display(
+        description='Nome',
+        ordering=["first_name"],
+    )
     def get_nome(self, obj):
         return obj.get_full_name()
 
-    get_nome.short_description = 'Nome'
-    get_nome.admin_order_field = ["first_name"]
 
+    @admin.display(
+        description='Grupos'
+    )
     def get_grupos(self, obj):
         return ', '.join(obj.groups.values_list('name', flat=True))
 
-    get_grupos.short_description = 'Grupos'
 
+    @admin.display(
+        description='#'
+    )
     def get_links(self, obj):
         key = static('svg/key.svg')
         pencil = static('svg/pencil-square.svg')
@@ -59,8 +68,6 @@ class UsuarioAdmin(admin.ModelAdmin):
         links += "<a class='text-reset text-decoration-none' href='{}' title='Alterar Senha'><img src='{}'></a>".format('/usuario/{}/alterar_senha/'.format(obj.id), key)
         return mark_safe(links)
 
-    get_links.short_description = '#'
-    get_links.allow_tags = True
 
     def get_actions(self, request):
         actions = super().get_actions(request)
@@ -69,30 +76,35 @@ class UsuarioAdmin(admin.ModelAdmin):
         return actions
 
 
+@admin.register(Estante)
 class EstanteAdmin(AdminBasico):
     list_display = ('get_links', 'descricao', 'comodo')
     search_fields = ('descricao', 'comodo')
     list_display_links = None
 
 
+@admin.register(Categoria)
 class CategoriaAdmin(AdminBasico):
     list_display = ('get_links', 'descricao', )
     search_fields = ('descricao', )
     list_display_links = None
 
 
+@admin.register(Editora)
 class EditoraAdmin(AdminBasico):
     list_display = ('get_links', 'nome', )
     search_fields = ('nome', )
     list_display_links = None
 
 
+@admin.register(Idioma)
 class IdiomaAdmin(AdminBasico):
     list_display = ('get_links', 'nome', )
     search_fields = ('nome', )
     list_display_links = None
 
 
+@admin.register(Colecao)
 class ColecaoAdmin(AdminBasico):
     list_display = ('get_links', 'descricao', 'nome_para_ordenacao', 'prioridade_na_ordenacao')
     search_fields = ('descricao', )
@@ -102,6 +114,7 @@ class ColecaoAdmin(AdminBasico):
     list_display_links = None
 
 
+@admin.register(Autor)
 class AutorAdmin(AdminBasico):
     list_display = ('get_links', 'nome', 'nome_ordenado', 'nacionalidade', 'pseudonimo_de')
     exclude = ['nome_ordenado']
@@ -124,6 +137,7 @@ def create_action_de_estante(estante):
     return name, (action, name, "Definir a estante como %s" % (estante,))
 
 
+@admin.register(Livro)
 class LivroAdmin(AdminBasico):
     list_display = (
         'get_links', 'titulo', 'lista_autores', 'editora', 'categoria',
@@ -140,14 +154,18 @@ class LivroAdmin(AdminBasico):
     )
     list_display_links = None
 
+    @admin.display(
+        description='Autores',
+        ordering=['autor_principal'],
+    )
     def lista_autores(self, obj):
         return obj.lista_todos_autores()
-    lista_autores.short_description = 'Autores'
-    lista_autores.admin_order_field = ['autor_principal']
 
+    @admin.display(
+        description='Lido por mim?'
+    )
     def lido_por_mim(self, obj):
         return get_badge_boolean(obj.lido_por(get_request().user))
-    lido_por_mim.short_description = 'Lido por mim?'
 
     def get_actions(self, request):
         categorias = dict(
@@ -159,6 +177,9 @@ class LivroAdmin(AdminBasico):
         categorias.update(estantes)
         return categorias
 
+    @admin.display(
+        description='#'
+    )
     def get_links(self, obj):
         info = static('svg/info-square.svg')
         pencil = static('svg/pencil-square.svg')
@@ -167,33 +188,24 @@ class LivroAdmin(AdminBasico):
             "<a href='{}' title='Visualizar'><img src='{}'></a>&nbsp;<a href='{}' title='Editar'><img src='{}'>&nbsp;</a><a class='show-capa' href='/livro/{}/capa/' data-popup-url='/livro/{}/capa/'><img src='{}'></a>".format(obj.get_absolute_url(), info, obj.get_edit_url(), pencil, obj.id, obj.id, image)
         )
 
-    get_links.short_description = '#'
-    get_links.allow_tags = True
 
 
+@admin.register(Emprestimo)
 class EmprestimoAdmin(AdminBasico):
     list_display = ('get_links', 'livro', 'pessoa', 'data_inicio', 'data_fim')
     search_fields = ('livro', 'pessoa', )
     list_display_links = None
 
+    @admin.display(
+        description='#'
+    )
     def get_links(self, obj):
         pencil = static('svg/pencil-square.svg')
         return mark_safe(
             "<a href='{}' title='Editar'><img src='{}'></a>".format(obj.get_edit_url(), pencil)
         )
 
-    get_links.short_description = '#'
-    get_links.allow_tags = True
 
 
-admin.site.register(Usuario, UsuarioAdmin)
-admin.site.register(Estante, EstanteAdmin)
-admin.site.register(Categoria, CategoriaAdmin)
-admin.site.register(Editora, EditoraAdmin)
-admin.site.register(Idioma, IdiomaAdmin)
-admin.site.register(Colecao, ColecaoAdmin)
-admin.site.register(Autor, AutorAdmin)
-admin.site.register(Livro, LivroAdmin)
-admin.site.register(Emprestimo, EmprestimoAdmin)
 admin.site.register(ConfiguracaoSistema, SingletonModelAdmin)
 # admin.site.index_template = "index.html"

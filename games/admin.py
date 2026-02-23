@@ -12,18 +12,21 @@ from django.templatetags.static import static
 from main.utils import get_badge_boolean
 
 
+@admin.register(Plataforma)
 class PlataformaAdmin(AdminBasico):
     list_display = ('get_links', 'nome')
     search_fields = ('nome', )
     list_display_links = None
 
 
+@admin.register(Loja)
 class LojaAdmin(AdminBasico):
     list_display = ('get_links', 'nome')
     search_fields = ('nome', )
     list_display_links = None
 
 
+@admin.register(Franquia)
 class FranquiaAdmin(AdminBasico):
     list_display = ('get_links', 'nome', 'filha_de')
     search_fields = ('nome', )
@@ -33,6 +36,7 @@ class FranquiaAdmin(AdminBasico):
     list_display_links = None
 
 
+@admin.register(Genero)
 class GeneroAdmin(AdminBasico):
     list_display = ('get_links', 'descricao')
     search_fields = ('descricao', )
@@ -47,6 +51,7 @@ def create_action_de_franquia(franquia):
     return name, (action, name, "Definir a franquia como %s" % (franquia,))
 
 
+@admin.register(Jogo)
 class JogoAdmin(AdminBasico):
     list_display = ('get_links', 'titulo', 'tipo', 'genero', 'get_franquias', 'get_plataformas', 'get_lojas', 'possui_port', 'steam_id', 'possui_capa', 'quero_jogar')
     search_fields = ('titulo', 'steam_id',)
@@ -63,6 +68,9 @@ class JogoAdmin(AdminBasico):
     )
     list_display_links = None
 
+    @admin.display(
+        description='#'
+    )
     def get_links(self, obj):
         info = static('svg/info-square.svg')
         pencil = static('svg/pencil-square.svg')
@@ -71,24 +79,30 @@ class JogoAdmin(AdminBasico):
             "<a href='{}' title='Visualizar'><img src='{}'></a>&nbsp;<a href='{}' title='Editar'><img src='{}'>&nbsp;</a><a class='show-capa' href='/jogo/{}/capa/' data-popup-url='/jogo/{}/capa/'><img src='{}'></a>".format(obj.get_absolute_url(), info, obj.get_edit_url(), pencil, obj.id, obj.id, image)
         )
 
-    get_links.short_description = '#'
-    get_links.allow_tags = True
 
+    @admin.display(
+        description='Lojas'
+    )
     def get_lojas(self, obj):
         return obj.lista_lojas()
-    get_lojas.short_description = 'Lojas'
 
+    @admin.display(
+        description='Franquias'
+    )
     def get_franquias(self, obj):
         return obj.lista_franquias()
-    get_franquias.short_description = 'Franquias'
 
+    @admin.display(
+        description='Plataformas'
+    )
     def get_plataformas(self, obj):
         return obj.lista_plataformas()
-    get_plataformas.short_description = 'Plataformas'
 
+    @admin.display(
+        description='Possui capa?'
+    )
     def possui_capa(self, obj):
         return get_badge_boolean(obj.capa)
-    possui_capa.short_description = 'Possui capa?'
 
     def response_add(self, request, obj, post_url_continue=None):
         if '_continue' in request.POST:
@@ -114,8 +128,3 @@ class JogoAdmin(AdminBasico):
         return franquias
 
 
-admin.site.register(Plataforma, PlataformaAdmin)
-admin.site.register(Loja, LojaAdmin)
-admin.site.register(Genero, GeneroAdmin)
-admin.site.register(Jogo, JogoAdmin)
-admin.site.register(Franquia, FranquiaAdmin)
