@@ -8,7 +8,7 @@ from main.models import Usuario, Leitura, Livro
 class UsuarioForm(ModelForm):
     class Meta:
         model = Usuario
-        fields = ['username', 'first_name', 'last_name', 'email', 'skoob_user', 'steam_user', 'contato', 'groups',
+        fields = ['username', 'first_name', 'last_name', 'email', 'skoob_user', 'skoob_authentication', 'steam_user', 'contato', 'groups',
                   'is_active', 'is_superuser']
 
     def save(self, commit=True):

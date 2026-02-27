@@ -13,7 +13,7 @@ from solo.models import SingletonModel
 class Usuario(AbstractUser):
     contato = models.CharField("Contato", max_length=100)
     skoob_user = models.IntegerField("Usuário no Skoob", blank=True, null=True)
-    skoob_authentication = models.CharField("Usuário na Steam", blank=True, null=True, max_length=200)
+    skoob_authentication = models.CharField("Autenticação Skoob", blank=True, null=True, max_length=200)
     steam_user = models.CharField("Usuário na Steam", blank=True, null=True, max_length=20)
 
     class Meta:
