@@ -134,3 +134,4 @@ biblioteca_pessoal/settings/local.py
 livros.json
 google_storage.json
 jogos_para_importar.csv
+.vscode/

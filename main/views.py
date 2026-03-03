@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from main.forms import LeituraForm, MesclarAutoresForm, MesclarEditorasForm, PasswordForm
 from main.models import Autor, Livro, Categoria, Editora, Idioma, Estante, Colecao, Leitura, Usuario
-from main.utils import gerar_menu
+from main.utils import gerar_menu, importar_skoob_usuario
 
 
 def index(request):
@@ -171,3 +171,24 @@ def alterar_senha(request, usuario_id):
 def show_capa_livro(request, livro_id):
     livro = get_object_or_404(Livro, id=livro_id)
     return render(request, 'livro_capa.html', locals())
+
+@login_required
+def importar_skoob(request, usuario_id=None):
+    usuario = get_object_or_404(Usuario, id=usuario_id) if usuario_id else request.user
+    side_menu_list = gerar_menu(request.user, 'usuario')
+    titulo = "Importar dados do Skoob"
+    importacao, livros_adicionados, livros_lidos = importar_skoob_usuario(usuario)
+    if importacao:
+        mensagem = "Importação realizada com sucesso; "
+        if livros_adicionados:
+            mensagem += "------- Livros adicionados: \n"
+            for livro in livros_adicionados:
+                mensagem += "- {} ({}) \n".format(livro.titulo, livro.autor_principal)        
+        if livros_lidos:
+            mensagem += "------- Livros marcados como lidos: \n"
+            for livro in livros_lidos:
+                mensagem += "- {} ({}) \n".format(livro.titulo, livro.autor_principal)
+        messages.success(request, mensagem)
+    else:
+        messages.error(request, 'Erro ao importar dados do Skoob.')
+    return redirect(usuario.get_absolute_url())

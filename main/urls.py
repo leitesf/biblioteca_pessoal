@@ -18,6 +18,7 @@ urlpatterns = [
     path('editora/<int:editora_id>/', views.show_editora),
     path('idioma/<int:idioma_id>/', views.show_idioma),
     path('usuario/<int:usuario_id>/', views.show_usuario),
+    path('usuario/<int:usuario_id>/importar_skoob/', views.importar_skoob),
     path('meus_livros_lidos/', views.show_usuario),
     path('estante/<int:estante_id>/', views.show_estante),
     path('leitura/<int:livro_id>/registrar/', views.form_leitura),

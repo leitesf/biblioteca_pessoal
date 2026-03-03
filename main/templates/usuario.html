@@ -3,13 +3,13 @@
 {% load django_bootstrap5 %}
 {% load static %}
 {% block content_title %}Usuario: {{ usuario.get_full_name }}{% endblock %}
-{#{% block page_actions %}#}
-{#    {% if pode_gerar_orcamento %}#}
-{#        <a href="/imovel/{{ imovel.id }}/gerar_orcamento/" class="btn btn-success float-right">#}
-{#            <i class="fa fa-plus-circle"></i> &nbsp; Gerar Orçamento#}
-{#        </a>#}
-{#    {% endif %}#}
-{#{% endblock %}#}
+
+{% block page_actions %}
+    <a href="/usuario/{{ usuario.id }}/importar_skoob/" class="btn btn-success float-right">
+        <i class="fa fa-circle-arrow-down"></i> &nbsp; Importar Skoob
+    </a>
+{% endblock %}
+
 {% block content %}
     <div class="container">
         <h5>Livros lidos</h5>
