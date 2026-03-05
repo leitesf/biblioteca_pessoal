@@ -198,6 +198,9 @@ def importar_skoob_usuario(usuario):
             for item in tqdm(dados['items']):
                 if not Livro.objects.filter(skoob_id=item['edition_id']).exists():
                     livro = Livro()
+
+                    dados_livro = requests.get(url='https://prd-api.skoob.com.br/api/v1/book/{}'.format(item['edition_id']), headers=montar_header_do_skoob(usuario)).json()
+
                     livro.titulo = item['title']
                     livro.ano = item['year'] if item['year'] else None
                     if Editora.objects.filter(nome=item['publisher']).exists():
@@ -206,6 +209,9 @@ def importar_skoob_usuario(usuario):
                         livro.editora = Editora.objects.create(
                             nome=item['publisher']
                         )
+                    livro.sinopse = dados_livro['about']['description']
+                    if dados_livro['subtitle']:
+                        livro.subtitulo = dados_livro['subtitle']
                     livro.categoria = categoria
                     livro.estante = estante
                     livro.idioma = idioma
